@@ -77,7 +77,7 @@ function StateProvider({data,children,creatorId,onCreatorLogin}:{data:ServiceDat
   protectedPlans.current=state.subscriptions.filter(item=>item.creatorId===creatorId&&item.status!=='expired'&&item.renewAt>=today).map(item=>item.planId);
   const sharedManagement={...management,memberships:management.memberships.map(item=>({...item,canDelete:canDeleteMembership(item.id,management.subscribers,today)&&!protectedPlans.current.includes(item.id)}))};
   const common=useMockCommon({email:state.account.email});
-  const model:ServiceViewModel={...state,account:{...state.account,paymentMethods:common.paymentMethods},accountActions:state.accountActions};
+  const model:ServiceViewModel={...state,photoLibrary:state.signedIn?sharedManagement.photoLibrary:undefined,account:{...state.account,paymentMethods:common.paymentMethods},accountActions:state.accountActions};
   return <MokaLoginContext.Provider value={()=>{state.setSignedIn(true);onCreatorLogin('moka');}}><Context.Provider value={model}><BeanContext.Provider value={beans}><CommonContext.Provider value={common}><Controls.Provider value={updateCreator}><ManagementContext.Provider value={sharedManagement}>{children}</ManagementContext.Provider></Controls.Provider></CommonContext.Provider></BeanContext.Provider></Context.Provider></MokaLoginContext.Provider>;
 }
 export function PreviewProvider({children,response=mockServiceResponse}:{children:ReactNode;response?:ApiResult<ServiceData>}){const [creatorId,setCreatorId]=useState('haneul');

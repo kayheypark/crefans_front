@@ -19,7 +19,9 @@ import {LegalDocumentBody} from './LegalDocumentBody';
 import {ServiceFooter} from './ServiceFooter';
 import {AdvisorLauncher} from './AdvisorChat';
 import {DialogActions} from '@/components/ui/DialogActions';
-import {useEffect,useRef,useState, type FormEvent, type ReactNode} from 'react';
+import {useEffect,useLayoutEffect,useRef,useState, type FormEvent, type ReactNode} from 'react';
+import {createPortal} from 'react-dom';
+import {MEMBER_LIBRARY_REPLAY,POSTHOG_KEY,setProfileLibraryReplay} from '@/lib/analytics/posthog';
 import Link from 'next/link';
 import {useRouter} from 'next/navigation';
 import {MembershipPlanCard} from './MembershipPlanCard';
@@ -35,6 +37,7 @@ import type {ServiceViewModel} from '@/types/crefans';
 import type {AccountActionResult,AccountSettingsUpdate,AccountPreferences} from '@/types/crefans-account';
 import Icon,{type LandingIconName as IconName} from './Icon';
 import {ProfileHeader} from './ProfileHeader';
+import {AiPhotoLibrary} from './studio/AiPhotoLibrary';
 import {SocialLinks} from './SocialLinks';
 import {PostMediaTile} from './PostMediaTile';
 import {getPostMedia} from '@/lib/crefans/post-media';
@@ -165,6 +168,16 @@ export function MyProfilePage({model}:{model:ServiceViewModel}){
   if(model.signedIn===false)return <SignInPrompt basePath={model.basePath}/>;
   return <MyProfileContent model={model}/>;
 }
+function ProfileLibrary({model,onClose}:{model:NonNullable<ServiceViewModel['photoLibrary']>;onClose:()=>void}){
+  const portal=MEMBER_LIBRARY_REPLAY&&!!POSTHOG_KEY&&typeof document!=='undefined'&&/^\/service\/me\/?$/.test(window.location.pathname);
+  useLayoutEffect(()=>{
+    if(!portal)return;
+    setProfileLibraryReplay(true);
+    return()=>setProfileLibraryReplay(false);
+  },[portal]);
+  const dialog=<AiPhotoLibrary open manage model={model} onClose={onClose}/>;
+  return portal?createPortal(<div data-ph-library-root="">{dialog}</div>,document.body):dialog;
+}
 function ProfileTickets({basePath,live}:{basePath:string;live:boolean}){
   const [count,setCount]=useState<number|null>(null);
   useEffect(()=>{
@@ -191,6 +204,7 @@ function MyProfileContent({model}:{model:ServiceViewModel}){
   const collectionPosts=collection?data.posts.filter(post=>collection.includes(post.id)):[];
   const [tab,setTab]=useState('피드');
   const [photos,setPhotos]=useState(false),updatePhotos=model.accountActions.updatePhotos;
+  const [libraryOpen,setLibraryOpen]=useState(false);
   if(collection!==null)return <section className={s.profile}><PageTitle back={<BackButton href={`${basePath}/me`} label="내 프로필로 돌아가기"/>}>{mode==='saved'?'저장한 게시물':'좋아요한 게시물'}</PageTitle>{collectionPosts.length?<div className={s.savedGrid}>{collectionPosts.map(post=><Link href={`${basePath}/post/${post.id}`} key={post.id}>{model.canAccess(post.creatorId,post.requiredRank,post.requiredPlanId)?(post.image?<img src={post.image} alt={post.title} style={{objectPosition:post.position}}/>:<div className={s.collectionLocked}><Icon name="card"/><small>텍스트 게시물</small></div>):<div className={s.collectionLocked}><Icon name="lock"/><small>멤버십 전용</small></div>}<span>{post.title}</span></Link>)}</div>:<Empty title={mode==='saved'?'저장한 게시물이 없어요':'좋아요한 게시물이 없어요'} description="피드에서 마음에 드는 게시물을 담아보세요."/>}</section>;
   const ownCreatorId=model.ownCreatorIds?.[0];
   const ownCreator=ownCreatorId?data.creators.find(item=>item.id===ownCreatorId):undefined;
@@ -201,7 +215,8 @@ function MyProfileContent({model}:{model:ServiceViewModel}){
   const tabs:[string,number|null][]=[['피드',ownPosts.length],['미디어',mediaPosts.length],['소개',null]];
   return <div className={c.profile}>
     {updatePhotos&&<ProfilePhotoDialog open={photos} onClose={()=>setPhotos(false)} image={viewer.image} cover={viewer.cover} onSave={updatePhotos}/>}
-    <ProfileHeader cover={viewer.cover} onEditPhotos={updatePhotos?()=>setPhotos(true):undefined} person={viewer} handle={viewer.handle} bio={viewer.bio} counts={[{label:'게시물',value:account.stats.posts},{label:'팔로워',private:account.preferences.showFollowers===false,value:account.stats.followers,href:`${basePath}/followers`},{label:'팔로잉',private:privateFollowing,href:`${basePath}/following`,value:<>{following.length}{privateFollowing&&<Icon name="lock" width="12" height="12" aria-label="비공개"/>}</>}]} action={<><BeanWalletLink basePath={basePath} className={`${c.coverControl} ${c.coverWallet}`}/><ProfileTickets key={model.viewerId} basePath={basePath} live={model.mode==='live'}/>{/* 2026-11-15: a member who is not a creator gets 글쓰기 (public posts, no tips/memberships) instead of the studio dashboard. */}{ownCreatorId?<Link href={`${basePath}/studio`} className={`${c.coverControl} ${c.coverStudio}`}>스튜디오</Link>:<Link href={`${basePath}/studio/content/new`} className={`${c.coverControl} ${c.coverStudio}`}>글쓰기</Link>}<Link href={`${basePath}/settings`} className={`${c.coverControl} ${c.coverSettings}`} aria-label="설정"><Icon name="menu" width="18" height="18" aria-hidden="true"/></Link></>}/>
+    {model.photoLibrary&&libraryOpen&&<ProfileLibrary model={model.photoLibrary} onClose={()=>setLibraryOpen(false)}/>}
+    <ProfileHeader cover={viewer.cover} onEditPhotos={updatePhotos?()=>setPhotos(true):undefined} person={viewer} handle={viewer.handle} bio={viewer.bio} counts={[{label:'게시물',value:account.stats.posts},{label:'팔로워',private:account.preferences.showFollowers===false,value:account.stats.followers,href:`${basePath}/followers`},{label:'팔로잉',private:privateFollowing,href:`${basePath}/following`,value:<>{following.length}{privateFollowing&&<Icon name="lock" width="12" height="12" aria-label="비공개"/>}</>}]} action={<><BeanWalletLink basePath={basePath} className={`${c.coverControl} ${c.coverWallet}`}/><ProfileTickets key={model.viewerId} basePath={basePath} live={model.mode==='live'}/>{model.photoLibrary&&<button type="button" className={`${c.coverControl} ${c.coverLibrary}`} onClick={()=>setLibraryOpen(true)}>내 보관함</button>}{/* 2026-11-15: a member who is not a creator gets 글쓰기 (public posts, no tips/memberships) instead of the studio dashboard. */}{ownCreatorId?<Link href={`${basePath}/studio`} className={`${c.coverControl} ${c.coverStudio}`}>스튜디오</Link>:<Link href={`${basePath}/studio/content/new`} className={`${c.coverControl} ${c.coverStudio}`}>글쓰기</Link>}<Link href={`${basePath}/settings`} className={`${c.coverControl} ${c.coverSettings}`} aria-label="설정"><Icon name="menu" width="18" height="18" aria-hidden="true"/></Link></>}/>
     {ownCreatorId&&<section className={c.profilePlans} aria-labelledby="my-profile-plans"><h2 id="my-profile-plans">멤버십</h2>{onSale.length?<div className={c.planList}>{onSale.map(plan=><MembershipPlanCard key={plan.id} plan={plan} creator={viewer} compact actionLabel="멤버십 관리" onSelect={()=>router.push(`${basePath}/studio/memberships`)}/>)}</div>:<Empty title="판매 중인 멤버십이 없어요."/>}</section>}
     <div className={c.tabs} aria-label="프로필 내용">{tabs.map(([item,count])=><button key={item} type="button" aria-pressed={tab===item} onClick={()=>setTab(item)}>{item}{count!==null&&<span className={c.tabCount}>{count}</span>}</button>)}</div>
     {tab==='소개'?<section className={c.about}>{(ownCreator?.about||viewer.bio)?<p>{ownCreator?.about||viewer.bio}</p>:<Empty title="아직 등록된 소개가 없습니다."/>}<SocialLinks links={ownCreator?.links}/></section>:<>

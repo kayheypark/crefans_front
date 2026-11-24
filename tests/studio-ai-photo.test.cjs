@@ -878,7 +878,11 @@ test('library album: category rows with totals, see-all grid and back, search to
  const {r,click}=await open({library});await click('내 보관함');await act(async()=>{await new Promise(resolve=>setTimeout(resolve,10));});
  const heads=()=>r.root.findAll(n=>n.type==='h3').map(text);
  assert.deepEqual(heads().filter(t=>/포즈|배경|의상/.test(t)),['포즈 3','배경 1'],'only non-empty categories, server total shown even when the first page holds fewer');
- assert.equal(queries.filter(q=>q.page===0&&!q.q).length,11,'one first-page request per category (11 since 2026-11-24: 7 current + 4 legacy; 카메라 뒷면 merged into 뒷모습)');
+ const firstPageQueries=queries.filter(q=>q.page===0&&!q.q);
+ assert.equal(firstPageQueries.filter(q=>q.category&&q.category!=='video').length,11,'one first-page request per photo category');
+ assert.deepEqual(firstPageQueries.filter(q=>!q.category||q.category==='video').map(q=>q.category),['','video'],'tab totals are requested separately from the photo categories');
+ assert.ok(r.root.findAll(n=>n.type==='button'&&text(n)==='사진 4').length===1);
+ assert.ok(r.root.findAll(n=>n.type==='button'&&text(n)==='동영상 0').length===1);
  assert.ok(r.root.findAll(n=>n.type==='button'&&text(n)==='전체보기').length===2);
  await act(async()=>{r.root.find(n=>n.props['aria-label']==='앉은 포즈 선택').props.onClick();});
  const lib=()=>r.root.find(n=>n.type?.name==='AiPhotoLibrary');

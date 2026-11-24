@@ -42,6 +42,8 @@ import Icon from '../Icon';
 import type {PostDetailModel} from '../SocialPages';
 import {ContentPostPreview} from './ContentPostPreview';
 import {AiPhotoDialog,toPng} from './AiPhotoDialog';
+import {AiPhotoLibrary} from './AiPhotoLibrary';
+import type {LibraryAsset} from '@/types/crefans-photo-library';
 import {REPLAY_POST_TEXT_ATTR} from '@/lib/analytics/posthog';
 import {AI_PHOTO_DAILY_LIMIT} from '@/lib/crefans/ai-photo';
 import s from './management.module.css';
@@ -157,6 +159,9 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
   const editorShareFiles=useRef(new Map<string,Promise<File>>());
   function editorShareFile(item:StudioMedia){let file=editorShareFiles.current.get(item.id);if(!file){file=(async()=>{const blob=await fetchImageBlob(item.url);if(!blob.type.startsWith('image/'))throw new Error('image');return new File([await toPng(blob)],'crefans-ai-photo.png',{type:'image/png'});})();editorShareFiles.current.set(item.id,file);file.catch(()=>editorShareFiles.current.delete(item.id));}return file;}
   const [mediaError,setMediaError]=useState(''),[uploading,setUploading]=useState(false),[aiOpen,setAiOpen]=useState(false);
+  const [librarySelection,setLibrarySelection]=useState<LibraryAsset[]|null>(null);
+  const library=guest?undefined:model.photoLibrary;
+  const mediaRoom=mediaUploadMaxItems-media.length;
   // Guest trial caption: what was chosen in the AI editor, and the AI-written draft shown before publishing (2026-11-16).
   // Guest trial (2026-11-16 revision): title/body appear only after an AI photo is added, with an 'AI로 내용 작성' button beside them.
   const captionMode=!!guest?.caption,captionItems=useRef(new Set<string>()),captionPrompt=useRef(''),[captionBusy,setCaptionBusy]=useState(false),[captionReady,setCaptionReady]=useState(false),aiMade=media.some(item=>item.aiGenerated);
@@ -181,6 +186,18 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
     const timer=setInterval(()=>void check(),5000);return()=>{live=false;clearInterval(timer);};
   },[converting,mediaStatus]);
   const task=useManagementAction(),current=model.contents.find(item=>item.id===savedId),status=current?.status||'draft';
+  function updateLibrarySelection(id:string,updated?:LibraryAsset){
+    setLibrarySelection(previous=>{
+      if(!previous)return null;
+      return updated?previous.map(item=>item.id===id?updated:item):previous.filter(item=>item.id!==id);
+    });
+  }
+  function importLibrary(){
+    if(!librarySelection||uploading||task.busy)return;
+    setMedia(previous=>[...previous,...librarySelection.filter(item=>!previous.some(entry=>entry.id===item.id)).slice(0,Math.max(0,mediaUploadMaxItems-previous.length))]);
+    setMediaError('');
+    setLibrarySelection(null);
+  }
   function removeMedia(id:string){
     setMedia(previous=>{const item=previous.find(entry=>entry.id===id);dropPreview(item?.preview);if(item&&draftMedia.current.includes(item.url)){discard.current(item.url);draftMedia.current=draftMedia.current.filter(url=>url!==item.url);}return previous.filter(entry=>entry.id!==id);});
     setMediaError('');
@@ -265,7 +282,7 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
     if(media.some(item=>item.failed)){setError('변환에 실패한 동영상을 지우고 다시 올려 주세요.');return;}if(nextStatus!=='draft'&&!body.trim()){setError('게시할 내용을 입력해주세요.');return;}
     const scheduled=scheduleEnabled&&scheduledAt?new Date(scheduledAt):null;
     if(nextStatus==='scheduled'&&(!scheduled||!Number.isFinite(scheduled.getTime())||scheduled.getTime()<=Date.parse(model.now))){setError('예약 시각을 현재보다 미래로 선택해주세요.');return;}
-    void task.run(()=>model.actions.saveContent({id:savedId,title,body,media:publishableMedia.map(({id,type,url,aiGenerated})=>({id,type,url,...(aiGenerated?{aiGenerated}:{})})),commentsEnabled,tipsEnabled:memberMode?false:tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status:nextStatus,scheduledAt:nextStatus==='scheduled'?scheduled!.toISOString():null}),data=>{if(data.id)setSavedId(data.id);if(memberDraft.current){memberDraft.current=false;clearGuestTrialDraft();}
+    void task.run(()=>model.actions.saveContent({id:savedId,title,body,media:publishableMedia.map(({id,type,url,aiGenerated,thumbnailUrl})=>({id,type,url,...(aiGenerated?{aiGenerated}:{}),...(thumbnailUrl?{thumbnailUrl}:{})})),commentsEnabled,tipsEnabled:memberMode?false:tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status:nextStatus,scheduledAt:nextStatus==='scheduled'?scheduled!.toISOString():null}),data=>{if(data.id)setSavedId(data.id);if(memberDraft.current){memberDraft.current=false;clearGuestTrialDraft();}
       // Publishing, scheduling or saving a published post returns to the list; a draft save keeps editing (2026-11-01).
       if(nextStatus!=='draft'){if(guest)clearGuestTrialDraft();router.push(guest?guest.doneHref:`${basePath}/content`);return;}
       setScheduleEnabled(false);setScheduledAt('');});
@@ -295,7 +312,9 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
       <Field label="제목" value={title} maxLength={120} {...{[REPLAY_POST_TEXT_ATTR]:''}} onChange={e=>setTitle(e.target.value)} placeholder="제목을 입력하세요"/>
       {/* 2026-11-23 user request: a member's body field is two lines tall on mobile, like the trial's (management.module.css .memberBody). */}
       <TextAreaField label="본문" value={body} rows={12} maxLength={10000} className={memberMode?s.memberBody:undefined} {...{[REPLAY_POST_TEXT_ATTR]:''}} onChange={e=>setBody(e.target.value)} placeholder="내용을 입력하세요"/>
-      <MediaUpload label="파일 업로드" items={media} max={mediaUploadMaxItems} onFilesSelect={files=>void upload(files).then(pickUploaded)} onRemove={removeMedia} onReorder={(from,to)=>setMedia(previous=>moveItem(previous,from,to))} onPreview={index=>{const at=viewable.indexOf(media[index]);if(at>=0){setViewIndex(at);setViewLast(at);}}} accept={mediaUploadAccept} disabled={task.busy} uploading={uploading} error={mediaError} hint="JPG·PNG·WebP 사진 한 장 50MB까지(자동으로 줄여서 올려요) · MP4·WebM·MOV 300MB 이하"/>
+      <MediaUpload label="파일 업로드" items={media} max={mediaUploadMaxItems} onFilesSelect={files=>void upload(files).then(pickUploaded)} onRemove={removeMedia} onReorder={(from,to)=>setMedia(previous=>moveItem(previous,from,to))} onPreview={index=>{const at=viewable.indexOf(media[index]);if(at>=0){setViewIndex(at);setViewLast(at);}}} accept={mediaUploadAccept} disabled={task.busy} uploading={uploading} error={mediaError} hint="JPG·PNG·WebP 사진 한 장 50MB까지(자동으로 줄여서 올려요) · MP4·WebM·MOV 300MB 이하"
+       beforeAdd={library&&<Action type="button" variant="secondary" className={s.libraryImport} disabled={task.busy||uploading||mediaRoom<=0} onClick={()=>setLibrarySelection([])}><Icon name="folder" width={20} height={20}/>보관함에서 사진·동영상 가져오기</Action>}/>
+      {library&&librarySelection&&<AiPhotoLibrary open model={library} onClose={()=>setLibrarySelection(null)} attachment={{selected:librarySelection,excluded:new Set(media.map(item=>item.id)),limit:mediaRoom,onConfirm:importLibrary,onUpdate:updateLibrarySelection,onToggle:item=>setLibrarySelection(previous=>previous?.some(entry=>entry.id===item.id)?previous.filter(entry=>entry.id!==item.id):previous&&previous.length<mediaRoom?[...previous,item]:previous)}}/>}
       {model.actions.aiEditPhoto&&(()=>{const photos=media.filter(item=>item.type==='image'&&!item.processing&&!item.failed);return <div className={ai.aiAction}>{nudgeAi&&<p className={ai.aiNudgeHint} role="note">이제 여기를 눌러 의상·포즈를 골라 보세요</p>}<button type="button" className={`${ai.aiWide} ${nudgeAi?ai.aiNudge:''}`} aria-label="AI 사진 편집" aria-describedby={aiDescriptionId} onClick={()=>{setAiOpen(true);setAiTouched(true);void model.actions.refreshAiPhotoQuota?.();}} disabled={task.busy||uploading}><Image src="/brand/featured-creators-v1.png" alt="" width={24} height={24} sizes="24px"/><span className={ai.aiActionCopy}><span>AI 사진 편집</span><small id={aiDescriptionId}>메이크업, 헤어변경, 옷변경, 포즈변경, 배경변경</small></span><Icon name="chevron" width={18} height={18}/></button>
         <AiPhotoDialog shopReward={guest?.shopReward} preferSourceId={uploadedSourceId} onUploadBackground={model.actions.uploadContentMedia} shareReward={guest?.shareReward} publishReward={publishReward} noHearts={!!guest} library={model.photoLibrary} onCrop={model.actions.aiCropPhoto} onHeartGame={model.actions.aiHeartGame} onReview={model.actions.aiReview} shop={model.shop} shopBasePath={basePath} open={aiOpen} onClose={()=>setAiOpen(false)} images={photos} quota={model.aiPhotoQuota||{remaining:AI_PHOTO_DAILY_LIMIT,limit:AI_PHOTO_DAILY_LIMIT}} room={mediaUploadMaxItems-media.length} onEdit={model.actions.aiEditPhoto!} onUseTicket={model.actions.useAiPhotoTicket} onShareReport={model.actions.reportShare} onTrack={model.actions.trackAiPhoto} onAdd={(made,context,replaceSourceIds=[])=>{replaceSourceIds.forEach(removeMedia);if(context){context.labels.forEach(label=>captionItems.current.add(label));if(context.prompt)captionPrompt.current=context.prompt;}draftMedia.current=[...draftMedia.current,...made.map(item=>item.url)];setMedia(previous=>[...previous,...made]);setMediaError('');}}/></div>;})()}
       </>}

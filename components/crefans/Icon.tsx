@@ -1,9 +1,10 @@
 import type {SVGProps} from 'react';
-export type LandingIconName='bell'|'heart'|'search'|'card'|'users'|'user'|'lock'|'shield'|'ban'|'mail'|'bookmark'|'settings'|'menu'|'arrow'|'arrowUp'|'arrowLeft'|'refresh'|'chevron'|'plus'|'check'|'youtube'|'instagram'|'facebook'|'expand'|'shrink'|'close'|'copy'|'share'|'brush'|'undo'|'eraser'|'ticket';
+export type LandingIconName='bell'|'heart'|'search'|'card'|'users'|'user'|'lock'|'shield'|'ban'|'mail'|'bookmark'|'folder'|'settings'|'menu'|'arrow'|'arrowUp'|'arrowLeft'|'refresh'|'chevron'|'plus'|'check'|'youtube'|'instagram'|'facebook'|'expand'|'shrink'|'close'|'copy'|'share'|'brush'|'undo'|'eraser'|'ticket'|'scissors';
 export default function LandingIcon({name,...props}:SVGProps<SVGSVGElement>&{name:LandingIconName}){
   const paths = {
     brush:<><path d="m13 14 7-9a2 2 0 0 0-3-3l-7 9m0 0 3 3"/><path d="M10 12c-3-1-5 1-5 4 0 2-2 3-3 3 5 3 10 0 9-4"/></>,
     undo:<><path d="M8 4 3 9l5 5M3 9h10a5.5 5.5 0 0 1 0 11"/></>,
+    scissors:<><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.1 8.1 20 20M8.1 15.9 20 4"/></>,
     eraser:<><path d="m14 3 7 7-10 11H6l-4-4L14 3Zm-7 9 7 7M11 21h10"/></>,
     copy:<><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></>,
     share:<><path d="M12 15V3m-4 4 4-4 4 4M6 10H4v11h16V10h-2"/></>,
@@ -24,6 +25,7 @@ export default function LandingIcon({name,...props}:SVGProps<SVGSVGElement>&{nam
     shield:<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/>,
     ban:<><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></>,
     mail:<><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></>,
+    folder:<path d="M3 8V6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>,
     bookmark:<path d="M6 3h12v18l-6-4-6 4V3Z"/>,
     menu:<path d="M4 7h16M4 12h16M4 17h16"/>,
     settings:<><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></>,

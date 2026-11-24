@@ -1,6 +1,7 @@
 import type {FoundingBadgeActions} from './crefans-events';
 import type {Dispatch,SetStateAction} from 'react';
 import type {AccountModel} from './crefans-account';
+import type {PhotoLibraryModel} from './crefans-photo-library';
 import type {InboxContact,SocialModel} from './crefans-social';
 /** Proposed API envelope. A failure never supplies stale success data. */
 export type ApiResult<T> =
@@ -26,6 +27,7 @@ export type Follower={id:string;name:string;handle:string;image:string;isVerifie
 export type ServiceData={creators:Creator[];newCreatorIds?:string[];plans:Plan[];creatorPlans?:Record<string,Plan[]>;posts:Post[];notifications:Notification[];paymentHistory:Subscription[];messages:Record<string,Message[]>;faqs:Faq[];categories:string[];categoryIcons?:Record<string,string|null>;followers?:Follower[]};
 /** Presentation inputs. Containers may back these with fixtures or API/model adapters. */
 export type ServiceViewModel=AccountModel&SocialModel&{
+  photoLibrary?:PhotoLibraryModel;
   beanSupport?:boolean;
   /** 2026-11-18 bootstrap: first advertising-consent reward. null/absent while beans are off; eligible false once received or consented before. */
   marketingReward?:{beans:number;validDays:number;eligible:boolean}|null;

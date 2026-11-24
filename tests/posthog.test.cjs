@@ -2,13 +2,16 @@ const {test}=require('node:test'),assert=require('node:assert/strict'),fs=requir
 const {loadTypeScript}=require('./load-typescript.cjs');
 // 2026-11-18 PostHog (lib/analytics/posthog.ts): nothing loads without the build key, replay is limited to allowlisted routes,
 // all media is blocked from replay, and URLs lose query strings/hashes before they leave the browser.
-function load(key){
+function load(key,libraryReplay=false){
  const previous=process.env.NEXT_PUBLIC_POSTHOG_KEY;if(key)process.env.NEXT_PUBLIC_POSTHOG_KEY=key;else delete process.env.NEXT_PUBLIC_POSTHOG_KEY;
+ const priorLibrary=process.env.NEXT_PUBLIC_POSTHOG_MEMBER_LIBRARY_REPLAY;
+ if(libraryReplay)process.env.NEXT_PUBLIC_POSTHOG_MEMBER_LIBRARY_REPLAY='true';else delete process.env.NEXT_PUBLIC_POSTHOG_MEMBER_LIBRARY_REPLAY;
  const calls={required:0,init:[],capture:[],start:0,stop:0},state={started:false};
  const fake={init:(k,config)=>calls.init.push({k,config}),capture:(name,props)=>calls.capture.push([name,props]),sessionRecordingStarted:()=>state.started,startSessionRecording:()=>{calls.start++;state.started=true;},stopSessionRecording:()=>{calls.stop++;state.started=false;}};
  const mocks={get 'posthog-js'(){calls.required++;return{__esModule:true,default:fake};}};
  const mod=loadTypeScript('lib/analytics/posthog.ts',mocks);
  if(previous===undefined)delete process.env.NEXT_PUBLIC_POSTHOG_KEY;else process.env.NEXT_PUBLIC_POSTHOG_KEY=previous;
+ if(priorLibrary===undefined)delete process.env.NEXT_PUBLIC_POSTHOG_MEMBER_LIBRARY_REPLAY;else process.env.NEXT_PUBLIC_POSTHOG_MEMBER_LIBRARY_REPLAY=priorLibrary;
  return{mod,calls,state};
 }
 const withWindow=async(pathname,run)=>{global.window={location:{pathname}};try{return await run();}finally{delete global.window;}};
@@ -179,7 +182,7 @@ test('unmasked replays embed private photos as downscaled data URLs; public imag
   const optimized=img('/_next/image?url=%2Fapi%2Fv1%2Fmedia%2Fabc%2Ffile&w=640&q=75');assert.equal(await mod.inlineReplayImage(optimized),true);
   const brand=img('/brand/ai-photo/swipe-hand-v2.webp');assert.equal(await mod.inlineReplayImage(brand),false);assert.equal(brand.attrs.src,'/brand/ai-photo/swipe-hand-v2.webp');
   unmasked=false;const later=img('/api/v1/media/zzz/file');assert.equal(await mod.inlineReplayImage(later),false);assert.equal(later.attrs.src,'/api/v1/media/zzz/file','masked page keeps the private URL');
-  assert.equal(fetched.length,3);
+  assert.equal(fetched.length,2,'no media request is made after masking resumes');
  }finally{Object.assign(global,saved);for(const k of Object.keys(saved))if(saved[k]===undefined)delete global[k];}
 });
 
@@ -285,4 +288,67 @@ test('members: the browser reports its PostHog session/visitor number to studio/
  assert.match(component,/useEffect\(\(\)=>\{if\(member\)void reportMemberReplay\(\);\},\[member,pathname\]\);/);
  // Nothing identifying the member goes to PostHog: no identify/register/people calls anywhere.
  const lib=fs.readFileSync('lib/analytics/posthog.ts','utf8');assert.doesNotMatch(lib+component,/\.identify\(|\.register\(|\.people\b|setPersonProperties/);
+});
+
+test('profile library recording is opt-in and stops when the owner closes the modal',async()=>{
+ const disabled=load('phc_test_only'),enabled=load('phc_test_only',true);
+ const attrs=new Set();
+ const saved=global.document;
+ global.document={documentElement:{hasAttribute:key=>attrs.has(key),setAttribute:key=>attrs.add(key),removeAttribute:key=>attrs.delete(key)}};
+ try{
+  await withWindow('/service/me',async()=>{
+   await disabled.mod.loadPostHog();
+   disabled.mod.setProfileLibraryReplay(true);
+   assert.equal(disabled.mod.replayAllowed('/service/me'),false);
+   assert.equal(disabled.calls.start,0);
+   await enabled.mod.loadPostHog();
+   assert.equal(enabled.mod.replayAllowed('/service/me'),false);
+   enabled.mod.setProfileLibraryReplay(true);
+   assert.equal(enabled.mod.replayAllowed('/service/me'),true);
+   assert.equal(enabled.calls.start,1);
+   assert.deepEqual(enabled.calls.capture,[['library_replay_opened',{actor:'member'}]]);
+   assert.ok(enabled.mod.REPLAY_BLOCK_SELECTOR.includes('body > :not([data-ph-library-root])'));
+   assert.equal(enabled.mod.replayAllowed('/service/me/settings'),false);
+   enabled.mod.setProfileLibraryReplay(false);
+   assert.equal(enabled.calls.stop,1);
+   assert.equal(enabled.mod.replayAllowed('/service/me'),false);
+  });
+ }finally{if(saved===undefined)delete global.document;else global.document=saved;}
+});
+
+test('opt-in replay embeds only eligible private library images and authenticated video posters',async()=>{
+ const {mod}=load('phc_test_only',true);
+ const disabled=load('phc_test_only').mod;
+ const attrs=new Set(['data-ph-member']);
+ const fetched=[],saved={document:global.document,fetch:global.fetch,createImageBitmap:global.createImageBitmap};
+ global.document={documentElement:{hasAttribute:key=>attrs.has(key)},createElement:()=>({
+  getContext:()=>({drawImage(){}}),toDataURL(){return 'data:image/jpeg;base64,synthetic';}
+ })};
+ global.fetch=async(url,options)=>{fetched.push([url,options.credentials]);return {ok:true,blob:async()=>new Blob(['fixture'])};};
+ global.createImageBitmap=async()=>({width:320,height:240,close(){}});
+ const element=(attributes,blocked=false)=>{
+  const values={...attributes};
+  return {getAttribute:key=>values[key]??null,setAttribute:(key,value)=>values[key]=value,
+   removeAttribute:key=>delete values[key],closest:()=>blocked?{}:null};
+ };
+ const photo='/api/v1/media/sample-photo/library-file',poster='/api/v1/media/sample-video/thumbnail';
+ try{
+  assert.equal(await disabled.inlineReplayImage(element({src:photo})),false);
+  assert.equal(await mod.inlineReplayImage(element({src:'https://elsewhere.invalid'+photo})),false);
+  assert.equal(await mod.inlineReplayImage(element({src:photo},true)),false);
+  mod.setReplayRestrictedMedia(['/api/v1/media/paid/file']);
+  assert.equal(await mod.inlineReplayImage(element({src:'/api/v1/media/paid/thumbnail'})),false);
+  assert.deepEqual(fetched,[]);
+  const image=element({src:photo});
+  assert.equal(await mod.inlineReplayImage(image),true);
+  assert.match(image.getAttribute('src'),/^data:image\/jpeg/);
+  const video=element({src:'/api/v1/media/sample-video/library-file',poster});
+  assert.equal(mod.inlineReplayVideo(video),true);
+  await new Promise(resolve=>setImmediate(resolve));
+  assert.match(video.getAttribute('poster'),/^data:image\/jpeg/);
+  assert.deepEqual(fetched,[[photo,'include'],[poster,'include']]);
+  attrs.clear();
+  attrs.add('data-ph-unmask');
+  assert.equal(await mod.inlineReplayImage(element({src:photo})),false,'guest replay cannot embed a library image');
+ }finally{Object.assign(global,saved);for(const key of Object.keys(saved))if(saved[key]===undefined)delete global[key];}
 });

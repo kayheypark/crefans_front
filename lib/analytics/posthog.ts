@@ -5,6 +5,7 @@
 import type {PostHog,PostHogConfig,CaptureResult} from 'posthog-js';
 
 export const POSTHOG_KEY=process.env.NEXT_PUBLIC_POSTHOG_KEY||'';
+export const MEMBER_LIBRARY_REPLAY=process.env.NEXT_PUBLIC_POSTHOG_MEMBER_LIBRARY_REPLAY==='true';
 export const POSTHOG_HOST=process.env.NEXT_PUBLIC_POSTHOG_HOST||'https://us.i.posthog.com';
 /** PostHog's default block class: the element is replaced by an empty box of the same size in replay and ignored by autocapture. */
 export const REPLAY_BLOCK_CLASS='ph-no-capture';
@@ -31,8 +32,11 @@ export const REPLAY_UNMASK_ATTR='data-ph-unmask';
 export const REPLAY_MEMBER_ATTR='data-ph-member';
 /** Always blocked, also on unmasked screens: the element and everything inside it is an empty box in the replay. */
 export const REPLAY_PAID_ATTR='data-ph-paid';
-const unlessUnmasked=`:not(html[${REPLAY_UNMASK_ATTR}] *):not(html[${REPLAY_MEMBER_ATTR}] *)`;
-export const REPLAY_BLOCK_SELECTOR=[`img${publicImage}`,'picture','video','audio','canvas','svg image','iframe',`[style*="url("]${publicBackground}`].map(part=>part+unlessUnmasked).concat('input[type="file"]','input[type="hidden"]',`[${REPLAY_PAID_ATTR}]`).join(',');
+const REPLAY_LIBRARY_ATTR='data-ph-library-replay';
+const PROFILE_LIBRARY_PATH=/^\/service\/me\/?$/;
+const outsideLibrary=`html[${REPLAY_LIBRARY_ATTR}] body > :not([data-ph-library-root])`;
+const unlessUnmasked=`:not(html[${REPLAY_UNMASK_ATTR}] *):not(html[${REPLAY_MEMBER_ATTR}] *)`+(MEMBER_LIBRARY_REPLAY?`:not(html[${REPLAY_LIBRARY_ATTR}] [data-ph-library-root] *)`:'');
+export const REPLAY_BLOCK_SELECTOR=[`img${publicImage}`,'picture','video','audio','canvas','svg image','iframe',`[style*="url("]${publicBackground}`].map(part=>part+unlessUnmasked).concat('input[type="file"]','input[type="hidden"]',`[${REPLAY_PAID_ATTR}]`,...(MEMBER_LIBRARY_REPLAY?[outsideLibrary]:[])).join(',');
 // 2026-11-23 user request: the title and body a member types in the post editor are recorded as typed. Only those two fields carry
 // this attribute; every other input (password, e-mail, phone, payment, verification codes) stays masked.
 export const REPLAY_POST_TEXT_ATTR='data-ph-post-text';
@@ -52,7 +56,7 @@ export function sensitiveReplayInput(element:HTMLElement){
 /** Session-replay input masking: everything is masked unless the screen is unmasked (consenting guest on the trial page, a signed-in
  * member on a replay route) or it is a member's post title/body field; sensitive inputs are always masked. */
 export function maskReplayInput(text:string,element?:HTMLElement){
- const unmasked=!!element&&!sensitiveReplayInput(element)&&!!(element.closest?.(`html[${REPLAY_UNMASK_ATTR}]`)||element.closest?.(`html[${REPLAY_MEMBER_ATTR}]`)||element.closest?.(`[${REPLAY_POST_TEXT_ATTR}]`));
+ const unmasked=!!element&&!sensitiveReplayInput(element)&&!!(element.closest?.(`html[${REPLAY_UNMASK_ATTR}]`)||element.closest?.(`html[${REPLAY_MEMBER_ATTR}]`)||element.closest?.(`[${REPLAY_POST_TEXT_ATTR}]`)||element.closest?.(`html[${REPLAY_LIBRARY_ATTR}] [data-ph-library-root]`));
  return unmasked?text:'*'.repeat(text.length);
 }
 /** True when this post's media must stay out of replays for this viewer: membership-only and not the viewer's own (see REPLAY_MEMBER_ATTR). */
@@ -60,7 +64,8 @@ export function replayBlocksPost(post:{creatorId:string;requiredRank:number;requ
  const paid=post.requiredRank>0||!!post.requiredPlanId,own=!!viewer.ownCreatorIds?.includes(post.creatorId)||(!!viewer.viewerId&&post.creatorId===viewer.viewerId);
  return paid&&!own;
 }
-const MEDIA_ID=/\/api\/v1\/media\/([^/?#&]+)\/file/;
+const MEDIA_ID=/\/api\/v1\/media\/([^/?#&]+)\/(?:file|library-file|thumbnail)(?:[?#&]|$)/;
+const LIBRARY_ASSET=/\/api\/v1\/media\/[^/?#&]+\/(?:library-file|thumbnail)(?:[?#&]|$)/;
 function mediaIdOf(src:string){try{return MEDIA_ID.exec(decodeURIComponent(src))?.[1]||null;}catch{return MEDIA_ID.exec(src)?.[1]||null;}}
 let restrictedMedia=new Set<string>();
 /** Media ids of other creators' membership-only posts on screen (PostHogAnalytics, from the loaded posts): never embedded in a replay. */
@@ -81,33 +86,58 @@ const REPLAY_IMAGE_MAX=720,MEMBER_REPLAY_IMAGE_MAX=1080;
 let inlineObserver:MutationObserver|null=null;
 const inlineOwners=new Set<string>();
 const inlined=new WeakMap<HTMLImageElement|HTMLVideoElement,string>();
-const replayUnmasked=()=>document.documentElement.hasAttribute(REPLAY_UNMASK_ATTR)||document.documentElement.hasAttribute(REPLAY_MEMBER_ATTR);
+const profileLibraryRecording=()=>typeof document!=='undefined'&&document.documentElement.hasAttribute(REPLAY_LIBRARY_ATTR);
+const replayUnmasked=()=>document.documentElement.hasAttribute(REPLAY_UNMASK_ATTR)||document.documentElement.hasAttribute(REPLAY_MEMBER_ATTR)||profileLibraryRecording();
+function mayInline(src:string){
+ let decoded=src;
+ try{decoded=decodeURIComponent(src);}catch{}
+ if(LIBRARY_ASSET.test(decoded)){
+  const member=document.documentElement.hasAttribute(REPLAY_MEMBER_ATTR)||profileLibraryRecording();
+  return MEMBER_LIBRARY_REPLAY&&member&&src.startsWith('/api/v1/media/');
+ }
+ return PRIVATE_MEDIA.test(src);
+}
 const replayImageMax=()=>document.documentElement.hasAttribute(REPLAY_UNMASK_ATTR)?REPLAY_IMAGE_MAX:MEMBER_REPLAY_IMAGE_MAX;
 /** Media that must not be embedded: inside a blocked element (another creator's paid post) or a restricted media id. */
-function replayRestricted(element:Element,src:string){const id=mediaIdOf(src);return !!element.closest?.(`.${REPLAY_BLOCK_CLASS},[${REPLAY_PAID_ATTR}]`)||(!!id&&restrictedMedia.has(id));}
+function replayRestricted(element:Element,src:string){const id=mediaIdOf(src);return !!element.closest?.(`.${REPLAY_BLOCK_CLASS},[${REPLAY_PAID_ATTR}]`)||!!element.closest?.(outsideLibrary)||(!!id&&restrictedMedia.has(id));}
 function downscale(source:CanvasImageSource,width:number,height:number){
  const scale=Math.min(1,replayImageMax()/Math.max(width,height));
  const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(width*scale));canvas.height=Math.max(1,Math.round(height*scale));
  canvas.getContext('2d')?.drawImage(source,0,0,canvas.width,canvas.height);
  return canvas.toDataURL('image/jpeg',.82);
 }
+async function fetchReplayImage(src:string){
+ const response=await fetch(src,{credentials:'include'});
+ if(!response.ok)return null;
+ const bitmap=await createImageBitmap(await response.blob());
+ try{return downscale(bitmap,bitmap.width,bitmap.height);}
+ finally{bitmap.close?.();}
+}
 export async function inlineReplayImage(img:HTMLImageElement){
  const src=img.getAttribute('src')||'';
- if(!PRIVATE_MEDIA.test(src)||inlined.get(img)===src||replayRestricted(img,src))return false;
+ if(!replayUnmasked()||!mayInline(src)||inlined.get(img)===src||replayRestricted(img,src))return false;
  inlined.set(img,src);
  try{
-  const response=await fetch(src,{credentials:'include'});if(!response.ok)return false;
-  const bitmap=await createImageBitmap(await response.blob());
-  const data=downscale(bitmap,bitmap.width,bitmap.height);
+  const data=await fetchReplayImage(src);
   // Unmasking may have ended (left the page or signed out) or the image may show another photo by now.
-  if(!replayUnmasked()||img.getAttribute('src')!==src||replayRestricted(img,src))return false;
+  if(!data||!replayUnmasked()||img.getAttribute('src')!==src||replayRestricted(img,src))return false;
   inlined.set(img,data);img.removeAttribute('srcset');img.setAttribute('src',data);return true;
  }catch{return false;}
 }
 /** Private/local videos get a downscaled first-frame poster, which the replay shows (the player cannot open the private file). */
 export function inlineReplayVideo(video:HTMLVideoElement){
  const src=video.getAttribute('src')||'';
- if(!PRIVATE_MEDIA.test(src)||video.hasAttribute('poster')||inlined.get(video)===src||replayRestricted(video,src))return false;
+ const poster=video.getAttribute('poster');
+ if(!replayUnmasked()||inlined.get(video)===src||replayRestricted(video,src))return false;
+ if(poster){
+  if(!MEMBER_LIBRARY_REPLAY||!LIBRARY_ASSET.test(poster)||!mayInline(poster)||replayRestricted(video,poster))return false;
+  inlined.set(video,src);
+  void fetchReplayImage(poster).then(data=>{
+   if(data&&replayUnmasked()&&(video.getAttribute('src')||'')===src&&video.getAttribute('poster')===poster&&!replayRestricted(video,poster)&&!replayRestricted(video,src))video.setAttribute('poster',data);
+  }).catch(()=>{});
+  return true;
+ }
+ if(!mayInline(src))return false;
  inlined.set(video,src);
  const capture=()=>{try{
   if(!replayUnmasked()||video.getAttribute('src')!==src||replayRestricted(video,src)||!video.videoWidth)return;
@@ -144,7 +174,25 @@ export function setMemberReplay(on:boolean){
 // Replay is opt-in per route (allowlist): payment, wallet/beans, payouts, account settings, login/signup, messages and every
 // studio page except post writing stay unrecorded, including routes added later. Events are still captured on every /service page.
 const REPLAY_ROUTES=[/^\/service\/landing(-ai-image-generation)?\/?$/,/^\/service\/try(\/done)?\/?$/,/^\/service\/(feed|explore)\/?$/,/^\/service\/(post|creator)\/[^/]+\/?$/,/^\/service\/(events|notices)(\/[^/]+)?\/?$/,/^\/service\/studio\/content(\/new|\/[^/]+\/edit)?\/?$/];
-export function replayAllowed(pathname:string){return REPLAY_ROUTES.some(route=>route.test(pathname));}
+export function replayAllowed(pathname:string){
+ return REPLAY_ROUTES.some(route=>route.test(pathname))||(MEMBER_LIBRARY_REPLAY&&PROFILE_LIBRARY_PATH.test(pathname)&&profileLibraryRecording());
+}
+/** Only the portalled library dialog is captured on the member profile page. */
+export function setProfileLibraryReplay(on:boolean){
+ if(!MEMBER_LIBRARY_REPLAY||typeof window==='undefined'||typeof document==='undefined'||!POSTHOG_KEY)return;
+ const pathname=window.location.pathname;
+ if(on&&!PROFILE_LIBRARY_PATH.test(pathname))return;
+ if(on){
+  document.documentElement.setAttribute(REPLAY_LIBRARY_ATTR,'');
+  setReplayInlineImages(true,'profile-library');
+  syncReplay(pathname);
+  captureEvent('library_replay_opened',{actor:'member'});
+ }else{
+  if(PROFILE_LIBRARY_PATH.test(pathname)&&client?.sessionRecordingStarted())client.stopSessionRecording();
+  document.documentElement.removeAttribute(REPLAY_LIBRARY_ATTR);
+  setReplayInlineImages(false,'profile-library');
+ }
+}
 
 /** Drops the query string and hash, which may carry tokens, codes or e-mail addresses. */
 export function stripUrl(value:string){return value.replace(/[?#][\s\S]*$/,'');}
@@ -218,7 +266,7 @@ export function syncReplay(pathname:string){
  else if(client.sessionRecordingStarted())client.stopSessionRecording();
 }
 
-export type AnalyticsEvent='landing_view'|'guest_consent_view'|'guest_consent_agreed'|'ai_editor_opened'|'ai_generation_started'|'ai_generation_succeeded'|'ai_generation_failed'|'photo_decided'|'ai_result_share_clicked'|'ai_result_shared'|'costume_shop_clicked'|'ai_result_closed'|'ai_result_original'|'ai_result_continue'|'landing_cta_clicked'|'caption_written'|'caption_failed'|'post_published'|'post_publish_failed'|'signup_view'|'signup_completed';
+export type AnalyticsEvent='library_replay_opened'|'landing_view'|'guest_consent_view'|'guest_consent_agreed'|'ai_editor_opened'|'ai_generation_started'|'ai_generation_succeeded'|'ai_generation_failed'|'photo_decided'|'ai_result_share_clicked'|'ai_result_shared'|'costume_shop_clicked'|'ai_result_closed'|'ai_result_original'|'ai_result_continue'|'landing_cta_clicked'|'caption_written'|'caption_failed'|'post_published'|'post_publish_failed'|'signup_view'|'signup_completed';
 /** 2026-11-20 이탈 분석: which fixed landing CTA was clicked (PostHog masks click text, so the button cannot be told apart otherwise). */
 export type LandingCtaPlace='header'|'hero'|'look_detail'|'preset'|'preset_dialog'|'final';
 export function aiProps(actor:'guest'|'member',input:{mode?:string;kind:string;presetKeys?:{kind:string}[]}):AnalyticsProps{return{actor,mode:input.mode||'general',kind:input.kind,preset_kinds:Array.from(new Set((input.presetKeys||[]).map(preset=>preset.kind))).sort()};}

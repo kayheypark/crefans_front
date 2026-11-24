@@ -64,3 +64,4 @@ button.textButton:not(:disabled):hover,.tabs button:not(:disabled):hover{backgro
 .editorActions>.editorShare+button{flex:1.4 1 0}
 .rewardPublishActions>p[role="note"].shareOfferNote{left:0;right:auto}
 .rewardPublishActions .shareOfferNote span::after{left:28px;right:auto}
+.libraryImport{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:52px;word-break:keep-all}.libraryImport svg{flex:none}
