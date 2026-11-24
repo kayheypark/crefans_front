@@ -1,4 +1,5 @@
 'use client';
+import {CoupangFeedBanner} from './CoupangFeedBanner';
 import {MemberFeedBanner} from './MemberFeedBanner';
 import {GuestCosplayBanner} from './GuestCosplayBanner';
 import {usePostExposure} from '@/features/post-views/usePostExposure';
@@ -256,7 +257,8 @@ export function FeedPage({model}:{model:ServiceViewModel}){
     {/* 2026-11-15: signed-out visitors can try AI photos and post without an account (live service only). */}
     {model.mode==='live'&&!model.signedIn&&<GuestCosplayBanner href="/service/landing-ai-image-generation" aboutHref="/service/landing-ai-image-generation"/>}
     {member&&<MemberFeedBanner kind="edit" basePath={basePath}/>}
-    {posts.length?<>{posts.map((post,index)=><Fragment key={post.id}><PostCard post={post} model={model} context={posts}/>{index===0&&model.mode==='live'&&(!member||model.photoLibrary)&&<MemberFeedBanner guest={!member} kind="library" basePath={basePath}/>}</Fragment>)}{model.feedPaging?.hasMore?<Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={!!model.feedPaging.loading}/></Action>:<FeedEnd/>}<ServiceFooter basePath={basePath}/></>:<><Empty title={category==='전체'?'아직 게시물이 없어요':'이 카테고리의 게시물이 없어요'} description={category==='전체'?'마음에 드는 크리에이터를 만나보세요.':'다른 카테고리의 게시물을 확인해 보세요.'} action={category==='전체'?<TextLink className={s.textLink} href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>:<Action variant="secondary" onClick={()=>selectCategory('전체')}>전체 피드 보기</Action>}/><ServiceFooter basePath={basePath} always/></>}
+    {posts.length?<>{posts.map((post,index)=><Fragment key={post.id}><PostCard post={post} model={model} context={posts}/>{index===0&&model.mode==='live'&&(!member||model.photoLibrary)&&<MemberFeedBanner guest={!member} kind="library" basePath={basePath}/>}
+      {index===1&&model.mode==='live'&&<CoupangFeedBanner/>}</Fragment>)}{model.feedPaging?.hasMore?<Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={!!model.feedPaging.loading}/></Action>:<FeedEnd/>}<ServiceFooter basePath={basePath}/></>:<><Empty title={category==='전체'?'아직 게시물이 없어요':'이 카테고리의 게시물이 없어요'} description={category==='전체'?'마음에 드는 크리에이터를 만나보세요.':'다른 카테고리의 게시물을 확인해 보세요.'} action={category==='전체'?<TextLink className={s.textLink} href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>:<Action variant="secondary" onClick={()=>selectCategory('전체')}>전체 피드 보기</Action>}/><ServiceFooter basePath={basePath} always/></>}
   </div>;
 }
 
