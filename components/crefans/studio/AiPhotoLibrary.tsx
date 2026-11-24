@@ -4,6 +4,7 @@ import {Dialog,Field} from '@/components/ui/Primitives';
 import {SelectField} from '@/components/ui/SelectField';
 import {MediaUpload} from '@/components/ui/MediaUpload';
 import {MediaTypeIcon} from '@/components/ui/MediaTypeIcon';
+import {LoadingProgressDialog} from '@/components/ui/LoadingProgressDialog';
 import {AiPhotoVideoFrame} from './AiPhotoVideoFrame';
 import {Action} from '../ServiceUI';
 import type {LibraryAsset,PhotoAsset,PhotoAssetCategory,PhotoLibraryModel} from '@/types/crefans-photo-library';
@@ -51,7 +52,8 @@ export function AiPhotoLibrary({open,model,selected,onSelect,onEditSource,onChan
  const [photoCount,setPhotoCount]=useState<number|string|null>(null),[videoCount,setVideoCount]=useState<number|string|null>(null);
  const listMode=!!category||!!query.trim();
  const videoList=category==='video';
- const [editing,setEditing]=useState<LibraryAsset|'new'|null>(null),[draftMedia,setDraftMedia]=useState<DraftMedia|null>(null),[savedMedia,setSavedMedia]=useState<StudioMedia|null>(null),[title,setTitle]=useState(''),[assetCategory,setAssetCategory]=useState<PhotoAssetCategory>('pose'),[objectPreview,setObjectPreview]=useState<{file:File;url:string}|null>(null),[uploadError,setUploadError]=useState(''),[saving,setSaving]=useState(false);
+ const [editing,setEditing]=useState<LibraryAsset|'new'|null>(null),[draftMedia,setDraftMedia]=useState<DraftMedia|null>(null),[savedMedia,setSavedMedia]=useState<StudioMedia|null>(null),[title,setTitle]=useState(''),[assetCategory,setAssetCategory]=useState<PhotoAssetCategory>('pose'),[objectPreview,setObjectPreview]=useState<{file:File;url:string}|null>(null),[uploadError,setUploadError]=useState(''),[operation,setOperation]=useState<'save'|'remove'|null>(null);
+ const saving=operation!==null;
  const [mode,setMode]=useState<UploadMode|null>(null);
  const [savedVideoId,setSavedVideoId]=useState<string|null>(null);
  const [viewing,setViewing]=useState<LibraryAsset|null>(null),[previewFailed,setPreviewFailed]=useState(false);
@@ -99,7 +101,7 @@ export function AiPhotoLibrary({open,model,selected,onSelect,onEditSource,onChan
  async function save(){
   if(saving)return;
   if(!title.trim()||(!file&&!savedMedia))return;
-  setSaving(true);
+  setOperation('save');
   try{
    let media=savedMedia,videoId=savedVideoId;
    if(sourceVideo&&!videoId){
@@ -113,9 +115,9 @@ export function AiPhotoLibrary({open,model,selected,onSelect,onEditSource,onChan
    if(!r.success)throw new Error(r.errorMessage||'저장하지 못했어요.');
    if(editing==='new'){setCategory(videoOnly?'video':category==='video'?'':category);setQuery('');}
    attachment?.onUpdate(media.id,r.data);onChanged?.(media.id);setEditing(null);setDraftMedia(null);setPage(0);setRevision(v=>v+1);
-  }catch(e){setError(e instanceof Error?e.message:'파일을 저장하지 못했어요.');}finally{setSaving(false);}
+  }catch(e){setError(e instanceof Error?e.message:'파일을 저장하지 못했어요.');}finally{setOperation(null);}
  }
- async function remove(){if(!savedMedia||saving)return;setSaving(true);try{const r=await model.remove(savedMedia.id);if(!r.success)throw new Error(r.errorMessage||'삭제하지 못했어요.');attachment?.onUpdate(savedMedia.id);onChanged?.(savedMedia.id);setEditing(null);setPage(0);setRevision(v=>v+1);}catch(e){setError(e instanceof Error?e.message:'삭제하지 못했어요.');}finally{setSaving(false);}}
+ async function remove(){if(!savedMedia||saving)return;setOperation('remove');try{const r=await model.remove(savedMedia.id);if(!r.success)throw new Error(r.errorMessage||'삭제하지 못했어요.');attachment?.onUpdate(savedMedia.id);onChanged?.(savedMedia.id);setEditing(null);setPage(0);setRevision(v=>v+1);}catch(e){setError(e instanceof Error?e.message:'삭제하지 못했어요.');}finally{setOperation(null);}}
  const manageButton=(item:LibraryAsset)=><button type="button" className={s.tileManage} aria-label={`${item.title} 관리`} onClick={()=>edit(item)}>관리</button>;
  const tile=(item:PhotoAsset)=>{const on=isPicked(item);return <li key={item.id} className={s.tile}><button type="button" className={s.pick} aria-label={`${item.title} ${manage?'정보 보기':'선택'}`} aria-pressed={manage?undefined:on} disabled={loading||blocked(item)} onClick={()=>manage?edit(item):toggle(item)}>
   {/* eslint-disable-next-line @next/next/no-img-element -- authenticated private media */}<img src={item.url} alt=""/><span className={s.assetCaption}>{item.title}</span>{!manage&&<span className={s.check} aria-hidden="true">{on?'✓':''}</span>}</button>{(attachment||manage)&&manageButton(item)}{onEditSource&&<button type="button" className={s.useSource} aria-label={`${item.title} 사진 편집하기`} disabled={loading} onClick={()=>onEditSource(item)}>편집하기</button>}{!attachment&&!manage&&<button type="button" className={s.edit} aria-label={`${item.title} 정보 수정`} onClick={()=>edit(item)}>•••</button>}</li>;};
@@ -202,6 +204,7 @@ export function AiPhotoLibrary({open,model,selected,onSelect,onEditSource,onChan
   {editing!=='new'&&<button type="button" className={s.remove} disabled={saving} onClick={()=>void remove()}>보관함에서 삭제</button>}
   </>}
  </div></Dialog>
+ {open&&editing&&operation==='save'&&<LoadingProgressDialog label={(sourceVideo&&!savedVideoId)||(videoOnly&&file&&!savedMedia)?'동영상 업로드 중':'보관함에 저장 중'}/>}
  <Dialog open={open&&!!viewing} title={viewing?.title??'미리보기'} onClose={closePreview} wide fullscreenOnMobile>
   {viewing&&<div className={s.assetPreview}>
    {previewFailed?<p role="alert">미리보기를 불러오지 못했어요.</p>:viewing.type==='video'?

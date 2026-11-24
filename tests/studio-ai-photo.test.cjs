@@ -727,7 +727,13 @@ test('ratio choice travels to generation; crop replaces selected media for decis
  const cropCalls=[];const {r,calls,added,click}=await open({onCrop:async input=>{cropCalls.push(input);return {success:true,data:{id:'cropped',type:'image',url:'/cropped.webp',aiGenerated:true}};}});
  await click('4:5');await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'앉은 포즈'}}));await click('만들기');assert.equal(calls[0].aspectRatio,'4:5');
  await click('결과 1 자르기');await act(async()=>r.root.findByProps({alt:'자르기 미리보기'}).props.onLoad({currentTarget:{naturalWidth:1000,naturalHeight:1500}}));
- await click('1:1');await click('자르기 적용');assert.deepEqual(cropCalls,[{sourceId:'a1',left:0,top:250,width:1000,height:1000}]);
+ await click('1:1');
+ const cropFrame=r.root.findByProps({'aria-label':'자를 위치 조정'});
+ const hint=()=>cropFrame.findAll(n=>n.type==='img'&&n.props.src==='/brand/ai-photo/swipe-hand-v2.webp');
+ assert.equal(hint().length,1);
+ await act(async()=>cropFrame.props.onPointerDown({pointerId:1,clientX:25,clientY:25,currentTarget:{clientWidth:300,setPointerCapture(){}}}));
+ assert.equal(hint().length,0);
+ await click('자르기 적용');assert.deepEqual(cropCalls,[{sourceId:'a1',left:0,top:250,width:1000,height:1000}]);
  assert.ok(r.root.findAll(n=>n.type==='img'&&n.props.src==='/cropped.webp').length);await click('사진 결정');assert.equal(added[0].id,'cropped');assert.equal(added[0].aiGenerated,true);
 });
 

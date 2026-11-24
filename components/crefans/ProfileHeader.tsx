@@ -16,7 +16,7 @@ import p from './profile-photo.module.css';
 
 export type ProfileCount={label:string;value:ReactNode;href?:string;private?:boolean};
 /** One header for creator profiles and the fan's own profile: cover with a corner action, overlapping avatar, name, handle, tagline, tags, counts. */
-export function ProfileHeader({cover,coverPosition,person,handle,bio,tags=[],categoryIcons,counts,action,onEditPhotos}:{cover?:string;coverPosition?:string;person:{name:string;image?:string;position?:string;isVerified?:boolean;isFoundingMember?:boolean};handle:string;bio:string;tags?:string[];categoryIcons?:Record<string,string|null>;counts:ProfileCount[];action?:ReactNode;onEditPhotos?:()=>void}){
+export function ProfileHeader({cover,coverPosition,person,handle,bio,tags=[],categoryIcons,counts,action,onOpenLibrary,onEditPhotos}:{cover?:string;coverPosition?:string;person:{name:string;image?:string;position?:string;isVerified?:boolean;isFoundingMember?:boolean};handle:string;bio:string;tags?:string[];categoryIcons?:Record<string,string|null>;counts:ProfileCount[];action?:ReactNode;onOpenLibrary?:()=>void;onEditPhotos?:()=>void}){
   const [photo,setPhoto]=useState<{url:string;label:string}|null>(null),[open,setOpen]=useState(false);
   const [failedAvatar,setFailedAvatar]=useState(''),[failedCover,setFailedCover]=useState('');
   const present=usePresence(open,designTokens.motion.fast);
@@ -24,7 +24,10 @@ export function ProfileHeader({cover,coverPosition,person,handle,bio,tags=[],cat
   const hasAvatar=!!avatar&&failedAvatar!==avatar,hasCover=!!background&&failedCover!==background;
   const show=(url:string,label:string,trigger:HTMLButtonElement)=>{trigger.focus({preventScroll:true});setPhoto({url,label});setOpen(true);};
   return <>
-    <div className={`${s.cover} ${hasCover?'':p.emptyCover}`}>{!hasCover&&<img className={p.emptyLogo} src="/brand/crefans-logo-inverse.svg" alt="" width={844} height={150}/>}{hasCover&&<button type="button" className={s.coverPhoto} aria-label={`${person.name} 배경사진 크게 보기`} onClick={event=>show(background,`${person.name} 배경사진`,event.currentTarget)}><img src={background} style={{objectPosition:coverPosition}} alt="" onError={()=>setFailedCover(background)}/></button>}{action&&<div className={s.coverAction}>{action}</div>}{onEditPhotos&&<button type="button" className={p.coverEdit} onClick={onEditPhotos}><CameraIcon/>배경 사진 변경</button>}</div>
+    <div className={`${s.cover} ${hasCover?'':p.emptyCover}`}>{!hasCover&&<img className={p.emptyLogo} src="/brand/crefans-logo-inverse.svg" alt="" width={844} height={150}/>}{hasCover&&<button type="button" className={s.coverPhoto} aria-label={`${person.name} 배경사진 크게 보기`} onClick={event=>show(background,`${person.name} 배경사진`,event.currentTarget)}><img src={background} style={{objectPosition:coverPosition}} alt="" onError={()=>setFailedCover(background)}/></button>}{action&&<div className={s.coverAction}>{action}</div>}{(onOpenLibrary||onEditPhotos)&&<div className={p.coverTools}>
+      {onOpenLibrary&&<button type="button" className={p.coverEdit} onClick={onOpenLibrary}>내 보관함</button>}
+      {onEditPhotos&&<button type="button" className={p.coverEdit} onClick={onEditPhotos}><CameraIcon/>배경 사진 변경</button>}
+    </div>}</div>
     <div className={s.profileIntro}>
       <div className={s.identity}><div className={p.avatarWrap}><div className={s.overlapAvatar}>{hasAvatar?<button type="button" className={s.avatarPhoto} aria-label={`${person.name} 프로필 사진 크게 보기`} onClick={event=>show(avatar,`${person.name} 프로필 사진`,event.currentTarget)} onErrorCapture={()=>setFailedAvatar(avatar)}><Avatar creator={person} size={92}/></button>:<Avatar creator={{...person,image:undefined}} size={92}/>}</div>{onEditPhotos&&<button type="button" className={p.avatarEdit} aria-label="프로필 사진 변경" onClick={onEditPhotos}><CameraIcon size={16}/></button>}</div><div className={s.identityDetails}><h1><CreatorName person={person} explain/></h1><span className={s.handle}><MarqueeText text={`@${handle}`}/></span></div></div>
       <p className={s.bio}>{bio}</p>

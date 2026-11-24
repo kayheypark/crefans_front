@@ -2,6 +2,7 @@
 
 import {useEffect,useRef,useState} from 'react';
 import {fitWithin} from '@/lib/design/image-optimize';
+import {LibraryVideoStatus} from './LibraryVideoStatus';
 import {Action} from '../ServiceUI';
 import s from './photo-library.module.css';
 
@@ -106,6 +107,7 @@ export function AiPhotoVideoFrame({src,name,onSelect}:{src:string;name:string;on
      if(Number.isFinite(video.duration)&&video.duration>0&&video.videoWidth)setDuration(video.duration);
      else{stop(video);setError(loadError);}
     }}
+    onSeeked={event=>draw(event.currentTarget,event.currentTarget.currentTime)}
     onTimeUpdate={event=>{
      const video=event.currentTarget,current=request.current;
      if(current&&!video.paused&&video.currentTime>=current.position+0.1)draw(video,video.currentTime);
@@ -113,7 +115,7 @@ export function AiPhotoVideoFrame({src,name,onSelect}:{src:string;name:string;on
     onEnded={event=>draw(event.currentTarget,event.currentTarget.currentTime)}
     onError={event=>{stop(event.currentTarget);setReady(false);setRetry(false);setError(loadError);}}/>
    <canvas ref={preview} className={s.frameStill} hidden={!hasFrame} role="img" aria-label="동영상 장면 미리보기"/>
-   {!hasFrame&&!retry&&!error&&<p className={s.frameStatus} role="status">장면을 불러오는 중이에요…</p>}
+   {(!ready||capturing)&&!retry&&!error&&<LibraryVideoStatus label={capturing?'사진 추출 중':hasFrame?'장면 불러오는 중':'동영상 준비 중'}/>}
   </div>
   {retry&&<Action type="button" variant="secondary" onClick={()=>{if(player.current)showFrame(player.current,position);}}>미리보기 시작</Action>}
   <label className={s.videoTimeline}>장면 위치

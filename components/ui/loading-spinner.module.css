@@ -5,3 +5,6 @@
 .label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.spinner{animation-duration:2s}}
+.progressDialog{position:fixed;inset:0;margin:auto;width:min(230px,calc(100% - 48px));box-sizing:border-box;padding:20px 24px;border:0;border-radius:16px;background:var(--cf-color-surface);color:var(--cf-color-text);box-shadow:0 8px 32px rgb(0 0 0 / .15);text-align:center;font-size:15px;font-weight:600}
+.progressDialog::backdrop{background:rgb(16 20 32 / .32)}
+.progressDialog progress{display:block;width:100%;height:6px;margin:14px auto 0;accent-color:var(--cf-color-accent)}
