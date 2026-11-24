@@ -32,3 +32,5 @@
 .memberBanner:focus-visible{outline:3px solid var(--cf-color-focus);outline-offset:3px}
 
 .banner[data-kind=edit]{max-width:480px;margin-inline:auto}.banner[data-kind=edit] .title{white-space:normal;word-break:keep-all;line-height:1.28}
+
+button.memberBanner{font:inherit;text-align:left;cursor:pointer}

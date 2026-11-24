@@ -23,6 +23,7 @@ import {AiPhotoWardrobe,CostumeGender} from './AiPhotoWardrobe';
 import Icon from '../Icon';
 import type {ApiResult} from '@/types/crefans';
 import type {AiHeartInput,AiHeartResult,AiPhotoEditInput,AiPhotoEditResult,AiPhotoKind,AiPhotoTicketResult,AiReviewInput,AiReviewModel,AiReviewReward,StudioMedia} from '@/types/crefans-studio-management';
+import {SignupOfferDialog} from '../SignupOfferDialog';
 import Image from 'next/image';
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
 import {DialogActions} from '@/components/ui/DialogActions';
@@ -403,11 +404,9 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
    <div className={s.publishOfferActions}>{noHearts?<ActionLink href={signupLink} variant="secondary">회원가입하면 하루 10장</ActionLink>:shop?<Action type="button" variant="secondary" onClick={()=>{setRefillNotice(false);setShopOpen(true);void shop.refresh();}}>이용권 구매</Action>:null}<a className={s.refillCalendar} href={`/calendar/ai-photo-reset.ics${noHearts?'':'?for=member'}`}>캘린더에 추가하기</a></div></div>
  </Dialog>
  <Dialog open={open&&shopOpen} onClose={()=>setShopOpen(false)} title="AI 이용권 구매" fullscreenOnMobile>{shop&&<ShopPage model={shop} basePath={shopBasePath}/>}</Dialog>
- {noHearts&&<Dialog open={open&&signupNudge} onClose={()=>setSignupNudge(false)} title="회원가입하면 매일 10장" className={s.publishOffer}
-  illustration={<div className={s.publishOfferArt}><Image src="/illustrations/try/guest-ticket-v1.webp" alt="" width={112} height={112}/></div>}>
-  <div className={s.publishOfferBody}><p>비회원은 기본 하루 3장이지만<br/>회원은 <strong>매일 10장</strong>을 무료로 만들 수 있어요.<br/><small>매일 오전 9시(한국 시간)에 다시 채워져요.</small></p>
-   <div className={s.publishOfferActions}><ActionLink href={signupLink}>무료로 회원가입</ActionLink><Action type="button" variant="secondary" onClick={()=>setSignupNudge(false)}>나중에</Action></div></div>
- </Dialog>}
+ {noHearts&&<SignupOfferDialog open={open&&signupNudge} onClose={()=>setSignupNudge(false)} title="회원가입하면 매일 10장" art="/illustrations/try/guest-ticket-v1.webp" signupHref={signupLink}>
+  비회원은 기본 하루 3장이지만<br/>회원은 <strong>매일 10장</strong>을 무료로 만들 수 있어요.<br/><small>매일 오전 9시(한국 시간)에 다시 채워져요.</small>
+ </SignupOfferDialog>}
  {noHearts&&<GuestWatermarkOffer open={open&&watermarkOffer} onClose={()=>setWatermarkOffer(false)} signupHref={signupLink}/>}
  {/* 2026-11-21 user request: closing with made photos says they stay (until the page is left) so nobody closes by mistake or thinks they are gone. */}
  <Dialog open={open&&closeAsk} onClose={()=>setCloseAsk(false)} title="AI 사진 편집을 닫을까요?" persistent>
