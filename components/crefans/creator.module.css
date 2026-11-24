@@ -185,3 +185,7 @@ button.receiptRow:not(:disabled):hover{background:var(--cf-color-accentSoft)}
 /* 피드 페이지(social.module.css .feed)와 같은 폭 */
 .searchPosts{display:flex;flex-direction:column;gap:16px;width:100%;max-width:480px}
 .coverAction:has(>.coverMessage){display:flex;gap:8px} /* 2026-11-24: 팔로우 + 메시지 on a member profile */
+
+.coverAction:has(>.coverTickets){justify-content:flex-start;gap:6px}
+.coverAction>.coverTickets{margin-right:auto}
+@media(max-width:380px){.coverAction:has(>.coverTickets)>.coverControl:not(.coverSettings){padding-inline:8px;gap:4px}}

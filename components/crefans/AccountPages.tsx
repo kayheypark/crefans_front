@@ -2,6 +2,7 @@
 import {Toast} from '@/components/ui/Toast';
 import {PhoneCheckDialog} from './PhoneCheckDialog';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
+import {platformRequest} from '@/lib/api/platform';
 import {BeanWalletLink} from './BeanPages';
 import {SignInPrompt} from './SignInPrompt';
 import {SIGNUP_COMPLETE_KEY,loginTarget,signupHref} from '@/lib/crefans/login-return';
@@ -164,6 +165,25 @@ export function MyProfilePage({model}:{model:ServiceViewModel}){
   if(model.signedIn===false)return <SignInPrompt basePath={model.basePath}/>;
   return <MyProfileContent model={model}/>;
 }
+function ProfileTickets({basePath,live}:{basePath:string;live:boolean}){
+  const [count,setCount]=useState<number|null>(null);
+  useEffect(()=>{
+    if(!live)return;
+    let request=0;
+    const refresh=async()=>{
+      const current=++request;
+      const result=await platformRequest<{ownedTickets:number}>('/studio/ai-photo/quota');
+      if(current===request&&result.success&&Number.isFinite(result.data.ownedTickets))setCount(result.data.ownedTickets);
+    };
+    void refresh();
+    window.addEventListener('focus',refresh);
+    return ()=>{request++;window.removeEventListener('focus',refresh);};
+  },[live]);
+  const label=count===null?'이용권':count.toLocaleString('ko-KR')+'장';
+  return <Link href={basePath+'/studio/shop'} className={c.coverControl+' '+c.coverWallet+' '+c.coverTickets} aria-label={count===null?'내 AI 이용권':'내 AI 이용권 '+label}>
+    <img src="/brand/ai-photo/review/ticket.webp" width={20} height={20} alt=""/><span>{label}</span>
+  </Link>;
+}
 function MyProfileContent({model}:{model:ServiceViewModel}){
   const router=useRouter();
   const {viewer,following,saved,liked,data,account,basePath}=model;
@@ -181,7 +201,7 @@ function MyProfileContent({model}:{model:ServiceViewModel}){
   const tabs:[string,number|null][]=[['피드',ownPosts.length],['미디어',mediaPosts.length],['소개',null]];
   return <div className={c.profile}>
     {updatePhotos&&<ProfilePhotoDialog open={photos} onClose={()=>setPhotos(false)} image={viewer.image} cover={viewer.cover} onSave={updatePhotos}/>}
-    <ProfileHeader cover={viewer.cover} onEditPhotos={updatePhotos?()=>setPhotos(true):undefined} person={viewer} handle={viewer.handle} bio={viewer.bio} counts={[{label:'게시물',value:account.stats.posts},{label:'팔로워',private:account.preferences.showFollowers===false,value:account.stats.followers,href:`${basePath}/followers`},{label:'팔로잉',private:privateFollowing,href:`${basePath}/following`,value:<>{following.length}{privateFollowing&&<Icon name="lock" width="12" height="12" aria-label="비공개"/>}</>}]} action={<><BeanWalletLink basePath={basePath} className={`${c.coverControl} ${c.coverWallet}`}/>{/* 2026-11-15: a member who is not a creator gets 글쓰기 (public posts, no tips/memberships) instead of the studio dashboard. */}{ownCreatorId?<Link href={`${basePath}/studio`} className={`${c.coverControl} ${c.coverStudio}`}>스튜디오</Link>:<Link href={`${basePath}/studio/content/new`} className={`${c.coverControl} ${c.coverStudio}`}>글쓰기</Link>}<Link href={`${basePath}/settings`} className={`${c.coverControl} ${c.coverSettings}`} aria-label="설정"><Icon name="menu" width="18" height="18" aria-hidden="true"/></Link></>}/>
+    <ProfileHeader cover={viewer.cover} onEditPhotos={updatePhotos?()=>setPhotos(true):undefined} person={viewer} handle={viewer.handle} bio={viewer.bio} counts={[{label:'게시물',value:account.stats.posts},{label:'팔로워',private:account.preferences.showFollowers===false,value:account.stats.followers,href:`${basePath}/followers`},{label:'팔로잉',private:privateFollowing,href:`${basePath}/following`,value:<>{following.length}{privateFollowing&&<Icon name="lock" width="12" height="12" aria-label="비공개"/>}</>}]} action={<><BeanWalletLink basePath={basePath} className={`${c.coverControl} ${c.coverWallet}`}/><ProfileTickets key={model.viewerId} basePath={basePath} live={model.mode==='live'}/>{/* 2026-11-15: a member who is not a creator gets 글쓰기 (public posts, no tips/memberships) instead of the studio dashboard. */}{ownCreatorId?<Link href={`${basePath}/studio`} className={`${c.coverControl} ${c.coverStudio}`}>스튜디오</Link>:<Link href={`${basePath}/studio/content/new`} className={`${c.coverControl} ${c.coverStudio}`}>글쓰기</Link>}<Link href={`${basePath}/settings`} className={`${c.coverControl} ${c.coverSettings}`} aria-label="설정"><Icon name="menu" width="18" height="18" aria-hidden="true"/></Link></>}/>
     {ownCreatorId&&<section className={c.profilePlans} aria-labelledby="my-profile-plans"><h2 id="my-profile-plans">멤버십</h2>{onSale.length?<div className={c.planList}>{onSale.map(plan=><MembershipPlanCard key={plan.id} plan={plan} creator={viewer} compact actionLabel="멤버십 관리" onSelect={()=>router.push(`${basePath}/studio/memberships`)}/>)}</div>:<Empty title="판매 중인 멤버십이 없어요."/>}</section>}
     <div className={c.tabs} aria-label="프로필 내용">{tabs.map(([item,count])=><button key={item} type="button" aria-pressed={tab===item} onClick={()=>setTab(item)}>{item}{count!==null&&<span className={c.tabCount}>{count}</span>}</button>)}</div>
     {tab==='소개'?<section className={c.about}>{(ownCreator?.about||viewer.bio)?<p>{ownCreator?.about||viewer.bio}</p>:<Empty title="아직 등록된 소개가 없습니다."/>}<SocialLinks links={ownCreator?.links}/></section>:<>
