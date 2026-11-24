@@ -15,6 +15,7 @@ import Icon from '../Icon';
 import s from './photo-library.module.css';
 
 type Section={category:PhotoAssetCategory;items:PhotoAsset[];total:number|null;hasMore:boolean};
+type LibraryPreview=Pick<LibraryAsset,'type'|'title'|'url'|'thumbnailUrl'>;
 type DraftMedia={file:File;type:'video'}|{file:File;type:'image';sourceVideo?:File};
 const uploadOptions=[
  {mode:'photo',label:'사진 업로드',description:'기기에 있는 사진을 보관해요.',icon:'image'},
@@ -56,9 +57,9 @@ export function AiPhotoLibrary({open,model,selected,onSelect,onEditSource,onChan
  const saving=operation!==null;
  const [mode,setMode]=useState<UploadMode|null>(null);
  const [savedVideoId,setSavedVideoId]=useState<string|null>(null);
- const [viewing,setViewing]=useState<LibraryAsset|null>(null),[previewFailed,setPreviewFailed]=useState(false);
+ const [viewing,setViewing]=useState<LibraryPreview|null>(null),[previewFailed,setPreviewFailed]=useState(false);
  const previewVideo=useRef<HTMLVideoElement>(null);
- function showPreview(item:LibraryAsset){setPreviewFailed(false);setViewing(item);}
+ function showPreview(item:LibraryPreview){setPreviewFailed(false);setViewing(item);}
  function closePreview(){previewVideo.current?.pause();setViewing(null);}
  useEffect(()=>{
   if(!open)return;
@@ -189,6 +190,7 @@ export function AiPhotoLibrary({open,model,selected,onSelect,onEditSource,onChan
   {editing==='new'&&!savedMedia&&<>
    <button type="button" className={s.backToModes} disabled={saving} onClick={()=>{setMode(null);setDraftMedia(null);setSavedVideoId(null);setUploadError('');setTitle('');}}><Icon name="arrowLeft" width={16} height={16}/> 업로드 방식 선택</button>
    <MediaUpload label="파일 업로드" items={file&&preview?[{id:'library-draft',type:videoOnly?'video':'image',url:preview}]:[]} max={1}
+    onPreview={file&&preview&&!saving?()=>showPreview({type:videoOnly?'video':'image',url:preview,title:title.trim()||file.name}):undefined}
     onFilesSelect={chooseFiles} onRemove={()=>{setDraftMedia(null);setSavedVideoId(null);setUploadError('');}} accept={mode==='photo'?imageUploadAccept:videoUploadAccept} disabled={saving} error={uploadError}
     addLabel={mode==='photo'?'사진 추가':'동영상 추가'} hint={mode==='photo'?'JPG·PNG·WebP 사진 한 장 50MB까지(자동으로 줄여서 올려요)':'MP4·WebM·MOV 300MB 이하'}/>
    {mode==='extract'&&draftMedia?.type==='video'&&preview&&<AiPhotoVideoFrame key={preview} src={preview} name={draftMedia.file.name}

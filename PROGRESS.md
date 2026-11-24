@@ -6644,3 +6644,5 @@
 - 운영: 1차 method-copy-20261120은 devbox 빌드 중 Next.js 작업자 SIGSEGV로 빌드 단계 중단(운영 무변경), 2차 method-copy2-20261120 deploy OK, try·landing 200, 복구본 /Users/ethan/crefans-recovery/20261120/method-copy2-20261120-front 검증 OK.
 
 2026-11-25 회원 피드 배너 개발 배포. 제작 시안의 사진 편집 전후 이미지와 파란 보관함 이미지를 사용. 회원 카테고리 아래 AI 사진 편집, 첫 게시물 뒤에 보관함 한 번. 두 버튼은 비회원 배너의 빛줄기 효과 재사용. 개발 8018342 (deploy-dev.sh front 실패 0, 20261125-020355.log). 타입 검사와 diff 검사 통과. 실제 개발 WebKit 390×844 테스트 회원에서 DOM 순서, 버튼 애니메이션, 화면 너비, 클릭 후 AI 편집 및 보관함 대화상자 확인. 비회원 배너 확인. 이미지 2개 모두 200 image/webp. 운영 미배포.
+
+2026-11-25 보관함 저장 전 썸네일 전체보기 (38130e6 기준). MediaUpload의 onPreview를 기존 모바일 전체 화면 뷰어에 연결. 선택한 로컬 파일을 사용하며 추출한 사진의 제목과 파일은 미리보기 닫은 뒤 유지. 타입 검사 및 git diff --check 통과. node --test tests/library-draft-preview.test.cjs tests/media-upload.test.cjs 12/12 통과. 추출 결과 선택 후 썸네일 열기·닫기를 컴포넌트에서 검증. 실기기·배포 전.
