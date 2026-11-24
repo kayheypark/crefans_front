@@ -22,3 +22,11 @@
 .about{display:flex;align-items:center;justify-content:flex-end;gap:6px;min-height:44px;margin:-12px 4px 8px;font-size:13px;font-weight:600;color:#db2777;text-decoration:none}
 .about:hover{color:#be185d;text-decoration:underline;text-underline-offset:3px}
 .about:focus-visible{outline:3px solid var(--cf-color-focus);outline-offset:2px;border-radius:6px}
+
+.memberBanner{--banner-color:#fae5ec;--banner-edge:#f2cfdd;--button-color:#ca2468;--art:url('/brand/feed/member-edit.webp');position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;box-sizing:border-box;width:100%;max-width:480px;margin:16px auto;padding:clamp(16px,4vw,24px);min-height:clamp(148px,42vw,192px);border:1px solid var(--banner-edge);border-radius:20px;background:var(--banner-color);color:#202333;text-decoration:none}
+.memberBanner[data-kind=library]{--banner-color:#dcecff;--banner-edge:#c9def4;--button-color:#245ac1;--art:url('/brand/feed/member-library.webp')}
+.memberBanner::before{content:"";position:absolute;inset:0 0 0 auto;width:53%;z-index:-1;background:var(--art) center/cover no-repeat;mask-image:linear-gradient(to right,transparent,#000 12%)}
+.memberCopy{display:grid;justify-items:start;gap:10px}
+.memberCopy strong{font-size:clamp(18px,5vw,24px);line-height:1.22;letter-spacing:-.04em}
+.memberCopy .action{margin:0;border-radius:999px;background:var(--button-color);gap:8px}
+.memberBanner:focus-visible{outline:3px solid var(--cf-color-focus);outline-offset:3px}

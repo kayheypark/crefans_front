@@ -205,6 +205,7 @@ function MyProfileContent({model}:{model:ServiceViewModel}){
   const [tab,setTab]=useState('피드');
   const [photos,setPhotos]=useState(false),updatePhotos=model.accountActions.updatePhotos;
   const [libraryOpen,setLibraryOpen]=useState(false);
+  useEffect(()=>{if(model.photoLibrary&&typeof window!=='undefined'&&window.location?.hash==='#library')setLibraryOpen(true);},[model.photoLibrary]);
   if(collection!==null)return <section className={s.profile}><PageTitle back={<BackButton href={`${basePath}/me`} label="내 프로필로 돌아가기"/>}>{mode==='saved'?'저장한 게시물':'좋아요한 게시물'}</PageTitle>{collectionPosts.length?<div className={s.savedGrid}>{collectionPosts.map(post=><Link href={`${basePath}/post/${post.id}`} key={post.id}>{model.canAccess(post.creatorId,post.requiredRank,post.requiredPlanId)?(post.image?<img src={post.image} alt={post.title} style={{objectPosition:post.position}}/>:<div className={s.collectionLocked}><Icon name="card"/><small>텍스트 게시물</small></div>):<div className={s.collectionLocked}><Icon name="lock"/><small>멤버십 전용</small></div>}<span>{post.title}</span></Link>)}</div>:<Empty title={mode==='saved'?'저장한 게시물이 없어요':'좋아요한 게시물이 없어요'} description="피드에서 마음에 드는 게시물을 담아보세요."/>}</section>;
   const ownCreatorId=model.ownCreatorIds?.[0];
   const ownCreator=ownCreatorId?data.creators.find(item=>item.id===ownCreatorId):undefined;
