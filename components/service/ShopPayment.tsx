@@ -1,7 +1,30 @@
 'use client';
 import {useShopPayment} from '@/features/service/useShopPayment';
-import {Action,PageTitle} from '@/components/crefans/ServiceUI';
+import {Action,ActionLink,PageTitle} from '@/components/crefans/ServiceUI';
 import {BankTransferInstructions} from '@/components/crefans/BankTransfer';
-export function ShopPayment(){const {order,error,busy,result,paymentKey,load,confirm,pay,transfer,cardAvailable}=useShopPayment();
- return <section><PageTitle>이용권 결제</PageTitle>{transfer&&<BankTransferInstructions transfer={transfer}/>}{order&&<><h2>{order.name}</h2><p>{order.benefit} · {order.amount.toLocaleString('ko-KR')}원 (VAT 포함)</p><p>{order.statusLabel}</p></>}{busy&&<p role="status">결제 결과를 확인하고 있어요.</p>}{error&&<p role="alert">{error}</p>}{result==='fail'&&<p>결제가 완료되지 않았어요. 구매 내역을 확인하거나 다시 결제할 수 있어요.</p>}{order?.status==='paid'?<><p>AI 이용권이 지급되었어요. 기존 편집 탭으로 돌아가 계속 만들어 보세요.</p><Action onClick={()=>{window.opener?.focus();window.close();}}>편집 탭으로 돌아가기</Action></>:paymentKey?<Action disabled={busy} onClick={()=>void confirm()}>같은 주문 결제 확인</Action>:order?.status==='pending'&&order.method!=='bank_transfer'&&cardAvailable?<Action disabled={busy} onClick={()=>void pay()}>카드로 결제하기</Action>:<Action disabled={busy} onClick={()=>void load()}>구매 내역 확인</Action>}<p><a href="/service/studio/shop">상점으로 이동</a></p></section>;
+import s from './ShopPayment.module.css';
+
+export function ShopPayment(){
+ const m=useShopPayment(),o=m.order;
+ const pending=o?.status==='pending'&&o.method!=='bank_transfer'&&m.cardAvailable;
+ return <section className={s.page}>
+  <PageTitle>이용권 결제</PageTitle>
+  {m.transfer&&<BankTransferInstructions transfer={m.transfer}/>}
+  {o&&<div className={s.summary}>
+   <div className={s.heading}><h2>{o.name}</h2><span>{o.statusLabel}</span></div>
+   <p>{o.benefit}</p>
+   <div className={s.total}><span>결제 금액 <small>(VAT 포함)</small></span><strong>{o.amount.toLocaleString('ko-KR')}원</strong></div>
+  </div>}
+  {pending&&m.needsName&&<label className={s.field}>구매자 이름<input autoComplete="name" maxLength={50} value={m.buyerName} onChange={e=>m.setBuyerName(e.target.value)}/></label>}
+  {pending&&m.needsPhone&&<label className={s.field}>휴대폰 번호<input type="tel" autoComplete="tel" maxLength={18} value={m.buyerPhone} onChange={e=>m.setBuyerPhone(e.target.value)}/></label>}
+  {m.error&&<p className={s.feedback} role="alert">{m.error}</p>}
+  {m.result==='fail'&&!m.error&&<p role="status">결제가 완료되지 않았어요. 같은 주문으로 다시 시도할 수 있어요.</p>}
+  {m.busy&&<p role="status">결제 요청을 처리하고 있어요.</p>}
+  {o?.status==='paid'?<p role="status">AI 이용권이 지급되었어요.</p>:m.paymentKey?<Action disabled={m.busy} onClick={()=>void m.confirm()}>같은 주문 결제 확인</Action>:pending?
+   m.prepared?<Action disabled={m.busy||!m.canPay} onClick={()=>void m.pay()}>{o.amount.toLocaleString('ko-KR')}원 카드 결제</Action>:
+   m.error?<Action onClick={()=>void m.load()}>결제 정보 다시 불러오기</Action>:<p role="status">결제 정보를 불러오고 있어요.</p>:
+   o&&<Action disabled={m.busy} onClick={()=>void m.load()}>구매 내역 확인</Action>}
+  {o?.status==='paid'&&window.opener&&<Action onClick={()=>{window.opener.focus();window.close();}}>편집 탭으로 돌아가기</Action>}
+  <ActionLink variant="secondary" href="/service/studio/shop">상점으로 이동</ActionLink>
+ </section>;
 }

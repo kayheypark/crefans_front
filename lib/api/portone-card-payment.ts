@@ -19,9 +19,13 @@ export async function openPortOneCardWindow(order: PortOneCardWindow, returnUrl:
     totalAmount: order.amount,
     currency: 'CURRENCY_KRW',
     payMethod: 'CARD',
+    windowType: {mobile:'REDIRECTION'},
     customer: order.customer,
     redirectUrl: returnUrl.toString(),
   });
-  if (result?.code) throw new Error('Payment window did not complete');
+  if (result?.code) {
+    const cancelled = /CANCEL/i.test(result.code);
+    return cancelled ? '결제를 취소했어요.' : '결제사가 요청을 처리하지 못했어요. 결제 정보를 확인한 뒤 다시 시도해 주세요.';
+  }
   if (result?.paymentId === order.orderId) location.assign(returnUrl.toString());
 }

@@ -9,17 +9,36 @@ import {getBankTransfer} from '@/lib/api/payments';
 import {xEvent,xPurchase} from '@/lib/analytics/x-pixel';
 import {usePaymentMethods} from './usePaymentMethods';
 export function useShopPayment(){const query=useSearchParams(),id=query.get('id')||'',paymentKey=query.get('paymentKey'),orderId=query.get('orderId'),amount=query.get('amount'),result=query.get('code')?'fail':query.get('result');const [order,setOrder]=useState<ShopOrder|null>(null),[error,setError]=useState(''),[busy,setBusy]=useState(false),[transfer,setTransfer]=useState<BankTransfer|null>(null),running=useRef(false),{methods}=usePaymentMethods();
+ const [cardWindow,setCardWindow]=useState<PortOneCardWindow|null>(null);
+ const [buyerName,setBuyerName]=useState(''),[buyerPhone,setBuyerPhone]=useState('');
+ const [mobile,setMobile]=useState(false);
+ useEffect(()=>{setMobile(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1));},[]);
+ const needsName=!!cardWindow&&!cardWindow.customer.fullName?.trim();
+ const needsPhone=!!cardWindow&&!mobile&&!cardWindow.customer.phoneNumber?.trim();
+ const canPay=(!needsName||!!buyerName.trim())&&(!needsPhone||/^\+?[0-9 -]{8,18}$/.test(buyerPhone.trim()));
  const load=useCallback(async()=>{if(!id)return;const r=await api<ShopOrder>(`/studio/shop/orders/${encodeURIComponent(id)}`);if(!r.success){setError(r.errorMessage);return;}setOrder(r.data);
+ if(r.data.status==='pending'&&r.data.environment==='portone'){
+  setError('');
+  const prepared=await api<PortOneCardWindow>(`/studio/shop/orders/${encodeURIComponent(id)}/payment-window`,{});
+  if(prepared.success)setCardWindow(prepared.data);else setError(prepared.errorMessage);
+ }
  // 2026-11-16: a bank-transfer order has no payment window; its deposit instructions are shown instead.
  if(r.data.method==='bank_transfer'){const t=await getBankTransfer('ai-shop',id);if(t.success)setTransfer(t.data);else setError(t.errorMessage);}},[id]);
  const confirm=useCallback(async()=>{if(running.current||!id||!paymentKey||!orderId||!amount)return;running.current=true;setBusy(true);setError('');try{const r=await api<ShopOrder>(`/studio/shop/orders/${encodeURIComponent(id)}/confirm`,{paymentKey,orderId,amount:Number(amount)});if(r.success){setOrder(r.data);history.replaceState(null,'',`?id=${encodeURIComponent(id)}`);if(r.data.status==='paid')xPurchase(r.data.amount,'shop-'+id);}else setError(r.errorMessage);}catch{setError('결제 결과를 확인 중이에요. 같은 주문으로 다시 확인해 주세요.');}finally{running.current=false;setBusy(false);}},[id,paymentKey,orderId,amount]);
  useEffect(()=>{if(result==='success')void confirm();else void load();},[confirm,load,result]);
- async function pay(){if(running.current)return;running.current=true;xEvent('checkout_start');setBusy(true);setError('');try{const r=await api<PortOneCardWindow | {provider?:'toss';clientKey:string;customerKey:string;orderId:string;orderName:string;amount:number}>(`/studio/shop/orders/${encodeURIComponent(id)}/payment-window`,{});if(!r.success){setError(r.errorMessage);return;}if(r.data.provider==='portone'){
+ async function pay(){if(running.current)return;running.current=true;xEvent('checkout_start');setBusy(true);setError('');try{if(order?.environment==='portone'){
+   if(!cardWindow||!canPay)return;
    const returnUrl=new URL('/service/studio/shop/pay',location.origin);
-   returnUrl.search=new URLSearchParams({id,result:'success',paymentKey:r.data.orderId,orderId:r.data.orderId,amount:String(r.data.amount)}).toString();
+   returnUrl.search=new URLSearchParams({id,result:'success',paymentKey:cardWindow.orderId,orderId:cardWindow.orderId,amount:String(cardWindow.amount)}).toString();
    const {openPortOneCardWindow}=await import('@/lib/api/portone-card-payment');
-   await openPortOneCardWindow(r.data,returnUrl);
+   const message=await openPortOneCardWindow({...cardWindow,customer:{...cardWindow.customer,
+     fullName:needsName?buyerName.trim():cardWindow.customer.fullName,
+     phoneNumber:needsPhone?buyerPhone.trim():cardWindow.customer.phoneNumber}},returnUrl);
+   if(message)setError(message);
    return;
-  }const {loadTossPayments}=await import('@tosspayments/tosspayments-sdk');const sdk=await loadTossPayments(r.data.clientKey),url=`${location.origin}/service/studio/shop/pay?id=${encodeURIComponent(id)}`;await sdk.payment({customerKey:r.data.customerKey}).requestPayment({method:'CARD',orderId:r.data.orderId,orderName:r.data.orderName,amount:{currency:'KRW',value:r.data.amount},successUrl:url+'&result=success',failUrl:url+'&result=fail'});}catch{setError('결제창을 닫았거나 열지 못했어요. 같은 주문으로 다시 시도할 수 있어요.');}finally{running.current=false;setBusy(false);}}
- return {order,error,busy,result,paymentKey,load,confirm,pay,transfer,cardAvailable:order?.environment==='portone'||!!methods?.card};
+  }
+  const r=await api<{clientKey:string;customerKey:string;orderId:string;orderName:string;amount:number}>(`/studio/shop/orders/${encodeURIComponent(id)}/payment-window`,{});
+  if(!r.success){setError(r.errorMessage);return;}
+  const {loadTossPayments}=await import('@tosspayments/tosspayments-sdk');const sdk=await loadTossPayments(r.data.clientKey),url=`${location.origin}/service/studio/shop/pay?id=${encodeURIComponent(id)}`;await sdk.payment({customerKey:r.data.customerKey}).requestPayment({method:'CARD',orderId:r.data.orderId,orderName:r.data.orderName,amount:{currency:'KRW',value:r.data.amount},successUrl:url+'&result=success',failUrl:url+'&result=fail'});}catch{setError('결제창을 닫았거나 열지 못했어요. 같은 주문으로 다시 시도할 수 있어요.');}finally{running.current=false;setBusy(false);}}
+ return {order,error,busy,result,paymentKey:result==='fail'?null:paymentKey,load,confirm,pay,transfer,needsName,needsPhone,buyerName,setBuyerName,buyerPhone,setBuyerPhone,canPay,prepared:order?.environment!=='portone'||!!cardWindow,cardAvailable:order?.environment==='portone'||!!methods?.card};
 }
