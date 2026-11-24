@@ -18,9 +18,9 @@ type Section={category:PhotoAssetCategory;items:PhotoAsset[];total:number|null;h
 type LibraryPreview=Pick<LibraryAsset,'type'|'title'|'url'|'thumbnailUrl'>;
 type DraftMedia={file:File;type:'video'}|{file:File;type:'image';sourceVideo?:File};
 const uploadOptions=[
- {mode:'photo',label:'사진 업로드',description:'기기에 있는 사진을 보관해요.',icon:'image'},
- {mode:'video',label:'동영상 업로드',description:'동영상 전체를 보관해요.',icon:'video'},
- {mode:'extract',label:'동영상에서 사진 추출',description:'동영상에서 원하는 한 장면을 골라요.',icon:'scissors'},
+ {mode:'photo',label:'사진 업로드',icon:'image'},
+ {mode:'video',label:'동영상 업로드',icon:'video'},
+ {mode:'extract',label:'동영상에서 사진 추출',icon:'scissors'},
 ] as const;
 type UploadMode=typeof uploadOptions[number]['mode'];
 // Older API builds return no total; then the count shows what is loaded, with + when more pages exist.
@@ -176,9 +176,8 @@ export function AiPhotoLibrary({open,model,selected,onSelect,onEditSource,onChan
  </div></Dialog>
  <Dialog open={open&&!!editing} title={choosingMode?'파일 추가':editing==='new'?(videoOnly?'동영상 보관하기':'사진 보관하기'):(videoOnly?'동영상 정보':'사진 정보')} onClose={closeEditor} persistent><div className={editing==='new'?`${s.body} ${s.uploadBody}`:s.body}>
   {choosingMode?<div className={s.uploadOptions}>{uploadOptions.map(option=><Action key={option.mode} type="button" variant="secondary" className={s.uploadOption} aria-label={option.label} onClick={()=>setMode(option.mode)}>
-   <span className={s.optionIcon}>{option.icon==='scissors'?<Icon name="scissors" width={21} height={21}/>:<MediaTypeIcon type={option.icon} size={21}/>}</span>
-   <span><strong>{option.label}</strong><small>{option.description}</small></span><Icon className={s.optionArrow} name="chevron" width={16} height={16}/>
-  </Action>)}</div>:<>
+   {option.icon==='scissors'?<Icon name="scissors" width={19} height={19}/>:<MediaTypeIcon type={option.icon} size={23}/>}
+   {option.label}</Action>)}</div>:<>
   {editing&&editing!=='new'&&editing.url&&(editing.processing||editing.failed?
    <p role="status" className={s.note}>{editing.processing?'동영상을 준비하고 있어요. 잠시 후 다시 열어 주세요.':'동영상을 변환하지 못했어요.'}</p>:
    <div className={s.detailMedia}>

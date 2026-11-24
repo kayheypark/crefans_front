@@ -41,10 +41,12 @@
 .useSource{position:absolute;left:6px;top:6px;min-height:28px;padding:0 10px;border:0;border-radius:999px;background:rgb(17 24 39/.78);color:#fff;font:inherit;font-size:12px;font-weight:700;line-height:28px;cursor:pointer}.useSource:disabled{opacity:.6;cursor:default}
 
 .uploadBody{padding:0}
-.uploadOptions{display:grid;gap:8px}
-.uploadOptions .uploadOption{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;text-align:left;padding:12px;width:100%;font:inherit}
-.uploadOption strong,.uploadOption small{display:block;line-height:1.45;word-break:keep-all}.uploadOption small{margin-top:2px;color:var(--cf-color-textMuted);font-size:13px;font-weight:400}
-.optionIcon{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:var(--cf-color-surfaceSubtle);color:var(--cf-color-accent)}.optionArrow{color:var(--cf-color-textMuted)}
+.uploadOptions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding:8px;border-radius:15px;background:var(--cf-color-surfaceSubtle)}
+.uploadOptions .uploadOption{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:82px;padding:8px;border:0;border-radius:0;background:transparent;color:var(--cf-color-text);font-size:15px;font-weight:600}
+.uploadOptions .uploadOption:nth-child(2){border-left:1px solid var(--cf-color-border)}
+.uploadOptions .uploadOption:last-child{grid-column:1/-1;flex-direction:row;min-height:52px;margin-top:8px;border-radius:9px;background:var(--cf-color-surface)}
+.uploadOption:last-child svg{color:var(--cf-color-accent)}
+.uploadOptions .uploadOption:hover,.uploadOptions .uploadOption:focus-visible{background:var(--cf-color-accentSoft)}
 .backToModes{display:flex;align-items:center;gap:6px;align-self:flex-start;min-height:36px;padding:0;border:0;background:transparent;color:var(--cf-color-textMuted);font:inherit;font-size:13px;cursor:pointer}
 .detailMedia{display:grid;gap:8px}
 .detailMedia .preview{justify-self:center;object-fit:contain}
