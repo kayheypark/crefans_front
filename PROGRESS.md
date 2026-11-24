@@ -6648,3 +6648,5 @@
 2026-11-25 보관함 저장 전 썸네일 전체보기 (38130e6 기준). MediaUpload의 onPreview를 기존 모바일 전체 화면 뷰어에 연결. 선택한 로컬 파일을 사용하며 추출한 사진의 제목과 파일은 미리보기 닫은 뒤 유지. 타입 검사 및 git diff --check 통과. node --test tests/library-draft-preview.test.cjs tests/media-upload.test.cjs 12/12 통과. 추출 결과 선택 후 썸네일 열기·닫기를 컴포넌트에서 검증. 실기기·배포 전.
 
 2026-11-25 홈 피드 두 번째 게시물 바로 아래에 회원·비회원 공통 쿠팡 파트너스 추천 캐러셀 1058796을 한 번 표시한다. 실제 피드 열 너비로 위젯을 요청하고 광고·제휴 안내를 상단에 둔다. 한 건 이하인 피드에는 삽입하지 않는다.
+
+2026-11-25 상점 AI 이용권 횟수형을 구독형 위로 이동. 횟수형 상품과 구매 확인창에 프로필과 같은 /brand/ai-photo/review/ticket.webp 적용. npm run typecheck, node --test tests/shop-subscription.test.cjs 통과.

@@ -23,7 +23,7 @@ test('subscription plans sit in their own section; the 횟수형 list keeps only
  const t=render(model());
  try{
   const text=words(t.toJSON());
-  assert.match(text,/AI 이용권 구독형/);assert.match(text,/AI 이용권 횟수형/);assert.match(flat(t),/월3,000원/);assert.match(flat(t),/매달이용권30개/);assert.match(flat(t),/1개100원/);
+  assert.ok(text.indexOf('AI 이용권 횟수형')<text.indexOf('AI 이용권 구독형'));assert.match(text,/AI 이용권 구독형/);assert.match(text,/AI 이용권 횟수형/);assert.match(flat(t),/월3,000원/);assert.match(flat(t),/매달이용권30개/);assert.match(flat(t),/1개100원/);
   assert.equal(buttons(t).filter(b=>/ 상품 안내$/.test(b.props['aria-label']||'')).length,2,'one row per product, like 광고상품');assert.ok(opener(t,pack.name));assert.ok(opener(t,plan.name));
  }finally{act(()=>t.unmount());}
  const old=render(model({subscriptions:null}));
@@ -98,6 +98,6 @@ test('rows follow the 광고상품 list: reference price (highest 횟수형 1회
   const struck=t.root.findAll(n=>n.type==='s').map(n=>words(n.props.children));
   assert.deepEqual(struck,['11,000원','11,000원'],'50회 횟수형 and 구독 50회 compare with 220원 × 50');
   const text=flat(t);assert.match(text,/11,000원5%10,450원/);assert.match(text,/11,000원20%월8,800원/);assert.doesNotMatch(text,/%2,200원/,'the base pack has no discount');
-  assert.equal(t.root.findAll(n=>n.type==='img'&&n.props.src==='/brand/featured-creators-v1.png').length>=2,true,'sparkle icon on AI rows');assert.equal(t.root.findAll(n=>n.type==='h2').flatMap(h=>h.findAllByType('img')).length,0,'2026-11-16: no icon beside section names');
+  assert.equal(t.root.findAll(n=>n.type==='img'&&n.props.src==='/brand/ai-photo/review/ticket.webp').length,2,'ticket image on both packs');assert.equal(t.root.findAll(n=>n.type==='h2').flatMap(h=>h.findAllByType('img')).length,0,'2026-11-16: no icon beside section names');
  }finally{act(()=>t.unmount());}
 });
