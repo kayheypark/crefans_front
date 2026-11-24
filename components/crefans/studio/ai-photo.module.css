@@ -272,6 +272,8 @@
 
 /* 2026-11-17: next-step nudge on the AI button after the trial's sample photo is added (until it is opened once). */
 .aiNudgeHint{position:relative;align-self:flex-start;justify-self:start;margin:0 0 10px;padding:7px 12px;border-radius:999px;background:#202333;color:#fff;font-size:13px;font-weight:700;animation:aiNudgeFloat 1.6s ease-in-out infinite}
+/* 2026-11-24: the bubble above the AI button opens the editor too (ManagementPages openAi). */
+.aiAction>.aiNudgeHint{cursor:pointer}
 .aiNudgeHint::after{content:"";position:absolute;left:28px;bottom:-5px;width:10px;height:10px;background:#202333;transform:rotate(45deg)}
 .aiNudge{position:relative;overflow:hidden;isolation:isolate;box-shadow:0 0 0 2px #db2777,0 6px 18px rgba(219,39,119,.25);animation:aiNudgePulse 1.6s ease-in-out infinite}
 .aiNudge::after{content:"";position:absolute;inset:-20% auto -20% -60%;width:40%;background:linear-gradient(105deg,transparent,rgba(219,39,119,.18) 50%,transparent);transform:skewX(-18deg);animation:aiNudgeShine 2.4s ease-in-out infinite;pointer-events:none}

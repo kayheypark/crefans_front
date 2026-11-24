@@ -232,6 +232,38 @@ test('guest trial editor uploads the verified front-facing sample once and previ
  }finally{global.fetch=previousFetch;if(view)close(view);}
 });
 
+// 2026-11-24 이탈 분석: right after consent the "이제 여기를 눌러…" bubble was tapped but was a plain note (dead clicks). Tapping the
+// bubble itself must open the AI editor and clear the nudge, like the button does.
+test('guest trial: tapping the "여기를 눌러" hint bubble opens the AI editor',async()=>{
+ const fs=require('node:fs'),path=require('node:path');
+ const sampleUrl='/illustrations/landing/ai-photo/base-v1.webp',publicDir=path.join(__dirname,'../public');
+ const sampleMedia={id:'sample-1',type:'image',url:'/api/v1/media/sample-1/file'};
+ const previousFetch=global.fetch;
+ const guest={
+  session:{active:true,remaining:3,limit:3,postReward:3,postRewardClaimed:false},
+  caption:()=>assert.fail('tapping the hint must not generate a caption'),
+  upload:async()=>({success:true,data:sampleMedia}),
+  aiEdit:()=>assert.fail('tapping the hint must not generate a photo'),
+ };
+ const {default:GuestTrialPage}=loadTypeScript('components/service/GuestTrialPage.tsx',{
+  ...mocks,'next/navigation':{useRouter:()=>({})},
+  '@/components/crefans/studio/ManagementPages':{ContentEditorPage},
+  '@/features/service/useGuestTrialModel':{useGuestTrialModel:()=>guest},
+  '@/features/service/useFunnelStep':{useFunnelStep(){}},
+ });
+ global.fetch=async url=>new Response(fs.readFileSync(path.join(publicDir,url)),{headers:{'Content-Type':'image/webp'}});
+ let view;
+ try{
+  await act(async()=>{view=create(element(GuestTrialPage,{model:{...model,signedIn:false}}));});
+  const hint=view.root.find(node=>node.type==='p'&&node.props.role==='note'&&node.props.children==='이제 여기를 눌러 의상·포즈를 골라 보세요');
+  assert.equal(typeof hint.props.onClick,'function','the bubble reacts to a tap');
+  act(()=>hint.props.onClick());
+  act(()=>button(view,'여성').props.onClick());
+  assert.equal(view.root.findByProps({alt:'원본 사진'}).props.src,sampleMedia.url,'the AI editor opened on the sample');
+  assert.doesNotMatch(json(view),/이제 여기를 눌러/,'the nudge is cleared once opened');
+ }finally{global.fetch=previousFetch;if(view)close(view);}
+});
+
 test('AI photo decision replaces only the source attachment in both editor layouts',async()=>{
  let aiProps;
  const {ContentEditorPage:Editor}=loadTypeScript('components/crefans/studio/ManagementPages.tsx',{...mocks,'next/navigation':{useRouter:()=>({push(){}})},'./AiPhotoDialog':{AiPhotoDialog:props=>{aiProps=props;return null;}},'@/components/ui/MediaUpload':{MediaUpload:props=>element('div',{'data-attachment-ids':props.items.map(i=>i.id).join(',')})}});
