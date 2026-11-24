@@ -241,7 +241,8 @@ test('mask icon tools: all brush sizes paint correctly, undo removes one stroke,
 
 test('costume categories: ten populated groups, eight general styles, and unique short prompts',()=>{
  const {aiPhotoCostumes,aiPhotoCostumeCategories}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
- assert.equal(aiPhotoCostumeCategories.length,10);assert.deepEqual(aiPhotoCostumeCategories.map(c=>aiPhotoCostumes.filter(x=>x.category===c.value).length),[8,116,16,103,54,5,31,16,21,4]);
+ assert.equal(aiPhotoCostumeCategories[aiPhotoCostumeCategories.findIndex(c=>c.value==='nikke')+1].value,'chainsaw-man');
+ assert.equal(aiPhotoCostumeCategories.length,10);assert.deepEqual(aiPhotoCostumeCategories.map(c=>aiPhotoCostumes.filter(x=>x.category===c.value).length),[8,116,16,103,21,54,5,31,16,4]);
  assert.deepEqual(aiPhotoCostumes.filter(c=>c.category==='general').map(c=>c.id),['773106','80974e','ffb58f','666147','b4bf5d','e614f6','190513','ab36e8']);
  assert.equal(new Set(aiPhotoCostumes.map(c=>c.prompt)).size,374);
  for(const c of aiPhotoCostumes){assert.ok(aiPhotoCostumeCategories.some(g=>g.value===c.category));assert.ok(c.prompt.length<=450)/* 2026-11-17: stocking material wording (user-approved, e.g. 4a0c8f) needs room; was 300 */;assert.equal(rules.aiPhotoProblem({...base,kind:'outfit',prompt:c.prompt,hasMask:true}),'');}

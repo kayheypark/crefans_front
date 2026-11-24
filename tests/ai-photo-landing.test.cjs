@@ -60,8 +60,8 @@ test('landing is discoverable: sitemap lists it, llms.txt describes it, the noin
  const robots=fs.readFileSync('app/robots.ts','utf8');assert.doesNotMatch(robots,/'\/service\/landing/);
 });
 // 2026-11-19 user request: exact speech-bubble wording over the costume select on the landing and in the editor; idol is the 4th look.
-test('costume select bubble says exactly "니케, 원신, 블루아카이브, 진격거" on the landing and in the editor',()=>{
- const fs=require('fs');assert.match(fs.readFileSync('lib/crefans/ai-photo-costumes.ts','utf8'),/export const AI_PHOTO_COSTUME_HINT='니케, 원신, 블루아카이브, 진격거';/);
+test('costume select bubble says exactly "니케, 체인소맨, 원신, 블루아카이브, 귀칼, 주술회전, 오버워치" on the landing and in the editor',()=>{
+ const fs=require('fs');assert.match(fs.readFileSync('lib/crefans/ai-photo-costumes.ts','utf8'),/export const AI_PHOTO_COSTUME_HINT='니케, 체인소맨, 원신, 블루아카이브, 귀칼, 주술회전, 오버워치';/);
  for(const f of ['components/service/AiPhotoLanding.tsx','components/crefans/studio/AiPhotoDialog.tsx'])assert.match(fs.readFileSync(f,'utf8'),/<p className=\{[es]\.costumeHint\}>\{AI_PHOTO_COSTUME_HINT\}<\/p>\s*<div className=\{[es]\.costumeCategoryBar\}>/,f);
  const css=fs.readFileSync('components/crefans/studio/ai-photo.module.css','utf8');assert.match(css,/\.costumeHint\{[^}]*animation:/);assert.match(css,/prefers-reduced-motion:reduce\)\{\.costumeHint\{animation:none\}/);
 });
