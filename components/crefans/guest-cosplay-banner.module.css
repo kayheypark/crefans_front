@@ -34,3 +34,6 @@
 .banner[data-kind=edit]{max-width:480px;margin-inline:auto}.banner[data-kind=edit] .title{white-space:normal;word-break:keep-all;line-height:1.28}
 
 button.memberBanner{font:inherit;text-align:left;cursor:pointer}
+
+.memberBanner[data-kind=shop]{--banner-color:#fff0f4;--banner-edge:#f3d4df;--button-color:#bb3260;--art:url('/brand/ai-photo/review/ticket.webp')}
+.memberBanner[data-kind=shop]::before{background-size:contain;inset:12% 3% 12% auto;width:43%;mask-image:none;background-color:var(--banner-color);background-blend-mode:multiply}

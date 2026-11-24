@@ -6650,3 +6650,5 @@
 2026-11-25 홈 피드 두 번째 게시물 바로 아래에 회원·비회원 공통 쿠팡 파트너스 추천 캐러셀 1058796을 한 번 표시한다. 실제 피드 열 너비로 위젯을 요청하고 광고·제휴 안내를 상단에 둔다. 한 건 이하인 피드에는 삽입하지 않는다.
 
 2026-11-25 상점 AI 이용권 횟수형을 구독형 위로 이동. 횟수형 상품과 구매 확인창에 프로필과 같은 /brand/ai-photo/review/ticket.webp 적용. npm run typecheck, node --test tests/shop-subscription.test.cjs 통과.
+
+2026-11-25 홈 피드 세 번째 게시물 뒤에 상점 배너를 배치했다. 기존 memberBanner와 빛줄기 CTA, 실제 상점 티켓 이미지를 사용했다. 공개 상점 /service/studio/shop 연결. npm run typecheck, 기존 피드 배너 테스트 2건 및 diff 검사 통과. 390px 로컬 컴포넌트 미리보기와 링크 주소 확인. 미배포.

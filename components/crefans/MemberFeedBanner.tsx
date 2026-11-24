@@ -5,8 +5,14 @@ import {useCurrentSignupHref} from './useCurrentLoginHref';
 import Link from 'next/link';
 import s from './guest-cosplay-banner.module.css';
 
-export function MemberFeedBanner({kind,basePath,guest=false}:{guest?:boolean;kind:'edit'|'library';basePath:string}){
+export function MemberFeedBanner({kind,basePath,guest=false}:{guest?:boolean;kind:'edit'|'library'|'shop';basePath:string}){
  if(kind==='edit')return <GuestCosplayBanner member href={basePath+'/studio/content/new'}/>;
+ if(kind==='shop')return <Link className={s.memberBanner} data-kind="shop" href={basePath+'/studio/shop'}>
+  <span className={s.memberCopy}>
+   <strong>AI 사진 편집<br/>이용권</strong>
+   <span className={s.action}>상점으로 가기 <span aria-hidden="true">→</span></span>
+  </span>
+ </Link>;
  const copy=
   <span className={s.memberCopy}>
    <strong>내 보관함에서<br/>다시 시작해요</strong>
