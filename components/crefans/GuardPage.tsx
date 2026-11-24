@@ -10,7 +10,7 @@ type GuardLink={href:string;label:string};
 
 /** Centered notice page shared by the signup-complete page and access guards (2026-11-07): image (default: the blue check),
  *  heading (focused when shown), description, primary and optional secondary link. Content comes from the caller. */
-export function GuardPage({image,title,description,primary,secondary}:{image?:GuardImage;title:string;description:ReactNode;primary:GuardLink;secondary?:GuardLink}){
+export function GuardPage({image,title,description,primary,secondary}:{image?:GuardImage;title:string;description:ReactNode;primary:GuardLink;secondary?:GuardLink|{onClick:()=>void;label:string}}){
   const heading=useRef<HTMLHeadingElement>(null);
   // After a client navigation the new screen is attached before it is shown, so focus waits (up to ~1s) until the heading is visible.
   useEffect(()=>{let n=0,frame=0;const tick=()=>{const el=heading.current;if(el&&el.getClientRects().length){el.focus();if(document.activeElement===el)return;}if(++n<60)frame=requestAnimationFrame(tick);};frame=requestAnimationFrame(tick);return()=>cancelAnimationFrame(frame);},[]);
@@ -20,7 +20,7 @@ export function GuardPage({image,title,description,primary,secondary}:{image?:Gu
     <div className={s.content}>
       <p>{description}</p>
       <Link href={primary.href} className={s.login}>{primary.label}</Link>
-      {secondary&&<Link href={secondary.href} className={s.secondary}>{secondary.label}</Link>}
+      {secondary&&('onClick' in secondary?<button type="button" className={s.secondary} onClick={secondary.onClick}>{secondary.label}</button>:<Link href={secondary.href} className={s.secondary}>{secondary.label}</Link>)}
     </div>
   </section>;
 }

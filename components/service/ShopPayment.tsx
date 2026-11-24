@@ -1,11 +1,18 @@
 'use client';
 import {useShopPayment} from '@/features/service/useShopPayment';
+import {GuardPage} from '@/components/crefans/GuardPage';
 import {Action,ActionLink,PageTitle} from '@/components/crefans/ServiceUI';
 import {BankTransferInstructions} from '@/components/crefans/BankTransfer';
 import s from './ShopPayment.module.css';
 
 export function ShopPayment(){
  const m=useShopPayment(),o=m.order;
+ if(o?.status==='paid')return <GuardPage
+  title="구매가 완료됐어요"
+  description={<>{o.benefit}가 지급되었어요.<br/>결제 금액 {o.amount.toLocaleString('ko-KR')}원 (VAT 포함)</>}
+  primary={{href:'/service/studio/shop',label:'상점으로 이동'}}
+  secondary={window.opener?{label:'편집 탭으로 돌아가기',onClick:()=>{window.opener?.focus();window.close();}}:undefined}
+ />;
  const pending=o?.status==='pending'&&o.method!=='bank_transfer'&&m.cardAvailable;
  return <section className={s.page}>
   <PageTitle>이용권 결제</PageTitle>
@@ -20,11 +27,10 @@ export function ShopPayment(){
   {m.error&&<p className={s.feedback} role="alert">{m.error}</p>}
   {m.result==='fail'&&!m.error&&<p role="status">결제가 완료되지 않았어요. 같은 주문으로 다시 시도할 수 있어요.</p>}
   {m.busy&&<p role="status">결제 요청을 처리하고 있어요.</p>}
-  {o?.status==='paid'?<p role="status">AI 이용권이 지급되었어요.</p>:m.paymentKey?<Action disabled={m.busy} onClick={()=>void m.confirm()}>같은 주문 결제 확인</Action>:pending?
+  {m.paymentKey?<Action disabled={m.busy} onClick={()=>void m.confirm()}>같은 주문 결제 확인</Action>:pending?
    m.prepared?<Action disabled={m.busy||!m.canPay} onClick={()=>void m.pay()}>{o.amount.toLocaleString('ko-KR')}원 카드 결제</Action>:
    m.error?<Action onClick={()=>void m.load()}>결제 정보 다시 불러오기</Action>:<p role="status">결제 정보를 불러오고 있어요.</p>:
    o&&<Action disabled={m.busy} onClick={()=>void m.load()}>구매 내역 확인</Action>}
-  {o?.status==='paid'&&window.opener&&<Action onClick={()=>{window.opener.focus();window.close();}}>편집 탭으로 돌아가기</Action>}
   <ActionLink variant="secondary" href="/service/studio/shop">상점으로 이동</ActionLink>
  </section>;
 }
