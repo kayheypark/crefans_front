@@ -2,11 +2,12 @@
 import {forwardRef,useEffect,useRef,useState,type HTMLAttributes,type KeyboardEvent as ReactKeyboardEvent,type PointerEvent as ReactPointerEvent,type ReactNode} from 'react';
 import {MediaVideo} from '@/components/ui/MediaVideo';
 import {VideoProcessing} from '@/components/ui/VideoProcessing';
+import {SensitivePhoto} from './SensitivePhoto';
 import Icon from './Icon';
 import s from './social.module.css';
 
 type MediaOverlayProps=Omit<HTMLAttributes<HTMLDivElement>,'title'> & {
-  media:ReadonlyArray<{type:'image'|'video';url:string;processing?:boolean}>;title:string;alt:string;
+  media:ReadonlyArray<{type:'image'|'video';url:string;processing?:boolean;sensitivePhoto?:boolean}>;title:string;alt:string;revealedUrl?:string;
   index:number;onIndexChange:(index:number)=>void;open:boolean;onClose:()=>void;stageAction?:ReactNode;onImageClick?:()=>void;
   /** 2026-11-24: another creator's membership-only media — the stage stays an empty box in session replays (lib/analytics/posthog.ts). */replayBlocked?:boolean;
 };
@@ -14,7 +15,7 @@ const overlaySwipeThreshold=40,overlayDragThreshold=6;
 /** 2026-11-22: while the page is pinch-zoomed (photos allow it, like the AI result viewer) a one-finger drag pans the photo instead of changing slides. */
 const pinchZoomed=()=>typeof window!=='undefined'&&(window.visualViewport?.scale||1)>1.01;
 /** Shared full-screen media stage. Optional children supply a detail panel; URLs and access decisions belong to the caller. */
-export const MediaOverlay=forwardRef<HTMLDivElement,MediaOverlayProps>(function MediaOverlay({media,title,alt,index,onIndexChange,open,onClose,stageAction,onImageClick,replayBlocked,children,...props},ref){
+export const MediaOverlay=forwardRef<HTMLDivElement,MediaOverlayProps>(function MediaOverlay({media,title,alt,revealedUrl,index,onIndexChange,open,onClose,stageAction,onImageClick,replayBlocked,children,...props},ref){
   const closeButton=useRef<HTMLButtonElement>(null);
   /** The stage is a sliding track: the finger/mouse drags it live, release snaps to the neighbour with a transition. Ends clamp (no wrap). Videos keep their controls. */
   const [offset,setOffset]=useState(0),swipe=useRef<{id:number;x:number;y:number;axis:'x'|'y'|null}|null>(null),suppressImageClick=useRef(false);
@@ -54,7 +55,7 @@ export const MediaOverlay=forwardRef<HTMLDivElement,MediaOverlayProps>(function 
   };
   return <div {...props} ref={ref} className={s.overlay} role="dialog" aria-modal="true" aria-label={title} data-state={open?'open':'closing'} data-media-only={!children||undefined} onKeyDown={keyDown} onClick={onClose}>
     <div className={s.stage} data-ph-paid={replayBlocked||undefined} onClick={event=>{event.stopPropagation();if(open&&!suppressImageClick.current&&(event.target as HTMLElement).tagName==='IMG')onImageClick?.();}} onPointerDown={swipeStart} onPointerMove={swipeMove} onPointerUp={swipeEnd} onPointerCancel={()=>{swipe.current=null;suppressImageClick.current=true;setOffset(0);}}>
-      <div className={s.stageTrack} data-index={index} data-dragging={offset!==0||undefined} style={{transform:`translateX(calc(${-index*100}% + ${offset}px))`}}>{media.map((item,slide)=><div key={`${item.url}-${slide}`} className={s.stageSlide} aria-hidden={slide!==index||undefined}>{item.type==='video'?<MediaVideo src={item.url} firstFrame optimizing={item.processing} controls={slide===index} playsInline preload="metadata" aria-label={`${alt} 동영상 ${slide+1}`}/>:item.processing?<VideoProcessing kind="image" label={media.length>1?`${alt} ${slide+1}`:alt}/>:<img src={item.url} alt={media.length>1?`${alt} ${slide+1}`:alt} draggable={false}/>}</div>)}</div>
+      <div className={s.stageTrack} data-index={index} data-dragging={offset!==0||undefined} style={{transform:`translateX(calc(${-index*100}% + ${offset}px))`}}>{media.map((item,slide)=><div key={`${item.url}-${slide}`} className={s.stageSlide} aria-hidden={slide!==index||undefined}>{item.type==='video'?<MediaVideo src={item.url} firstFrame optimizing={item.processing} controls={slide===index} playsInline preload="metadata" aria-label={`${alt} 동영상 ${slide+1}`}/>:item.processing?<VideoProcessing kind="image" label={media.length>1?`${alt} ${slide+1}`:alt}/>:item.sensitivePhoto&&revealedUrl!==item.url?<SensitivePhoto url={item.url}><img src={item.url} alt={alt} draggable={false}/></SensitivePhoto>:<img src={item.url} alt={media.length>1?`${alt} ${slide+1}`:alt} draggable={false}/>}</div>)}</div>
       {media.length>1&&<>{index>0&&<button type="button" className={`${s.stageNav} ${s.stagePrevious}`} aria-label="이전 미디어" onClick={previous}><Icon name="chevron"/></button>}{index<media.length-1&&<button type="button" className={`${s.stageNav} ${s.stageNext}`} aria-label="다음 미디어" onClick={next}><Icon name="chevron"/></button>}<div className={`${s.galleryDots} ${s.stageDots}`} aria-hidden="true">{media.map((item,dot)=><i key={`${item.url}-${dot}`} data-active={dot===index||undefined}/>)}</div></>}
       {stageAction}
     </div>
