@@ -268,7 +268,7 @@ export function FeedPage({model}:{model:ServiceViewModel}){
       <ChipRow label="관심 카테고리" className={s.feedCategories}>{categories.map(item=><CategoryChip key={item} label={item} iconUrl={model.data.categoryIcons?.[item]} selected={category===item} onClick={()=>choose(item)}/>)}</ChipRow>
     </div>
     <Dialog open={askConsent} onClose={()=>setAskConsent(false)} title="NSFW관 입장 안내" className={s.roomDialog} illustration={<span className={s.roomShield}><Icon name="shield" width={26} height={26}/></span>}>
-      <div className={s.roomCopy}><p>NSFW관에는 노출 등 일부 이용자가 민감하게 느낄 수 있는 사진이 있어요. 입장하면 사진이 <strong>블러 없이 바로 표시돼요.</strong></p>
+      <div className={s.roomCopy}><p>신체 노출이나 성적인 표현, 폭력·유혈 장면, 혐오·차별을 나타내는 표현이나 상징이 담긴 사진이 있을 수 있어요. 입장하면 사진이 <strong>블러 없이 바로 표시돼요.</strong></p>
         <p>동의는 이번 입장에만 적용돼요. 기본 피드로 돌아가면 민감한 사진은 다시 흐리게 보여요.</p></div>
       <label className={s.roomAgreement}><input type="checkbox" checked={agreed} onChange={event=>setAgreed(event.target.checked)}/><span>안내를 읽었으며, 민감한 사진을 블러 없이 보는 데 동의합니다.</span></label>
       <DialogActions className={s.roomActions}><Action variant="secondary" onClick={()=>setAskConsent(false)}>취소</Action><Action disabled={!agreed} onClick={()=>{if(agreed){setAskConsent(false);selectCategory('NSFW관');}}}>동의하고 입장하기</Action></DialogActions>

@@ -6673,3 +6673,6 @@
 
 ## 2026-11-25 — NSFW관 입장 동의 화면
 민감한 내용과 블러 해제 범위, 기본 피드로 나간 뒤의 동작을 설명하고 체크한 뒤에만 입장할 수 있게 했다. 공통 다이얼로그를 재사용하고 재입장 시 체크를 초기화한다. 프론트 타입 검사와 sensitive-photo 검사 2건 통과.
+
+## 2026-11-25 — 민감 콘텐츠 사전 안내 범위
+NSFW관 입장 문구에 신체 노출·성적 표현, 폭력·유혈, 혐오·차별 표현 및 상징을 예시로 명시했다. 게시 허용 정책 변경 없이 열람자가 판단할 수 있게 사전 고지한다. 2026-11-25 확인: X 안내 https://help.x.com/en/rules-and-policies/notices-on-x , 혐오 이미지 https://help.x.com/en/rules-and-policies/hateful-conduct-policy , YouTube 노출·성적 콘텐츠 https://support.google.com/youtube/answer/2802002 . 프론트 타입 검사 통과.
