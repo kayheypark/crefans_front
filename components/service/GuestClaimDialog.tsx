@@ -31,8 +31,8 @@ export function GuestClaimDialog({claim,onDraftLinked}:{claim:GuestClaimPrompt;o
    <h3 className={s.headline}>로그인 전에 올린 게시물 <strong>{claim.posts}개</strong>를<br/>내 계정에 연동할까요?</h3>
    <ul className={s.points}>
     <li>연동하면 내 프로필 게시물로 옮겨지고, 직접 수정·삭제할 수 있어요.</li>
-    <li>올린 지 24시간이 지난 게시물은 비공개로 옮겨져요.</li>
-    <li>연동하지 않으면 익명 체험 게시물로 남고, 24시간 뒤 비공개돼요.</li>
+    <li>연동해도 게시물의 공개 상태는 유지돼요.</li>
+    <li>연동하지 않으면 익명 체험 게시물로 남아요.</li>
     {draft&&<li>작성하던 글{claim.draftPhotos?`과 사진 ${claim.draftPhotos}장`:''}도 함께 가져와 게시글 작성에서 이어 쓸 수 있어요.</li>}
    </ul>
    <div className={s.actions}>

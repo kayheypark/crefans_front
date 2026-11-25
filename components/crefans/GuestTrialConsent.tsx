@@ -25,7 +25,7 @@ export function GuestTrialConsent({agreed,pending,error,onAgree,onStart,replay=f
     </div>
    </div>
    <div className={s.summary}><p><strong>사진과 요청은 해외 AI 서비스로 전송돼요</strong><span>BytePlus 사진 생성 · OpenAI 유해성 검사</span></p><p><strong>본인 또는 사용 허락을 받은 성인 사진만</strong><span>미성년자·성적인 합성·다른 사람 얼굴 합성 불가</span></p></div>
-   <div className={s.notice}><strong>게시하면 피드에 공개돼요.</strong><p>같은 브라우저에서 가입·로그인하면 내 게시물로 연결할 수 있어요.</p></div>
+   <div className={s.notice}><strong>게시하면 피드에 계속 공개돼요.</strong><p>같은 브라우저에서 가입·로그인하면 내 게시물로 연결할 수 있어요.</p></div>
    <details className={s.details}><summary>체험·개인정보 안내 자세히</summary><ul>
    <li>이 브라우저를 구분하는 쿠키(최대 30일)와 접속 IP를 서버 보안키로 바꾼 값으로 체험 횟수를 관리해요. 체험 시작 기록에는 접속 IP가 보안 기록으로 남아요.</li>
    <li>올린 사진과 요청은 AI 사진 생성(BytePlus, 해외)과 유해성 검사(OpenAI, 해외)에 쓰여요. AI 사진을 만든 뒤 'AI로 내용 작성'을 누르면 고른 항목 이름과 요청 문장만 OpenAI(해외)로 보내 제목, 본문을 써 드리고, 게시 전에 고칠 수 있어요.</li>

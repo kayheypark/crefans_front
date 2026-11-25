@@ -13,7 +13,7 @@ import type {AiHeartInput,AiHeartResult,AiPhotoEditInput,AiPhotoEditResult,AiRev
 
 // Signed-out AI photo trial (2026-11-15). The server identifies the visitor by an httpOnly cookie set after consent
 // (POST /guest/session); this model never sees the token. Limits and the 24-hour public window are enforced by the server.
-export const GUEST_CONSENT_VERSION='2026-11-16.guest.5';
+export const GUEST_CONSENT_VERSION='2026-11-26.guest.6';
 // A non-secret local flag: this browser started a trial, so ask the server to link its posts after sign-in. The guest token itself
 // stays in the httpOnly cookie. Storage can be blocked; then the link simply happens on a later visit with storage.
 const TRIAL_FLAG='crefans-guest-trial';
@@ -25,7 +25,7 @@ const reportedReplays=new Set<string>();
 async function reportReplaySession(){const id=await replaySessionId();if(!id||reportedReplays.has(id))return;reportedReplays.add(id);const distinctId=await replayVisitorId();const r=await api<{recorded:boolean}>('/guest/replay-session',{sessionId:id,...(distinctId?{distinctId}:{})});if(!r.success)reportedReplays.delete(id);}
 function markGuestTrial(){try{window.localStorage.setItem(TRIAL_FLAG,'1');}catch{}}
 export type GuestCaption={title:string;body:string;source:'ai'|'template'};
-export type GuestSession={active:boolean;authorId?:string;consentVersion:string;limit:number;postHours:number;remaining:number;postRewardClaimed?:boolean;shareRewardClaimed?:boolean;shopRewardClaimed?:boolean;shopReward?:number;heartReward?:number;heartRewardMax?:number;postReward?:number;replayConsentVersion?:string;replayConsented?:boolean};
+export type GuestSession={active:boolean;authorId?:string;consentVersion:string;limit:number;postHours:number|null;remaining:number;postRewardClaimed?:boolean;shareRewardClaimed?:boolean;shopRewardClaimed?:boolean;shopReward?:number;heartReward?:number;heartRewardMax?:number;postReward?:number;replayConsentVersion?:string;replayConsented?:boolean};
 // 2026-11-23 user decision: guest results always carry the watermark (the server also ignores watermark=false from a guest).
 export function guestAiPhotoEditBody(input:AiPhotoEditInput){const body=aiPhotoEditBody(input);body.append('watermark','true');return body;}
 export function useGuestTrialModel(enabled:boolean){
