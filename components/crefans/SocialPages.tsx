@@ -253,11 +253,11 @@ export function FeedPage({model}:{model:ServiceViewModel}){
   const member=model.mode==='live'&&model.signedIn;
   const [localCategory,setLocalCategory]=useState('전체');
   const category=model.feedCategory?.value??localCategory,selectCategory=model.feedCategory?.select??setLocalCategory;
-  const [askConsent,setAskConsent]=useState(false);
+  const [askConsent,setAskConsent]=useState(false),[agreed,setAgreed]=useState(false);
   const room=category==='NSFW관'&&model.mode==='live';
   const categories=['전체',...(model.mode==='live'?['NSFW관']:[]),...data.categories.filter(item=>item!=='전체'&&item!=='NSFW관')];
   function choose(item:string){
-    if(item==='NSFW관'&&!room){setAskConsent(true);return;}
+    if(item==='NSFW관'&&!room){setAgreed(false);setAskConsent(true);return;}
     selectCategory(item);
   }
   const posts=model.feedCategory||category==='전체'?data.posts:data.posts.filter(post=>data.creators.some(creator=>creator.id===post.creatorId&&creator.tags.includes(category)));
@@ -267,9 +267,11 @@ export function FeedPage({model}:{model:ServiceViewModel}){
       <CreatorSearch href={`${basePath}/explore`}/>
       <ChipRow label="관심 카테고리" className={s.feedCategories}>{categories.map(item=><CategoryChip key={item} label={item} iconUrl={model.data.categoryIcons?.[item]} selected={category===item} onClick={()=>choose(item)}/>)}</ChipRow>
     </div>
-    <Dialog open={askConsent} onClose={()=>setAskConsent(false)} title="NSFW관에 입장할까요?">
-      <p className={s.dialogCopy}>이곳에서는 민감한 사진이 블러 없이 표시돼요.</p>
-      <DialogActions><Action variant="secondary" onClick={()=>setAskConsent(false)}>취소</Action><Action onClick={()=>{setAskConsent(false);selectCategory('NSFW관');}}>동의하고 보기</Action></DialogActions>
+    <Dialog open={askConsent} onClose={()=>setAskConsent(false)} title="NSFW관 입장 안내" className={s.roomDialog} illustration={<span className={s.roomShield}><Icon name="shield" width={26} height={26}/></span>}>
+      <div className={s.roomCopy}><p>NSFW관에는 노출 등 일부 이용자가 민감하게 느낄 수 있는 사진이 있어요. 입장하면 사진이 <strong>블러 없이 바로 표시돼요.</strong></p>
+        <p>동의는 이번 입장에만 적용돼요. 기본 피드로 돌아가면 민감한 사진은 다시 흐리게 보여요.</p></div>
+      <label className={s.roomAgreement}><input type="checkbox" checked={agreed} onChange={event=>setAgreed(event.target.checked)}/><span>안내를 읽었으며, 민감한 사진을 블러 없이 보는 데 동의합니다.</span></label>
+      <DialogActions className={s.roomActions}><Action variant="secondary" onClick={()=>setAskConsent(false)}>취소</Action><Action disabled={!agreed} onClick={()=>{if(agreed){setAskConsent(false);selectCategory('NSFW관');}}}>동의하고 입장하기</Action></DialogActions>
     </Dialog>
     {/* 2026-11-15: signed-out visitors can try AI photos and post without an account (live service only). */}
     {model.mode==='live'&&!model.signedIn&&<GuestCosplayBanner href="/service/landing-ai-image-generation" aboutHref="/service/landing-ai-image-generation"/>}
