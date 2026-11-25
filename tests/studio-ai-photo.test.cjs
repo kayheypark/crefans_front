@@ -1278,6 +1278,11 @@ test('skin cards select one cosmetic finish and submit it through the photo edit
  const {r,click,calls}=await open();
  await click('피부');
  for(const title of ['물광','오일','흰색페인트','검정페인트','은색페인트'])assert.ok(r.root.findByProps({'aria-label':title}));
+ const original=()=>r.root.findByProps({'aria-label':'원본 유지'});
+ assert.equal(original().props['aria-pressed'],true);
+ await click('물광');await click('원본 유지');
+ assert.equal(original().props['aria-pressed'],true);
+ assert.equal(r.root.findByProps({'aria-label':'물광'}).props['aria-pressed'],false);
  await click('물광');await click('은색페인트');
  assert.equal(r.root.findByProps({'aria-label':'물광'}).props['aria-pressed'],false);
  await click('만들기');assert.equal(calls[0].kind,'skin');assert.match(calls[0].prompt,/은색 바디페인트/);
