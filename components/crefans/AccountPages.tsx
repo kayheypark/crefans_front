@@ -108,7 +108,7 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
         {emailNotice&&(emailVerified?<VerifiedNote>{emailNotice}</VerifiedNote>:<p className={s.hint} role="status">{emailNotice}</p>)}{emailError&&<p className={s.error} role="alert">{emailError}</p>}
         {/* 2026-11-16 user request: the number is typed right in the form; '인증하기' opens the message preview directly. */}
         {phoneRequired&&<div className={s.verifyRow}><Field label="휴대폰 번호" type="tel" inputMode="numeric" autoComplete="tel" maxLength={13} value={phone} readOnly={phoneVerified} onChange={e=>setPhone(e.target.value)} placeholder="01012345678"/>{phoneVerified?null:<Action type="button" variant="secondary" disabled={!emailVerified||!phoneValid} onClick={()=>setPhoneOpen(true)}>인증하기</Action>}</div>}
-        {phoneRequired&&(phoneVerified?<VerifiedNote>휴대폰 번호 인증이 완료되었습니다.</VerifiedNote>:<p className={s.hint}>{emailVerified?'번호 하나에 계정 하나만 만들 수 있어요.':'이메일 인증 후 진행해 주세요.'}</p>)}
+        {phoneRequired&&(phoneVerified?<VerifiedNote>휴대폰 번호 인증이 완료되었습니다.</VerifiedNote>:emailVerified&&<p className={s.hint}>번호 하나에 계정 하나만 만들 수 있어요.</p>)}
         {phoneRequired&&submitted&&!phoneVerified&&<p className={s.error} role="alert">휴대폰 번호 확인이 필요해요.</p>}
         <Field label="비밀번호" type="password" showPasswordToggle autoComplete="new-password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="비밀번호를 입력하세요" hint={errors.password?'8자 이상 입력해주세요.':undefined} error={submitted?errors.password:undefined}/>
         {!errors.password&&<VerifiedNote>사용할 수 있는 비밀번호입니다.</VerifiedNote>}

@@ -413,6 +413,7 @@ test('2026-11-16 phone at signup: when the server asks, signup stays disabled un
  data.accountActions.requestSignupCode=async()=>ok({message:'코드 전송'});data.accountActions.verifySignupCode=async()=>ok({message:'인증 완료'});data.accountActions.signup=async value=>{calls.push(value);return ok({message:'가입 완료'});};
  const phoneCalls=[];data.accountActions.signupPhone={start:async phone=>{phoneCalls.push(['start',phone]);return ok({code:'123456',receiver:'1666-3538',smsUri:'sms:16663538?&body=123456',expiresAt:'2026-11-16T12:00:00Z'});},confirm:async phone=>{phoneCalls.push(['confirm',phone]);return ok({verified:true});}};
  const tree=mount(pages.SignupPage,data),button=name=>tree.root.findAllByType('button').find(node=>node.children.includes(name)),submit=()=>tree.root.findAllByType('button').find(node=>node.props.type==='submit');
+ assert.doesNotMatch(text(tree),/이메일 인증 후 진행해 주세요/);
  change(field(tree,'이메일'),'phone@example.invalid');change(field(tree,'비밀번호'),'Beta-test-123!');change(field(tree,'비밀번호 확인'),'Beta-test-123!');change(field(tree,'닉네임'),'폰');
  const checks=tree.root.findAllByType('input').filter(n=>n.props.type==='checkbox');act(()=>{for(const i of [0,1,2])checks[i].props.onChange({target:{checked:true}});});
  change(field(tree,'휴대폰 번호'),'010-1234-5678');assert.equal(button('인증하기').props.disabled,true,'phone check waits for the email code');
