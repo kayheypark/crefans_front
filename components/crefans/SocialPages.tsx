@@ -265,7 +265,11 @@ export function FeedPage({model}:{model:ServiceViewModel}){
     {model.mode==='live'&&!room&&<GuestPostNotice/>}
     <div className={s.feedToolbar}>
       <CreatorSearch href={`${basePath}/explore`}/>
-      <ChipRow label="관심 카테고리" className={s.feedCategories}>{categories.map(item=><CategoryChip key={item} label={item} iconUrl={model.data.categoryIcons?.[item]} selected={category===item} onClick={()=>choose(item)}/>)}</ChipRow>
+      <ChipRow label="관심 카테고리" className={s.feedCategories}>
+        {categories.map(item=>item==='NSFW관'
+          ? <Chip key={item} selected={category===item} onClick={()=>choose(item)} icon={<Image src="/brand/categories/nsfw-heart-flat.svg" width={20} height={20} alt="" />}><span className={s.nsfwTabLabel}>NSFW</span></Chip>
+          : <CategoryChip key={item} label={item} iconUrl={model.data.categoryIcons?.[item]} selected={category===item} onClick={()=>choose(item)}/>)}
+      </ChipRow>
     </div>
     <Dialog open={askConsent} onClose={()=>setAskConsent(false)} title="NSFW관 입장 안내" className={s.roomDialog} illustration={<Image src="/brand/ai-photo/unsafe-input-v1.webp" alt="" width={84} height={84}/>}>
       <div className={s.roomCopy}><p>신체 노출이나 성적인 표현, 폭력·유혈 장면, 혐오·차별을 나타내는 표현이나 상징이 담긴 사진이 있을 수 있어요. 입장하면 사진이 <strong>블러 없이 바로 표시돼요.</strong></p>
