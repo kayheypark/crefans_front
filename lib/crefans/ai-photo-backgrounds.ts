@@ -130,6 +130,7 @@ export const aiPhotoBackgrounds=[
  {id:'fb5091',category:'indoor',title:'서류 보관실',prompt:'배경을 서류 보관실 참고 사진의 공간과 조명으로 바꿔줘.'},
  {id:'fb5092',category:'indoor',title:'철제 계단 공장',prompt:'배경을 철제 계단 공장 참고 사진의 공간과 조명으로 바꿔줘.'},
  {id:'fb5093',category:'indoor',title:'아치 화이트 벽감',prompt:'배경을 아치 화이트 벽감 참고 사진의 공간과 조명으로 바꿔줘.'},
- {id:'fb5094',category:'indoor',title:'화이트 수납장 방',prompt:'배경을 화이트 수납장 방 참고 사진의 공간과 조명으로 바꿔줘.'}
+ {id:'fb5094',category:'indoor',title:'화이트 수납장 방',prompt:'배경을 화이트 수납장 방 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'a76e41',category:'indoor',title:'네온 칵테일 바',prompt:'배경을 네온 칵테일 바 참고 사진의 공간과 조명으로 바꿔줘.'}
 ] as const;
 export function aiPhotoBackgroundId(prompt:string|undefined){return aiPhotoBackgrounds.find(item=>item.prompt===prompt)?.id;}

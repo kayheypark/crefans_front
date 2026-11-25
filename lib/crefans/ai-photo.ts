@@ -25,6 +25,7 @@ export const AI_PHOTO_BODY_OPEN=false;
 export const aiPhotoKinds:{value:AiPhotoKind;label:string;placeholder:string}[]=[
  {value:'outfit',label:'옷',placeholder:'옷을 흰색 세일러 교복 코스튬으로'},
  {value:'makeup',label:'메이크업',placeholder:'입술을 자연스러운 코랄 톤으로 바꿔줘.'},
+ {value:'skin',label:'피부',placeholder:'보이는 피부에 촉촉한 물광을 더해줘.'},
  {value:'expression',label:'표정',placeholder:'치아가 살짝 보이게 밝게 웃어줘.'},
  {value:'pose',label:'포즈',placeholder:'벚꽃 아래 벤치에 앉아 카메라를 바라보는 포즈'},
  {value:'body',label:'신체 보정',placeholder:'가슴·힙 크기와 키 비율을 자연스럽게 보정해줘.'},

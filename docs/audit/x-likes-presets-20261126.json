@@ -1,0 +1,158 @@
+{
+  "sourceCount": 25,
+  "posts": 19,
+  "newBackground": "a76e41",
+  "note": "기존 배경과 포즈는 가장 가까운 일반 촬영 구도로 대응했다. null은 화면에서 확인하기 어려운 항목이다.",
+  "items": [
+    {
+      "index": 1,
+      "sha256": "f640959e7548b608c033ab2934844a4a7602e28403644077d514d59ddb4c47ad",
+      "background": "fb5082",
+      "pose": "의자에 앉기"
+    },
+    {
+      "index": 2,
+      "sha256": "b2697d8d2ae331a229e57adc32686c05d69d223a2b9d4c1f03eca6e9ae4a7cbf",
+      "background": "d9c303",
+      "pose": "거울 셀카"
+    },
+    {
+      "index": 3,
+      "sha256": "548f66c5b8dd3e996f31b72d66d55e27b633cad4f8dcef5b238edbb9427755be",
+      "background": "b7a101",
+      "pose": "무릎 꿇고 앉기"
+    },
+    {
+      "index": 4,
+      "sha256": "9972f3b7a6fd040e8437a0badbf897909a51c03096be4c81035c1ab979a43731",
+      "background": null,
+      "pose": null
+    },
+    {
+      "index": 5,
+      "sha256": "307b7c9218977679dac6288f5de5506d65ff0a0b0980a33509c4c8fb0ced7e3a",
+      "background": "fb5004",
+      "pose": "무릎 꿇고 앉기"
+    },
+    {
+      "index": 6,
+      "sha256": "98d4eee2a87e489493ea8303d2f906da21b4cc3c840ff7fa06cefc8c5cc003fe",
+      "background": "ead401",
+      "pose": "무릎 꿇고 앉기"
+    },
+    {
+      "index": 7,
+      "sha256": "449415f79b97d1937d117a914cc4dc1e2450f3adf2f259b09ec535fba0494c2f",
+      "background": "b7a101",
+      "pose": "옆으로 기대 눕기"
+    },
+    {
+      "index": 8,
+      "sha256": "131bab55c7db35324bfa9902686c78dc75b71ba3a2b62dd1fa93a1e12e0b5351",
+      "background": "fb5081",
+      "pose": "한 발 뒤로 접기"
+    },
+    {
+      "index": 9,
+      "sha256": "f12d57ec383179c2fd74f57f160042bd5f062559e02a2f11eb1b5c8c13658bbb",
+      "background": "d9c303",
+      "pose": "다리 모아 옆앉기"
+    },
+    {
+      "index": 10,
+      "sha256": "7f010117d92d64bed35ea0cede1a5169d10da5e534c3c82b81d28ba31d83d9cb",
+      "background": "d9c303",
+      "pose": "다리 모아 옆앉기"
+    },
+    {
+      "index": 11,
+      "sha256": "8b8280b14f974336fd9630c8187eb79ac0bba339f5dba4e6cbad76d4f3a03b7b",
+      "background": "fb5003",
+      "pose": "벤치에 앉기"
+    },
+    {
+      "index": 12,
+      "sha256": "ddf21fcc741e1b13683e4a5a8cfbe6c1e07db78fd09d9b82a93a503d9b48d7fb",
+      "background": "fb5010",
+      "pose": "무릎 꿇고 앉기"
+    },
+    {
+      "index": 13,
+      "sha256": "6ad051ae2995af449bd70122703c634b88effe2b182ce795bda371d42705a24e",
+      "background": "fb5040",
+      "pose": "쪼그려 앉기"
+    },
+    {
+      "index": 14,
+      "sha256": "59b5bd9a0246439bdd88ab1ce9b7839382ff2e770a36302d9d15a13e67de6c35",
+      "background": null,
+      "pose": "정면 서기"
+    },
+    {
+      "index": 15,
+      "sha256": "944716932bf37ad877291df5cfd72a4e78be6e4296276a64e1c41d00f0ff7183",
+      "background": null,
+      "pose": null
+    },
+    {
+      "index": 16,
+      "sha256": "1e1552f04d626e8ee75e2cc3f265ab18acd2467f5e8641f036db9547b5cde84f",
+      "background": "fb5084",
+      "pose": "무릎 꿇고 앉기"
+    },
+    {
+      "index": 17,
+      "sha256": "cdad8b4eaadb09ce9fca1bfcce14c1970f73c1372ff83f8fc9aa575374398ae9",
+      "background": "fb5084",
+      "pose": "바닥에 앉기"
+    },
+    {
+      "index": 18,
+      "sha256": "e88f680739afe8ee311250236718a383465c47873d60f23a7558999869fc9ce4",
+      "background": "a76e41",
+      "pose": "한 손 머리에 올리기"
+    },
+    {
+      "index": 19,
+      "sha256": "36d41a7a207b6e47477ff90a2c2075f24655071e42804170961cee7f12b2bf01",
+      "background": "a76e41",
+      "pose": "앞으로 기대기"
+    },
+    {
+      "index": 20,
+      "sha256": "5e83cc9524692df20baa7e2bf3660e9a3c616a0045cac2b394a8222374b00862",
+      "background": "fb5048",
+      "pose": "한쪽 무릎 세우기"
+    },
+    {
+      "index": 21,
+      "sha256": "ffbc22e3853375425c74b91abd5911fbebd10bdfc81eadab0621d7019d92c5c5",
+      "background": "d9c303",
+      "pose": "거울 셀카"
+    },
+    {
+      "index": 22,
+      "sha256": "21be12e379d4a475a6de9d92bce9a0c1ee52acda2b163b2c168b9a5e74bbeead",
+      "background": "b7a101",
+      "pose": null
+    },
+    {
+      "index": 23,
+      "sha256": "0a56fcacedc00264b01e2a236e5adc42396d964c9685790195482071d768253a",
+      "background": "fb5014",
+      "pose": "앞으로 기대기"
+    },
+    {
+      "index": 24,
+      "sha256": "b39a85edae1a3bceacf0d98d0af458a6fa3e60598b0f09d9b3c823f42a52022d",
+      "background": "fb5011",
+      "pose": "쪼그려 앉기"
+    },
+    {
+      "index": 25,
+      "sha256": "c9cb2029dda6ef90318fd08b106d7223598cfd336b84bac7af6838095280928f",
+      "background": "fb5079",
+      "pose": null
+    }
+  ]
+}

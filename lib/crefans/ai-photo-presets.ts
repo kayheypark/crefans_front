@@ -39,6 +39,13 @@ export const aiPhotoPresets:Record<AiPhotoKind,readonly string[]>={
 "lens": ["스마트폰 전면 카메라로 정면 셀카를 찍은 구도로 바꿔줘. 팔을 뻗어 촬영한 자연스러운 가까운 거리와 가벼운 광각 느낌을 표현하고 얼굴이 중심에 오게 해줘. 거울은 추가하지 마.", "거울 앞에서 휴대폰을 들고 찍은 거울 셀카로 바꿔줘. 휴대폰과 자연스러운 거울 반사가 보이게 하되 얼굴을 과도하게 가리지 말고 인물과 손이 중복되지 않게 해줘.", "다른 사람이 DSLR로 촬영한 자연스러운 인물 사진 느낌으로 바꿔줘. 눈높이의 자연스러운 원근감, 또렷한 인물과 적당한 배경 흐림을 표현해줘. 촬영 장비는 화면에 추가하지 마.", "다른 사람이 먼 거리에서 대형 망원렌즈로 촬영한 인물 사진 느낌으로 바꿔줘. 얼굴 비율은 자연스럽게 유지하고 망원 특유의 압축된 거리감과 크게 흐려진 배경을 표현해줘. 촬영 장비는 화면에 추가하지 마."],
 "body": ["가슴 크기를 조금 작게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "가슴 크기를 조금 크게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "힙 크기를 조금 작게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "힙 크기를 조금 크게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "전신의 키 비율을 조금 작아 보이게 자연스럽게 보정해줘.", "전신의 키 비율을 조금 커 보이게 자연스럽게 보정해줘."],
  "outfit": aiPhotoOutfits.map(item=>item.prompt),
+ "skin":[
+  '피부 결은 살리면서 광대와 이마에 촉촉하고 부드러운 물광을 더해줘.',
+  '보이는 피부에 투명한 바디 오일을 얇게 바른 듯 선명한 하이라이트를 더해줘.',
+  '보이는 피부에 불투명한 흰색 바디페인트를 칠해줘. 얼굴의 이목구비와 옷은 유지해줘.',
+  '보이는 피부에 불투명한 검정 바디페인트를 칠해줘. 얼굴의 이목구비와 옷은 유지해줘.',
+  '보이는 피부에 빛이 반사되는 메탈릭 은색 바디페인트를 칠해줘. 얼굴의 이목구비와 옷은 유지해줘.',
+ ],
  "makeup": aiPhotoMakeups.map(item=>item.prompt),
  "expression": [
   aiPhotoNeutralExpressionPreset,
@@ -111,7 +118,7 @@ export function aiPhotoPosePosture(example:string):AiPhotoPosePosture{return sit
 
 // '원본 유지' 카드: 고르면 그 탭의 선택을 비운다. 아무것도 고르지 않은 상태와 같고 생성 요청에는 아무 문구도 넣지 않는다.
 export const AI_PHOTO_KEEP_ORIGINAL='__keep_original__';
-export const aiPhotoKeepOriginalKinds:readonly AiPhotoKind[]=['makeup','expression','pose','background','camera','lens'];
+export const aiPhotoKeepOriginalKinds:readonly AiPhotoKind[]=['skin','makeup','expression','pose','background','camera','lens'];
 // 메이크업은 여러 개를 함께 고를 수 있다(2026-11-15). 다른 탭은 탭마다 하나.
 export const aiPhotoMultiSelectKinds:readonly AiPhotoKind[]=['makeup'];
 
@@ -158,6 +165,7 @@ export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'origi
 // 카드의 짧은 이름과 실제 생성 요청을 분리한다. 순서는 각 프리셋과 같다.
 export const aiPhotoPresetTitles:Record<AiPhotoKind,readonly string[]>={
  "outfit":aiPhotoOutfits.map(item=>item.name),
+ "skin":["물광","오일","흰색페인트","검정페인트","은색페인트"],
  "makeup":aiPhotoMakeups.map(item=>item.title),
  "expression":["무표정", "환한 미소", "잔잔한 미소", "눈웃음", "편안한 표정", "놀란 표정", "윙크", "활짝 웃기", "차분한 표정", "반가운 표정", "수줍은 미소", "힘 뺀 미소", "장난스러운 미소", "도도한 시선", "자신감 있는 미소", "턱 살짝 들기"],
  "pose":["손인사", "살짝 돌아서기", "두 손 모으기", "허리에 손", "고개 기울이기", "브이", "정면 서기", "작은 손인사", "앞으로 기대기", "턱에 손", "손하트", "옆모습 시선", "의자에 앉기", "벤치에 앉기", "쪼그려 앉기", "벽에 기대 쉬기", "바닥에 앉기", "시선 밖 스냅", "걷다 돌아보기", "대화하는 스냅", "계단에 앉기", "난간에 기대기", "기지개", "산책 스냅", "뒤돌아보기", "다리 넓혀 서기", "양팔 머리 위로", "의자 거꾸로 앉기", "다리 꼬아 앉기", "한쪽 무릎 세우기", "무릎 꿇고 앉기", "다리 모아 옆앉기", "카메라로 손 뻗기", "이마에 손 대기", "뒤로 손 짚고 기대기", "한 발 뒤로 접기", "양손으로 소품 들기", "무릎 안고 앉기", "앉아서 팔 올리기", "한쪽 무릎 들기", "한 손 머리에 올리기", "소품 어깨에 메기", "한 다리 뻗어 런지", "고양이 손 포즈", "검지 쉿 포즈", "의자 위 무릎 세워 앉기", "다리 뻗고 앉기", "안경 만지기", "옆으로 기대 눕기", "경례하기", "벽에 다리 올려 눕기", "누워서 올려보기", "엎드려 쓰러지기", "양팔 벌려 서기", "음료 마시기", "캐리어에 앉기", "거울 셀카", "오토바이 타기", "하이킥", "마이크 스탠드 잡기", "카메라 응시하기"],
