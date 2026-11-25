@@ -43,6 +43,7 @@ import {CommentBody,CommentContext,useMentionInput} from './CommentMention';
 import {MediaSummary} from './MediaSummary';
 import {usePresence} from '@/components/ui/usePresence';
 import {designTokens} from '@/lib/design/tokens';
+import {GuestPostNotice} from './GuestPostNotice';
 import {SensitivePhoto} from './SensitivePhoto';
 import {MediaOverlay} from './MediaOverlay';
 import {replayBlocksPost} from '@/lib/analytics/posthog';
@@ -255,6 +256,7 @@ export function FeedPage({model}:{model:ServiceViewModel}){
   const categories=['전체',...data.categories.filter(item=>item!=='전체')];
   const posts=model.feedCategory||category==='전체'?data.posts:data.posts.filter(post=>data.creators.some(creator=>creator.id===post.creatorId&&creator.tags.includes(category)));
   return <div className={`${s.feed} ${!posts.length&&category==='전체'?s.emptyFeed:''}`}>
+    {model.mode==='live'&&<GuestPostNotice/>}
     <div className={s.feedToolbar}>
       <CreatorSearch href={`${basePath}/explore`}/>
       <ChipRow label="관심 카테고리" className={s.feedCategories}>{categories.map(item=><CategoryChip key={item} label={item} iconUrl={model.data.categoryIcons?.[item]} selected={category===item} onClick={()=>selectCategory(item)}/>)}</ChipRow>

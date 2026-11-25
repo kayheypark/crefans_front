@@ -1,0 +1,14 @@
+dialog.notice{width:min(382px,calc(100vw - 32px));padding:18px;border-radius:24px;background:white;color:#202332}
+.notice>header{min-height:32px;margin:0 2px 14px;background:url('/brand/crefans-logo.svg') left center/90px auto no-repeat}
+.notice>header>h2{opacity:0}
+.visual{height:clamp(128px,22dvh,176px);position:relative;overflow:hidden;border-radius:14px;background:radial-gradient(ellipse at 5% 90%,#ffd9e7,transparent 64%),linear-gradient(130deg,#f7efff,#dce5ff)}
+.visual>div{position:absolute;left:50%;bottom:9%;height:77%;aspect-ratio:98/136;padding:4px 4px 9px;box-sizing:border-box;background:white;border-radius:7px;box-shadow:0 6px 14px #38305d30}
+.visual>div:nth-child(1){transform:translateX(-108%) rotate(-12deg)}.visual>div:nth-child(2){transform:translateX(10%) rotate(13deg)}.visual>div:last-child{transform:translateX(-50%) rotate(-2deg);bottom:11%}
+.visual img{width:100%;height:100%;object-fit:cover;object-position:50% 24%;border-radius:4px}
+.copy{padding:18px 5px 0;word-break:keep-all}
+.copy small{font-size:12px;font-weight:700;color:#4464ae}
+.copy h3{margin:6px 0 12px;font-size:26px;line-height:1.28;letter-spacing:-.055em}
+.copy p{margin:0;color:#535969;font-size:15px;line-height:1.6}
+.copy button{width:100%;border:0;font:inherit;cursor:pointer}
+.copy .ok{margin-top:18px;min-height:46px;background:#2962eb;color:white;font-weight:650;border-radius:11px}
+.copy .snooze{display:block;min-height:40px;background:transparent;color:#535969;font-size:13px}
