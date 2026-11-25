@@ -290,7 +290,6 @@ button.contact:not(:disabled):not([data-unread=true]):hover{background:color-mix
 
 dialog.roomDialog{width:min(410px,calc(100vw - 32px));padding:24px;word-break:keep-all}
 dialog.roomDialog>header{align-items:flex-start;gap:14px;text-align:left;margin-bottom:12px}
-.roomShield{width:48px;height:48px;display:grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,#e6edff,#f2eaff);color:#5054ac}
 .roomCopy p{margin:0;font-size:15px;line-height:1.65}
 .roomCopy p+p{margin-top:9px;font-size:14px}
 .roomCopy strong{color:var(--cf-color-text)}

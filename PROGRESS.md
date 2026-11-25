@@ -6676,3 +6676,6 @@
 
 ## 2026-11-25 — 민감 콘텐츠 사전 안내 범위
 NSFW관 입장 문구에 신체 노출·성적 표현, 폭력·유혈, 혐오·차별 표현 및 상징을 예시로 명시했다. 게시 허용 정책 변경 없이 열람자가 판단할 수 있게 사전 고지한다. 2026-11-25 확인: X 안내 https://help.x.com/en/rules-and-policies/notices-on-x , 혐오 이미지 https://help.x.com/en/rules-and-policies/hateful-conduct-policy , YouTube 노출·성적 콘텐츠 https://support.google.com/youtube/answer/2802002 . 프론트 타입 검사 통과.
+
+## 2026-11-25 — NSFW관 방패·하트
+입장 확인창에서 기존 AI 사진 편집 민감 안내용 unsafe-input-v1.webp(보라색 방패 위 분홍 하트) 재사용. 자산 육안 확인, TypeScript 통과.
