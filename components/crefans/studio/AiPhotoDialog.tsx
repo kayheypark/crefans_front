@@ -99,8 +99,8 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
  const [costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>('nikke');
  const costumes=aiPhotoSortByUsage('outfit',aiPhotoCostumes.filter(costume=>presetQuery.trim()?aiPhotoPresetMatches(presetQuery,costume.name,costume.detail,aiPhotoCostumeCategories.find(category=>category.value===costume.category)!.label):costume.category===costumeCategory),costume=>costume.id),costumeCategoryInfo=aiPhotoCostumeCategories.find(category=>category.value===costumeCategory)!;
  const cosplay=kind==='outfit'&&cosplayOpen;
- const hasCostume=selectedPresets.some(item=>item.kind==='outfit'&&aiPhotoCostumes.some(costume=>aiPhotoPresetText(costume.prompt)===item.prompt));
- const style=hasOutfit&&(hasCostume||cosplayOpen)?'cosplay':'photo';
+ const costume=selectedPresets.length?aiPhotoCostumes.find(entry=>selectedPresets.some(item=>item.kind==='outfit'&&item.prompt===aiPhotoPresetText(entry.prompt))):undefined;
+ const style=hasOutfit&&(costume||cosplayOpen)?'cosplay':'photo';
  // 2026-11-18: a game/anime costume is picked → the result cannot go on tip or membership-only posts.
  const franchisePicked=selectedPresets.some(item=>item.kind==='outfit'&&aiPhotoCostumes.some(costume=>isFranchiseCostume(costume)&&aiPhotoPresetText(costume.prompt)===item.prompt));
  const [presetPages,setPresetPages]=useState<Partial<Record<AiPhotoKind,number>>>({});
@@ -197,6 +197,17 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
  useEffect(()=>{if(!sources.some(item=>item.id===sourceId))setSourceId(sources[0]?.id||'');},[images,workingSources,sourceId]);
  useEffect(()=>{if(bodyRef.current){bodyRef.current.scrollTop=0;const sheet=bodyRef.current.closest('dialog');if(sheet)sheet.scrollTop=0;}if(stage==='results')resultTitleRef.current?.focus({preventScroll:true});},[stage,waiting]);
  useEffect(()=>{if(!busy){setElapsed(0);return;}const begun=Date.now();const timer=setInterval(()=>setElapsed(Math.floor((Date.now()-begun)/1000)),1000);return()=>clearInterval(timer);},[busy]);
+ const confirmFilters=sourceConfirm==='ask'?[
+  ...selectedPresets.filter(item=>item.kind!=='body'&&!(costume&&item.prompt===aiPhotoPresetText(costume.prompt))).map(item=>({
+   label:aiPhotoKinds.find(option=>option.value===item.kind)!.label,
+   value:item.prompt===AI_PHOTO_OWN_BACKGROUND_PROMPT?'내 사진':aiPhotoSelectionLabels([item],[],targetGender)[0]
+  })),
+  ...Object.entries(bodySelection).map(([key,level])=>({label:(targetGender==='male'?aiPhotoMaleBodyControls:aiPhotoBodyControls).find(control=>control.key===key)?.label,value:String(level)})),
+  ...libraryAssets.map(asset=>({label:photoAssetLabel(asset.category),value:asset.title})),
+  ...(aspectRatio==='original'?[]:[{label:'비율',value:aspectRatio}]),
+  ...(targetGender==='original'?[]:[{label:'생성 인물',value:targetGender==='male'?'남성':'여성'}]),
+  ...(customPrompt.trim()?[{label:'직접 입력',value:customPrompt.trim()}]:[])
+ ].filter(item=>item.value):[];
  const source=sources.find(item=>item.id===sourceId),originalSource=sources.find(item=>item.id===(sourceOrigins.current.get(sourceId)||sourceId)),typical=quota.typicalSeconds;
  function changeSource(id:string){setSourceId(id);setStrokes([]);setDetailedOutfit(false);setSourcePicker(false);setError('');}
  // 2026-11-23 user decision: like the member's recent-source pick, a newly uploaded trial photo is selected once (not the sample).
@@ -227,7 +238,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
    const mask=requiresMask?await buildAiMask(source.url,strokes):undefined;
    if(requiresMask&&!mask){setError('칠한 영역을 처리하지 못했어요. 다시 칠해 주세요.');setStage('edit');return;}
    const ownBackgroundId=ownBackground&&selectedPresets.some(item=>item.kind==='background'&&item.prompt===AI_PHOTO_OWN_BACKGROUND_PROMPT)?ownBackground.id:undefined;
-   const result=await onEdit({generationMethod:method.value,...(ownBackgroundId?{backgroundMediaId:ownBackgroundId}:{}),...(retryImproved?{retryImproved:true}:{}),backgroundId:aiPhotoBackgroundId(selectedPresets.find(item=>item.kind==='background')?.prompt),presetKeys:selectedPresets.filter(item=>item.kind!=='outfit'&&!(item.kind==='background'&&(aiPhotoBackgroundId(item.prompt)||item.prompt===AI_PHOTO_OWN_BACKGROUND_PROMPT))).map(item=>({kind:item.kind,key:aiPhotoPresetTitle(item.kind,item.prompt,targetGender)})).filter(item=>item.key),aspectRatio,...(libraryAssets.length?{libraryIds:libraryAssets.map(item=>item.id)}:{}),...(game?{heartGameId:game.id}:{}),source,mode:cosplayOpen?'cosplay':'general',kind:editKinds.length>1?'combined':requestKind,...(editKinds.length>1?{editKinds}:{}),prompt:prompt.trim(),style,...(hasCostume?{costumeIds:aiPhotoCostumeRequest(selectedPresets).costumeIds}:{}),...(targetGender!=='original'?{targetGender}:{}),...(mask?{mask}:{}),consent:true});
+   const result=await onEdit({generationMethod:method.value,...(ownBackgroundId?{backgroundMediaId:ownBackgroundId}:{}),...(retryImproved?{retryImproved:true}:{}),backgroundId:aiPhotoBackgroundId(selectedPresets.find(item=>item.kind==='background')?.prompt),presetKeys:selectedPresets.filter(item=>item.kind!=='outfit'&&!(item.kind==='background'&&(aiPhotoBackgroundId(item.prompt)||item.prompt===AI_PHOTO_OWN_BACKGROUND_PROMPT))).map(item=>({kind:item.kind,key:aiPhotoPresetTitle(item.kind,item.prompt,targetGender)})).filter(item=>item.key),aspectRatio,...(libraryAssets.length?{libraryIds:libraryAssets.map(item=>item.id)}:{}),...(game?{heartGameId:game.id}:{}),source,mode:cosplayOpen?'cosplay':'general',kind:editKinds.length>1?'combined':requestKind,...(editKinds.length>1?{editKinds}:{}),prompt:prompt.trim(),style,...(costume?{costumeIds:aiPhotoCostumeRequest(selectedPresets).costumeIds}:{}),...(targetGender!=='original'?{targetGender}:{}),...(mask?{mask}:{}),consent:true});
    if(!result.success){if(publishReward&&result.errorCode==='GUEST_AI_LIMIT'){publishOfferShown.current=true;setPublishOffer(true);}else if((result.errorCode==='DAILY_LIMIT'||result.errorCode==='GUEST_AI_LIMIT')&&tickets<=0){refillShown.current=true;setRefillNotice(true);}else if(result.errorCode==='DAILY_LIMIT'&&shop){setShopOpen(true);void shop.refresh();}else{{/* 2026-11-23 이탈 분석: the network (GUEST_IP_LIMIT) and all-guest daily (GUEST_DAILY_CLOSED) limits also say "sign up to continue". */if(noHearts&&(result.errorCode==='GUEST_AI_LIMIT'||result.errorCode==='GUEST_IP_LIMIT'||result.errorCode==='GUEST_DAILY_CLOSED'))setSignupOffer(true);setRetryable(result.errorCode==='OUTPUT_MATERIAL_BLOCKED'||result.errorCode==='PROVIDER_OUTPUT_BLOCKED');setInputBlocked(result.errorCode==='PROVIDER_INPUT_BLOCKED'?'returned':result.errorCode==='INPUT_BLOCKED_LIMIT'?'used':result.errorCode==='UNSAFE_INPUT'?'unsafe':'');setError(result.errorMessage);}}setStage(results.length?'results':'edit');return;}
    const made=result.data.images.map(item=>({...item,aiGenerated:true}));for(const item of made){sourceOrigins.current.set(item.id,sourceOrigins.current.get(source.id)||source.id);resultPresets.current.set(item.id,selectedPresets);}
    setShopLink(costumeShopLink(selectedPresets.filter(item=>item.kind==='outfit').map(item=>item.prompt)));
@@ -418,9 +429,15 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
   {source&&<div className={s.sourceConfirm}>{sourceConfirm==='pick'?<div className={s.sourceConfirmPick} role="radiogroup" aria-label="편집할 이미지 고르기">{sources.map((item,index)=><button key={item.id} type="button" role="radio" aria-checked={item.id===sourceId} aria-label={`${index+1}번 사진`} className={s.source} onClick={()=>{changeSource(item.id);setSourceConfirm('ask');}}>
     {/* eslint-disable-next-line @next/next/no-img-element -- uploaded draft thumbnail */}
     <img src={item.preview||item.url} alt=""/>{item.aiGenerated&&<span className={s.ai}>AI</span>}</button>)}</div>:<>
-   {/* eslint-disable-next-line @next/next/no-img-element -- creator's own uploaded photo */}
-   <img className={s.sourceConfirmImage} src={source.url} alt="AI로 바꿀 사진"/>
-   <p>이 사진을 AI로 바꿔요. 다른 사진이라면 대상 변경을 눌러 주세요.</p></>}
+   <div className={s.confirmPhoto}>
+    {/* eslint-disable-next-line @next/next/no-img-element -- local or authenticated source image */}
+    <img className={s.sourceConfirmImage} src={source.url} alt="AI로 바꿀 사진"/>
+    <span className={s.confirmOriginal}>원본 사진</span>
+    {(costume||confirmFilters.length>0)&&<div className={s.confirmOverlay} role="group" aria-label="선택한 편집 옵션">
+     {costume&&<div className={s.confirmCostume}><Image src={costume.image} alt="" width={40} height={48}/><div><small>선택한 의상</small><strong>{costume.name} <span>{aiPhotoCostumeCategories.find(category=>category.value===costume.category)?.label}</span></strong></div></div>}
+     {confirmFilters.length>0&&<ul className={s.confirmFilters}>{confirmFilters.map((item,index)=><li key={index}><span>{item.label}</span> {item.value}</li>)}</ul>}
+    </div>}
+   </div></>}
    <div className={s.errorActions}>{sourceConfirm==='pick'?<Action type="button" variant="secondary" onClick={()=>setSourceConfirm('ask')}>돌아가기</Action>:<><Action type="button" variant="secondary" onClick={()=>{if(sources.length>1){setSourceConfirm('pick');return;}setSourceConfirm(null);setChangeUpload(true);}}>대상 변경</Action><Action type="button" onClick={()=>{setSourceConfirm(null);void generate();}}>이 사진으로 만들기</Action></>}</div>
   </div>}
  </Dialog>

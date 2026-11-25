@@ -71,6 +71,22 @@ test('2026-11-21: 만들기 confirms the photo; 대상 변경 picks another phot
  await act(async()=>one.r.root.find(n=>n.type==='button'&&text(n)==='사진 올리러 가기').props.onClick());assert.equal(closed,1);
 });
 
+test('confirmation overlays the chosen costume and prompt on the source photo',async()=>{
+ const {r,calls}=await open({},true);
+ const costume=r.root.findByProps({'aria-label':'코스프레 의상'}).findAllByType('button')[0];
+ const name=costume.props['aria-label'];
+ await act(async()=>costume.props.onClick());
+ await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'배경 유지'}}));
+ await act(async()=>r.root.find(n=>n.type==='button'&&n.props['aria-label']==='만들기').props.onClick());
+ const overlay=r.root.findByProps({'aria-label':'선택한 편집 옵션'});
+ assert.ok(text(overlay).includes(name));
+ assert.ok(text(overlay).includes('배경 유지'));
+ assert.ok(!text(overlay).includes('메이크업'));
+ assert.equal(overlay.parent.findByProps({alt:'AI로 바꿀 사진'}).props.src,photo.url);
+ assert.equal(calls.length,0);
+ await act(async()=>r.unmount());
+});
+
 test('dialog: no consent checkbox; explicit create confirms rights and sends one image request',async()=>{
  const {r,added,calls,click}=await open();
  await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'벚꽃 아래 앉은 포즈'}});});
