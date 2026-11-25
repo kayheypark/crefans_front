@@ -24,6 +24,11 @@ export default function ServiceShell({model,active,children,auth=false,authLoadi
   // React 19 treats inert as a boolean attribute (an empty string now means false), as in StudioShell.
   const interactionProps:Record<string,boolean>=ready?{}:{inert:true};
   useEffect(()=>{if(!auth&&window.matchMedia('(max-width:767px)').matches)scrollRef.current?.scrollTo(0,0);},[auth,scrollKey]);
+  function scrollHome(event:{preventDefault:()=>void}){
+    event.preventDefault();
+    const viewport=window.matchMedia('(max-width:767px)').matches?scrollRef.current:window;
+    viewport?.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+  }
   const messageUnread=signedIn?Object.values(model.messagesByCreator).flat().filter(message=>!message.mine&&message.unread).length:0;
   const unread=signedIn?data.notifications.filter(item=>!read.includes(item.id)).length:0;
   const counts:Record<string,number>={messages:messageUnread,notifications:unread};
@@ -31,11 +36,11 @@ export default function ServiceShell({model,active,children,auth=false,authLoadi
   return <CommentDockProvider viewportRef={rootRef}><div ref={rootRef} className={s.root} data-mobile-shell={!auth||undefined} data-screen={active} style={designVariables as CSSProperties}><a href="#page-content" className={s.skip}>본문으로 이동</a>
     {<header className={s.header} data-auth={auth||undefined}><Brand href={`${basePath}/feed`}/><div className={s.headerActions} aria-busy={authLoading||undefined}>{authLoading?<span className={s.headerPending}><DelayedInlineSpinner loading={authLoading}/></span>:signedIn?<><Link aria-label={unread>0?`알림, 읽지 않은 ${unread}개`:'알림'} className={s.bell} href={`${basePath}/notifications`}><NavigationIcon name="bell" active={active==='notifications'} size={21}/><UnreadBadge count={unread}/></Link><HeaderAccountMenu viewer={viewer} basePath={basePath} routeKey={scrollKey} onLogout={model.accountActions.logout}/></>:<><Link className={s.authLink} href={loginHref}>로그인</Link><Link className={`${s.authLink} ${s.authPrimary}`} href={signupLink}>회원가입</Link></>}</div></header>}
     <div ref={scrollRef} data-service-scroll className={`${s.body} ${auth?s.authLayout:''}`}>
-      {!auth&&<aside className={s.sidebar}><nav aria-label="사이드 메뉴">{menu.map(item=><Link key={item.id} aria-current={active===item.id?'page':undefined} href={`${basePath}/${item.id}`} aria-label={menuLabel(item)}><span className={s.bell}><NavigationIcon name={item.icon} active={active===item.id} size={21}/><UnreadBadge count={counts[item.id]||0}/></span>{item.label}</Link>)}</nav><div className={s.sidebarBottom}><ServiceLinks basePath={basePath}/><BusinessInfo className={s.sidebarBusiness}/><OfficialSocialLinks className={s.sidebarSocial}/></div></aside>}
+      {!auth&&<aside className={s.sidebar}><nav aria-label="사이드 메뉴">{menu.map(item=><Link key={item.id} aria-current={active===item.id?'page':undefined} href={`${basePath}/${item.id}`} aria-label={menuLabel(item)} onNavigate={active==='feed'&&item.id==='feed'?scrollHome:undefined}><span className={s.bell}><NavigationIcon name={item.icon} active={active===item.id} size={21}/><UnreadBadge count={counts[item.id]||0}/></span>{item.label}</Link>)}</nav><div className={s.sidebarBottom}><ServiceLinks basePath={basePath}/><BusinessInfo className={s.sidebarBusiness}/><OfficialSocialLinks className={s.sidebarSocial}/></div></aside>}
       <main id="page-content" {...interactionProps} aria-busy={!ready||undefined} className={`${s.main} ${auth?s.authMain:''} ${active==='creator'||active==='me'&&signedIn&&!model.account.route.profileTab?s.flushMain:''}`}>{children}</main>
     </div>
     <PullToRefresh scrollRef={scrollRef} enabled={!auth&&isPullRefreshPage(scrollKey)} routeKey={scrollKey}/>
     {!auth&&<CommentDock/>}
-    {!auth&&<nav className={s.bottomNav} aria-label="하단 메뉴">{menu.map(item=><Link key={item.id} aria-current={active===item.id?'page':undefined} href={`${basePath}/${item.id}`} aria-label={menuLabel(item)}>{item.id==='me'?<NavigationAvatar person={signedIn?viewer:undefined} active={active===item.id}/>:item.id==='notifications'||item.id==='messages'?<span className={s.bell}><NavigationIcon name={item.icon} active={active===item.id}/><UnreadBadge count={counts[item.id]}/></span>:<NavigationIcon name={item.icon} active={active===item.id}/>}</Link>)}</nav>}
+    {!auth&&<nav className={s.bottomNav} aria-label="하단 메뉴">{menu.map(item=><Link key={item.id} aria-current={active===item.id?'page':undefined} href={`${basePath}/${item.id}`} aria-label={menuLabel(item)} onNavigate={active==='feed'&&item.id==='feed'?scrollHome:undefined}>{item.id==='me'?<NavigationAvatar person={signedIn?viewer:undefined} active={active===item.id}/>:item.id==='notifications'||item.id==='messages'?<span className={s.bell}><NavigationIcon name={item.icon} active={active===item.id}/><UnreadBadge count={counts[item.id]}/></span>:<NavigationIcon name={item.icon} active={active===item.id}/>}</Link>)}</nav>}
   </div></CommentDockProvider>;
 }
