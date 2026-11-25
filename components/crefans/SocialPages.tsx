@@ -44,7 +44,7 @@ import {MediaSummary} from './MediaSummary';
 import {usePresence} from '@/components/ui/usePresence';
 import {designTokens} from '@/lib/design/tokens';
 import {GuestPostNotice} from './GuestPostNotice';
-import {SensitivePhoto} from './SensitivePhoto';
+import {SensitivePhoto,SensitiveRoomConsent} from './SensitivePhoto';
 import {MediaOverlay} from './MediaOverlay';
 import {replayBlocksPost} from '@/lib/analytics/posthog';
 import {CommentComposer,CommentDock,CommentDockProvider} from './CommentComposer';
@@ -253,18 +253,28 @@ export function FeedPage({model}:{model:ServiceViewModel}){
   const member=model.mode==='live'&&model.signedIn;
   const [localCategory,setLocalCategory]=useState('전체');
   const category=model.feedCategory?.value??localCategory,selectCategory=model.feedCategory?.select??setLocalCategory;
-  const categories=['전체',...data.categories.filter(item=>item!=='전체')];
+  const [askConsent,setAskConsent]=useState(false);
+  const room=category==='NSFW관'&&model.mode==='live';
+  const categories=['전체',...(model.mode==='live'?['NSFW관']:[]),...data.categories.filter(item=>item!=='전체'&&item!=='NSFW관')];
+  function choose(item:string){
+    if(item==='NSFW관'&&!room){setAskConsent(true);return;}
+    selectCategory(item);
+  }
   const posts=model.feedCategory||category==='전체'?data.posts:data.posts.filter(post=>data.creators.some(creator=>creator.id===post.creatorId&&creator.tags.includes(category)));
   return <div className={`${s.feed} ${!posts.length&&category==='전체'?s.emptyFeed:''}`}>
-    {model.mode==='live'&&<GuestPostNotice/>}
+    {model.mode==='live'&&!room&&<GuestPostNotice/>}
     <div className={s.feedToolbar}>
       <CreatorSearch href={`${basePath}/explore`}/>
-      <ChipRow label="관심 카테고리" className={s.feedCategories}>{categories.map(item=><CategoryChip key={item} label={item} iconUrl={model.data.categoryIcons?.[item]} selected={category===item} onClick={()=>selectCategory(item)}/>)}</ChipRow>
+      <ChipRow label="관심 카테고리" className={s.feedCategories}>{categories.map(item=><CategoryChip key={item} label={item} iconUrl={model.data.categoryIcons?.[item]} selected={category===item} onClick={()=>choose(item)}/>)}</ChipRow>
     </div>
+    <Dialog open={askConsent} onClose={()=>setAskConsent(false)} title="NSFW관에 입장할까요?">
+      <p className={s.dialogCopy}>이곳에서는 민감한 사진이 블러 없이 표시돼요.</p>
+      <DialogActions><Action variant="secondary" onClick={()=>setAskConsent(false)}>취소</Action><Action onClick={()=>{setAskConsent(false);selectCategory('NSFW관');}}>동의하고 보기</Action></DialogActions>
+    </Dialog>
     {/* 2026-11-15: signed-out visitors can try AI photos and post without an account (live service only). */}
     {model.mode==='live'&&!model.signedIn&&<GuestCosplayBanner href="/service/landing-ai-image-generation" aboutHref="/service/landing-ai-image-generation"/>}
     {member&&<MemberFeedBanner kind="edit" basePath={basePath}/>}
-    {posts.length?<>{posts.map((post,index)=><Fragment key={post.id}><PostCard post={post} model={model} context={posts}/>{index===0&&model.mode==='live'&&(!member||model.photoLibrary)&&<MemberFeedBanner guest={!member} kind="library" basePath={basePath}/>}
+    {posts.length?<>{posts.map((post,index)=><Fragment key={post.id}><SensitiveRoomConsent.Provider value={room}><PostCard key={category} post={post} model={model} context={posts}/></SensitiveRoomConsent.Provider>{index===0&&model.mode==='live'&&(!member||model.photoLibrary)&&<MemberFeedBanner guest={!member} kind="library" basePath={basePath}/>}
       {index===1&&model.mode==='live'&&<CoupangFeedBanner/>}
       {index===2&&model.mode==='live'&&<MemberFeedBanner kind="shop" basePath={basePath}/>}</Fragment>)}{model.feedPaging?.hasMore?<Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={!!model.feedPaging.loading}/></Action>:<FeedEnd/>}<ServiceFooter basePath={basePath}/></>:<><Empty title={category==='전체'?'아직 게시물이 없어요':'이 카테고리의 게시물이 없어요'} description={category==='전체'?'마음에 드는 크리에이터를 만나보세요.':'다른 카테고리의 게시물을 확인해 보세요.'} action={category==='전체'?<TextLink className={s.textLink} href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>:<Action variant="secondary" onClick={()=>selectCategory('전체')}>전체 피드 보기</Action>}/><ServiceFooter basePath={basePath} always/></>}
   </div>;

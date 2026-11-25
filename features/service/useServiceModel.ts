@@ -30,7 +30,9 @@ export function useServiceModel(){
  const [loadedPath,setLoadedPath]=useState('');
  const [actionNotice,setActionNotice]=useState<{message:string;loginRequired:boolean}|null>(null);
  const [feedCategory,setFeedCategory]=useState('전체');
+ useEffect(()=>{if(pathname!=='/service/feed')setFeedCategory(current=>current==='NSFW관'?'전체':current);},[pathname]);
  const activeFeedCategory=pathname==='/service/feed'?feedCategory:'전체';
+ const feedLoadKey=pathname+'|'+activeFeedCategory;
  const directory=useDirectoryModel(pathname==='/service/explore',setError);
  const mergeSearchCreators=useCallback((creators:any[])=>setState((previous:any)=>previous?({...previous,data:{...previous.data,creatorPlans:{...previous.data.creatorPlans,...profilePlans(creators)},creators:[...previous.data.creators.filter((c:any)=>!creators.some((p:any)=>p.id===c.id)),...creators]}}):previous),[]);
  const postSearch=usePostSearchModel(pathname==='/service/explore',mergeSearchCreators,setError);
@@ -62,7 +64,7 @@ export function useServiceModel(){
    // 2026-11-16: a signed-out browser that made trial posts learns its author id, so those posts get 수정 (title and body only).
    if(!state.signedIn&&hasGuestTrial()){const guest=await api<{authorId?:string}>('/guest/session');if(token!==generation.current)return;setGuestAuthorId(guest.success?guest.data.authorId||null:null);}else setGuestAuthorId(null);
    if(token!==generation.current)return;setState({...state,data:{...state.data,faqs:supportFaqs(state.data.faqs)}});
-  }else setError(response.errorMessage);if(shared.success)setCommon(shared.data);setLoadedPath(pathname);setLoading(false);
+  }else setError(response.errorMessage);if(shared.success)setCommon(shared.data);setLoadedPath(feedLoadKey);setLoading(false);
  },[pathname,query.get('tab'),activeFeedCategory]);
  async function loadMore(){if(!cursor||moreLoading)return;const token=generation.current;setMoreLoading(true);const [screen,id]=pathname.replace('/service/','').split('/'),profileId=screen==='creator'||screen==='member'?id:screen==='me'?state.ownCreatorIds?.[0]||state.viewerId||undefined:undefined;const response=await api<any>(`/posts?cursor=${encodeURIComponent(cursor)}${profileId?`&creatorId=${encodeURIComponent(profileId)}`:activeFeedCategory!=='전체'?`&category=${encodeURIComponent(activeFeedCategory)}`:''}`);if(token!==generation.current)return;if(response.success){setState((previous:any)=>({...previous,data:{...previous.data,creatorPlans:{...previous.data.creatorPlans,...profilePlans(response.data.creators)},posts:[...previous.data.posts,...response.data.posts.filter((p:any)=>!previous.data.posts.some((old:any)=>old.id===p.id))],creators:[...previous.data.creators.filter((c:any)=>!response.data.creators.some((p:any)=>p.id===c.id)),...response.data.creators]}}));setCursor(response.data.nextCursor);}else setError(response.errorMessage);setMoreLoading(false);}
 
@@ -108,5 +110,5 @@ export function useServiceModel(){
  loadReplies:(post,id)=>api(`/posts/${encodeURIComponent(post)}/comments?parentId=${encodeURIComponent(id)}`),reportPost:(id,reason)=>api('/reports',{id,kind:'POSTING',reason}),reportComment:(id,reason)=>api('/reports',{id,kind:'COMMENT',reason}),mentionCandidates:async post=>{const result=await api<MentionCandidate[]>(`/posts/${encodeURIComponent(post)}/mention-candidates`);return result.success?result.data:[];},markConversationRead,sendMessage:async(id,body)=>{const response=await api<{message:string}>(`/members/${encodeURIComponent(id)}/messages`,{body});if(response.success)await refresh({quiet:true});return response;},setConversationBlocked:(id,enabled)=>action(`/members/${encodeURIComponent(id)}/block`,{enabled},'PUT'),reportConversation:id=>api('/reports',{id,kind:'USER'})
  };
  const commonModel:CommonModel|null=common?{...common,actions:{requestPasswordReset:email=>api('/auth/forgot-password',{email}),resetPassword:input=>api('/auth/reset-password',input),addPaymentMethod:input=>startBillingRegistration(input?.returnPath),removePaymentMethod:id=>action(`/billing/methods/${encodeURIComponent(id)}`,{operation:'delete'},'PUT'),setDefaultPaymentMethod:id=>action(`/billing/methods/${encodeURIComponent(id)}`,{operation:'default'},'PUT')}}:null;
- return{guestClaim:guestClaim?{...guestClaim,accept:acceptGuestClaim,decline:declineGuestClaim}:null,model,common:commonModel,loading:loading||loadedPath!==pathname,error,refresh,publicProfile,actionNotice,dismissFeedback:()=>{setActionNotice(null);setError('');}};
+ return{guestClaim:guestClaim?{...guestClaim,accept:acceptGuestClaim,decline:declineGuestClaim}:null,model,common:commonModel,loading:loading||loadedPath!==feedLoadKey,error,refresh,publicProfile,actionNotice,dismissFeedback:()=>{setActionNotice(null);setError('');}};
 }

@@ -6665,3 +6665,8 @@
 
 ## 2026-11-25 — 비회원 체험 안내 피드 팝업
 승인된 공지 시안을 라이브 피드에 표시. 일반 닫기는 현재 팝업만 닫고 10분 숨김은 브라우저 로컬 저장소에 만료 시각을 기록한다. 다음 피드 진입 시 만료를 검사한다. 프론트 타입 검사 통과. 공개 기간 변경 예정 안내만 배포.
+
+## 2026-11-25 — NSFW관 입장 동의
+운영자 지정 사진이 있는 게시물만 서버에서 페이지 처리. 비회원은 공개·비멤버십·성인제한 없는 게시물만 대상. 피드에서 NSFW관 선택 후 동의해야 입장하며 해당 영역에만 블러 해제 컨텍스트 적용. 다른 카테고리나 페이지로 나가면 재입장 동의 필요. 기본 피드의 개별 사진 보기 유지.
+권한 판단 근거(2026-11-25): OWASP Authorization Cheat Sheet, Validate the Permissions on Every Request (https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html). 동의는 UI 표시 선호이며 서버 콘텐츠 접근 게이트는 계속 사용한다.
+프론트·서버 TypeScript 통과, sensitive-photo.test.cjs 2개와 platform-sensitive-room.test.cjs 1개 통과.
