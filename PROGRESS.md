@@ -6652,3 +6652,5 @@
 2026-11-25 상점 AI 이용권 횟수형을 구독형 위로 이동. 횟수형 상품과 구매 확인창에 프로필과 같은 /brand/ai-photo/review/ticket.webp 적용. npm run typecheck, node --test tests/shop-subscription.test.cjs 통과.
 
 2026-11-25 홈 피드 세 번째 게시물 뒤에 상점 배너를 배치했다. 기존 memberBanner와 빛줄기 CTA, 실제 상점 티켓 이미지를 사용했다. 공개 상점 /service/studio/shop 연결. npm run typecheck, 기존 피드 배너 테스트 2건 및 diff 검사 통과. 390px 로컬 컴포넌트 미리보기와 링크 주소 확인. 미배포.
+
+2026-11-25 리뷰 저장 성공 후 AI 사진 생성이 계속되는 대기 화면에 피드와 같은 쿠팡 다이나믹 배너 1개 표시. 사진이 먼저 완료되거나 결과로 이동하면 광고 미표시. npm run typecheck 및 node --test --test-name-pattern='^review:' tests/studio-ai-photo.test.cjs 2/2 통과(생성·리뷰 응답 대역).

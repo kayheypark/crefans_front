@@ -17,6 +17,7 @@ import {SelectField} from '@/components/ui/SelectField';
 import {AiPresetPager} from './AiPresetPager';
 import {AiResultShare} from './AiResultShare';
 import {AiPhotoWaiting} from './AiPhotoWaiting';
+import {CoupangFeedBanner} from '../CoupangFeedBanner';
 import {AiPhotoReview,defaultReviewDraft,type AiReviewDraft} from './AiPhotoReview';
 import {AiBodyAdjustments} from './AiBodyAdjustments';
 import {AiPhotoWardrobe,CostumeGender} from './AiPhotoWardrobe';
@@ -322,7 +323,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
      {resumed&&!waiting&&<p className={s.resumeNote} role="status">닫기 전에 만든 사진이 그대로 있어요. 이 페이지를 나가거나 새로고침하면 사라져요.</p>}
      <div className={waiting?s.waitingHeading:s.resultHeading}><h3 ref={resultTitleRef} tabIndex={-1}>{!waiting&&<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="m12 1 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"/></svg>}{busy?'사진을 만들고 있어요':waiting?'리뷰를 마저 작성해 주세요':'사진이 완성됐어요'}</h3>{!waiting&&<button ref={editRef} type="button" className={s.editSettings} onClick={()=>{setStage('edit');setError('');}}>설정 수정</button>}</div>
      <AiPhotoDone show={waiting?0:doneLayer} onDone={()=>setDoneLayer(0)}/>
-    {waiting?<AiPhotoWaiting generating={busy} elapsed={elapsed} typical={typical} score={heartScore} game={heartGame?{kinds:heartGame.kinds,onHit:recordHeart}:undefined} onCollect={collectHeart} practiceOnly={noHearts&&!heartGame} note={noHearts&&heartGame?GUEST_HEART_NOTE:undefined} showGame={!review} banner={<>{review&&<AiPhotoReview done={review.done} reward={review.reward} draft={reviewDraft} onDraft={setReviewDraft} onSubmit={sendReview}/>}{noHearts&&<SignupWaitBanner/>}</>}/>:
+    {waiting?<AiPhotoWaiting generating={busy} elapsed={elapsed} typical={typical} score={heartScore} game={heartGame?{kinds:heartGame.kinds,onHit:recordHeart}:undefined} onCollect={collectHeart} practiceOnly={noHearts&&!heartGame} note={noHearts&&heartGame?GUEST_HEART_NOTE:undefined} showGame={!review} banner={<>{review&&<AiPhotoReview done={review.done} reward={review.reward} draft={reviewDraft} onDraft={setReviewDraft} onSubmit={sendReview}/>}{busy&&review?.done&&<CoupangFeedBanner/>}{noHearts&&<SignupWaitBanner/>}</>}/>:
       <><div className={s.grid}>{results.map((item,index)=><div key={item.id} className={s.resultItem}><div className={s.resultFrame}><button type="button" className={s.result} aria-pressed={selected.includes(item.id)} aria-label={`결과 ${index+1}`} onClick={()=>toggle(item.id)}>
        {/* eslint-disable-next-line @next/next/no-img-element -- generated draft image */}
        <img src={item.url} alt=""/><span className={s.ai}>{/* eslint-disable-next-line @next/next/no-img-element -- existing decorative brand icon */}<img src="/brand/featured-creators-v1.png" alt="" aria-hidden="true" width={14} height={14} style={{width:14,height:14,flexShrink:0}}/>AI 생성</span><span className={s.selection} aria-hidden="true">{selected.includes(item.id)?'✓':''}</span></button>

@@ -1166,6 +1166,8 @@ test('review: eligible → no heart game, review gates the result in either comp
   await act(async()=>{r.root.find(n=>n.type==='button'&&n.props['aria-label']==='만들기').props.onClick();});await confirmSource(r);
   const card=()=>r.root.findAll(n=>n.type==='section'&&n.props['aria-label']==='AI 사진 리뷰');
   const game=()=>r.root.findAll(n=>n.props?.['aria-label']==='기다리는 동안 하트 모으기');
+  const ads=()=>r.root.findAll(n=>n.type==='aside'&&n.props['aria-label']==='쿠팡 파트너스 광고');
+  assert.equal(ads().length,0);
   if(!eligible){assert.equal(games,1);assert.equal(card().length,0);assert.equal(game().length,1);await act(async()=>{finish({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:9},errorMessage:null,errorCode:null});});continue;}
   assert.equal(games,0,'no heart game');assert.equal(game().length,0);assert.equal(card().length,1);
   if(order==='generation-failed'){
@@ -1212,10 +1214,12 @@ test('review: eligible → no heart game, review gates the result in either comp
   }else{
    await act(async()=>send().props.onClick());
    assert.equal(r.root.findAll(n=>n.type==='h3'&&text(n)==='사진을 만들고 있어요').length,1);
+   assert.equal(ads().length,1);
    assert.equal(result().length,0,'successful review keeps waiting for the image');
    assert.equal(doneLayer().length,0);
    await finishImage();
   }
+  assert.equal(ads().length,0);
   assert.equal(result().length,1,'result appears after image and review are ready');
   assert.equal(doneLayer().length,1,'completion layer appears with the result');
   assert.deepEqual(sent,{rating:4,sentiment:'bad',comment:'얼굴이 조금 달라요',defaultsKept:false});
