@@ -530,6 +530,6 @@ dialog.changeUploadDialog{padding:22px 20px 20px;width:min(420px,calc(100vw - 32
 @media(max-width:767px){.editor .methodChoices input:checked+span strong::before{content:none}}
 
 @font-face{font-family:'Prompt Pretendard';font-weight:900;font-display:swap;src:url('/fonts/pretendard/Pretendard-Black.subset.woff2') format('woff2')}
-.promptBrand [data-field]>label{display:inline-flex;align-items:center;align-self:flex-start;gap:6px;color:#252635;font:900 16px/22px 'Prompt Pretendard',sans-serif;letter-spacing:-.045em;transform:skewX(-7deg)}
+.promptBrand [data-field] label{display:inline-flex;align-items:center;gap:6px;color:#252635;font:900 16px/22px 'Prompt Pretendard',sans-serif;letter-spacing:-.045em;transform:skewX(-7deg)}
 .promptBrand label::before{content:'';width:16px;height:16px;background:url('/brand/crefans-mark.svg') center/contain no-repeat;transform:skewX(7deg)}
 .promptBrand [data-field]>textarea{border:1px solid #d5d5e2;background:var(--cf-color-surface)}
