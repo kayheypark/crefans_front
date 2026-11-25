@@ -24,7 +24,7 @@ export type Message={id:string|number;body:string;mine:boolean;time:string;unrea
 export type Faq={question:string;answer:string};
 /** Someone following the signed-in fan; listed under 항목 모아보기 > 팔로워 목록. */
 export type Follower={id:string;name:string;handle:string;image:string;isVerified?:boolean;isFoundingMember?:boolean};
-export type ServiceData={creators:Creator[];newCreatorIds?:string[];plans:Plan[];creatorPlans?:Record<string,Plan[]>;posts:Post[];notifications:Notification[];paymentHistory:Subscription[];messages:Record<string,Message[]>;faqs:Faq[];categories:string[];categoryIcons?:Record<string,string|null>;followers?:Follower[]};
+export type ServiceData={creators:Creator[];newCreatorIds?:string[];plans:Plan[];creatorPlans?:Record<string,Plan[]>;posts:Post[];notifications:Notification[];paymentHistory:Subscription[];messages:Record<string,Message[]>;faqs:Faq[];categories:string[];sensitiveFeed?:{label:string;index:number;iconUrl:string|null}|null;categoryIcons?:Record<string,string|null>;followers?:Follower[]};
 /** Presentation inputs. Containers may back these with fixtures or API/model adapters. */
 export type ServiceViewModel=AccountModel&SocialModel&{
   photoLibrary?:PhotoLibraryModel;

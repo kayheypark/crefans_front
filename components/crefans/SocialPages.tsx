@@ -30,7 +30,7 @@ import {getPostMembershipOffer} from '@/lib/crefans/membership-plans';
 import {Radio} from '@/components/ui/Choice';
 import {reportReasons,type ReportReason} from '@/lib/crefans/report-reasons';
 import {ChipRow} from '@/components/ui/ChipRow';
-import {CategoryChip} from './CategoryChip';
+import {CategoryChip,CategoryIcon} from './CategoryChip';
 import type {ApiResult,Post,ServiceData,ServiceViewModel} from '@/types/crefans';
 import type {MessagesViewModel,SocialActionResult,SocialComment,SocialReply} from '@/types/crefans-social';
 import Icon from './Icon';
@@ -254,8 +254,10 @@ export function FeedPage({model}:{model:ServiceViewModel}){
   const [localCategory,setLocalCategory]=useState('전체');
   const category=model.feedCategory?.value??localCategory,selectCategory=model.feedCategory?.select??setLocalCategory;
   const [askConsent,setAskConsent]=useState(false),[agreed,setAgreed]=useState(false);
-  const room=category==='NSFW관'&&model.mode==='live';
-  const categories=['전체',...(model.mode==='live'?['NSFW관']:[]),...data.categories.filter(item=>item!=='전체'&&item!=='NSFW관')];
+  const settings=model.mode==='live'?data.sensitiveFeed:null;
+  const room=category==='NSFW관'&&!!settings;
+  const categories=['전체',...data.categories.filter(item=>item!=='전체'&&item!=='NSFW관')];
+  if(settings)categories.splice(settings.index+1,0,'NSFW관');
   function choose(item:string){
     if(item==='NSFW관'&&!room){setAgreed(false);setAskConsent(true);return;}
     selectCategory(item);
@@ -266,8 +268,8 @@ export function FeedPage({model}:{model:ServiceViewModel}){
     <div className={s.feedToolbar}>
       <CreatorSearch href={`${basePath}/explore`}/>
       <ChipRow label="관심 카테고리" className={s.feedCategories}>
-        {categories.map(item=>item==='NSFW관'
-          ? <Chip key={item} selected={category===item} onClick={()=>choose(item)} icon={<Image src="/brand/categories/nsfw-heart-flat.svg" width={20} height={20} alt="" />}><span className={s.nsfwTabLabel}>NSFW</span></Chip>
+        {categories.map(item=>item==='NSFW관'&&settings
+          ? <Chip key={item} selected={category===item} onClick={()=>choose(item)} icon={<CategoryIcon label={settings.label} iconUrl={settings.iconUrl}/>}><span className={s.nsfwTabLabel}>{settings.label}</span></Chip>
           : <CategoryChip key={item} label={item} iconUrl={model.data.categoryIcons?.[item]} selected={category===item} onClick={()=>choose(item)}/>)}
       </ChipRow>
     </div>
