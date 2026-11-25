@@ -64,18 +64,15 @@ function chargePage(patch={}){
 const radios=t=>t.root.findAll(n=>n.type==='input'&&n.props.type==='radio');
 const selectBeans=(t,q)=>act(()=>radios(t).find(n=>Number(n.props.value)===q).props.onChange({target:{checked:true}}));
 const agreeTerms=t=>check(t,'(필수)');
-test('콩 충전 offers card only when the server says card:true; with no method it shows 결제 준비 중',()=>{
- for(const [m,card,bank,preparing] of [[methods(true,false),false,true,false],[methods(true,true),true,true,false],[methods(false,true),true,false,false],[methods(false,false),false,false,true],[null,false,false,true]]){
+test('콩 충전 only accepts bank transfer regardless of card availability',()=>{
+ for(const m of [methods(true,false),methods(true,true),methods(false,true),methods(false,false),null]){
   const {t}=chargePage({paymentMethods:m});
   try{
-   const text=words(t.toJSON()),labels=radios(t).map(r=>words(r.parent.children));
-   assert.equal(/결제 준비 중/.test(text),preparing,JSON.stringify(m));
-   assert.equal(t.root.findAllByType('form').length,preparing?0:1);
-   if(!preparing){
-    assert.equal(labels.some(l=>l.includes('카드')),card&&bank,'card radio only beside bank transfer');
-    assert.equal(/입금자명/.test(text),bank);
-    if(card&&!bank)assert.match(text,/결제 방법 카드/);if(bank&&!card)assert.match(text,/결제 방법 무통장입금/);
-   }
+   const text=words(t.toJSON());
+   assert.equal(/결제 준비 중/.test(text),!m?.bankTransfer);
+   assert.equal(t.root.findAllByType('form').length,m?.bankTransfer?1:0);
+   if(m?.bankTransfer)assert.match(text,/국민은행 무통장입금/);
+   assert.ok(!radios(t).some(r=>words(r.parent.children).includes('카드')));
   }finally{act(()=>t.unmount());}
  }
 });
@@ -109,7 +106,7 @@ test('charge history: bank charges read 입금 대기 / 주문 취소, reopen th
   try{
    const text=words(t.toJSON());
    assert.match(text,/입금 대기/);assert.match(text,/주문 취소/);assert.match(text,/2026\. 11\. 17\. 오후 3:05 \(한국 시간\)까지 입금/);
-   assert.equal(!!byText(t,'결제 계속'),cardAvailable);
+   assert.equal(!!byText(t,'결제 계속'),false);
    assert.equal(buttons(t).filter(b=>words(b.props.children).trim()==='입금 안내 보기').length,1,'only the waiting bank charge');
    act(()=>byText(t,'입금 안내 보기').props.onClick());
   }finally{act(()=>t.unmount());}
@@ -192,7 +189,7 @@ test('광고상품 history: statusLabel, 입금 안내 for pending, 사용 only 
  }finally{act(()=>t.unmount());}
 });
 test('live bean model sends the bank transfer input with the charge and the refund account with the refund',async()=>{
- const requests=[];const platformRequest=async(path,body)=>{requests.push([path,body]);if(path==='/payments/methods')return ok(methods(true,false));if(path.startsWith('/beans/wallet'))return ok({page:1,accounts:[],charges:[],entries:[]});if(path.startsWith('/beans/tips'))return ok({items:[],total:0});return ok({});};
+ const requests=[];const platformRequest=async(path,body)=>{requests.push([path,body]);if(path==='/payments/methods?kind=bean')return ok(methods(true,false));if(path.startsWith('/beans/wallet'))return ok({page:1,accounts:[],charges:[],entries:[]});if(path.startsWith('/beans/tips'))return ok({items:[],total:0});return ok({});};
  const {useBeansModel}=loadTypeScript('features/service/useBeansModel.ts',{'@/lib/api/platform':{platformRequest},'./platform':{platformRequest}});
  let model,t;function Probe(){model=useBeansModel(true,true,[]);return null;}
  await act(async()=>{t=create(el(Probe));});

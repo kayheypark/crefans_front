@@ -10,7 +10,7 @@ const getPromotionClaim=()=>api<PromotionClaimStatus>('/events/promotion-beans')
 // 2026-11-16 OCTOMO phone-number check (number ownership only) before the 100콩.
 const phoneCheck={start:(phone:string,options?:{qr?:boolean})=>api<import('@/types/crefans-events').PhoneCheckStart>('/me/phone-verification/start',{phone,...(options?.qr?{qr:true}:{})}),confirm:(phone:string)=>api<{verified:boolean}>('/me/phone-verification/confirm',{phone})};
 export function useBeansModel(enabled:boolean,signedIn:boolean,ownCreatorIds:string[]):BeanModel{
- const payments=usePaymentMethods(enabled&&signedIn);
+ const payments=usePaymentMethods(enabled&&signedIn,'bean');
  const [postSupporterCounts,setPostSupporterCounts]=useState<Record<string,number>>({});
  const [referral,setReferral]=useState<ReferralSummary|null|undefined>(undefined),[wallet,setWallet]=useState<BeanWallet|null>(null),[sent,setSent]=useState<BeanTip[]>([]),[sentTotal,setSentTotal]=useState<number>(),[studio,setStudio]=useState<BeanStudio|null>(null),[loading,setLoading]=useState(false),[error,setError]=useState(''),generation=useRef(0);
  // 2026-11-09: once a studio screen asked for the studio bean data, every later refresh fetches it too. Moving between service

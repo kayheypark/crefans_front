@@ -11,9 +11,6 @@ import {useDelayedLoading} from '@/components/ui/useDelayedLoading';
 import {Chip,Dialog} from '@/components/ui/Primitives';
 import {DialogActions} from '@/components/ui/DialogActions';
 import {CreatorSearch} from './CreatorSearch';
-import {PaymentTerms} from './PaymentTerms';
-import {PAYMENT_TERMS} from '@/lib/crefans/payment-terms';
-import {beanChargeLimitNote,beanRefundNotes} from '@/lib/crefans/bean-pricing';
 import {useEffect,useRef,useState} from 'react';
 import {InfoTooltip} from '@/components/ui/InfoTooltip';
 import {beanPriceNotice} from '@/lib/crefans/bean-pricing';
@@ -105,7 +102,7 @@ function BeanRefundBody({refund,pending,onConfirm,onClose}:{refund:BeanRefundDia
    <DialogActions><Action variant="secondary" disabled={pending} onClick={onClose}>{refundable?'취소':'닫기'}</Action>{refundable&&<Action disabled={pending||!!refund.bank&&!refundAccountValid(account)} onClick={()=>onConfirm(refund.bank?refundAccountInput(account):undefined)}>{pending?'환불 처리 중…':`${won(refund.quote.amount)} 환불 신청`}</Action>}</DialogActions>
   </div>;
 }
-export function BeanHistoryView({kind,model,error='',notice='',onNoticeClose=()=>{},pending=false,filters=emptyBeanHistoryFilters,onFiltersChange=()=>{},onPay,onPage,onRefund,refund=null,onRefundConfirm=()=>{},onRefundClose=()=>{},cardAvailable=true,onInstructions}:{kind:BeanHistoryKind;model:HistoryModel;error?:string;notice?:string;onNoticeClose?:()=>void;pending?:boolean;filters?:BeanHistoryFilters;onFiltersChange?:(filters:BeanHistoryFilters)=>void;onPay:(charge:BeanCharge)=>void;onPage:(page:number)=>void;onRefund?:(charge:BeanCharge)=>void;refund?:BeanRefundDialog|null;onRefundConfirm?:(account?:RefundAccount)=>void;onRefundClose?:()=>void;/** Card (Toss) is offered only while the server reports card:true. */cardAvailable?:boolean;onInstructions?:(charge:BeanCharge)=>void}){
+export function BeanHistoryView({kind,model,error='',notice='',onNoticeClose=()=>{},pending=false,filters=emptyBeanHistoryFilters,onFiltersChange=()=>{},onPage,onRefund,refund=null,onRefundConfirm=()=>{},onRefundClose=()=>{},onInstructions}:{kind:BeanHistoryKind;model:HistoryModel;error?:string;notice?:string;onNoticeClose?:()=>void;pending?:boolean;filters?:BeanHistoryFilters;onFiltersChange?:(filters:BeanHistoryFilters)=>void;onPage:(page:number)=>void;onRefund?:(charge:BeanCharge)=>void;refund?:BeanRefundDialog|null;onRefundConfirm?:(account?:RefundAccount)=>void;onRefundClose?:()=>void;onInstructions?:(charge:BeanCharge)=>void}){
  const wallet=model.wallet,page=wallet?.page||1,items=kind==='charges'?wallet?.charges:kind==='history'?wallet?.entries:model.sent;
  const issue=error||model.error,total=kind==='charges'?wallet?.chargesTotal:kind==='history'?wallet?.entriesTotal:model.sentTotal;
  const filtered=filters.period!=='all'||filters.status!=='all'||filters.direction!=='all'||filters.sourceType!=='all'||!!filters.search;
@@ -128,7 +125,6 @@ export function BeanHistoryView({kind,model,error='',notice='',onNoticeClose=()=
     {!!order.refundedQuantity&&<p className={s.historyMeta}>환불 {beans(order.refundedQuantity)} · {won(order.refundedAmount||0)}</p>}
     <div className={s.historyActions}>
      {order.status==='pending'&&order.method==='bank_transfer'&&onInstructions&&<Action variant="secondary" disabled={pending} onClick={()=>onInstructions(order)}>입금 안내 보기</Action>}
-     {order.status==='pending'&&order.method!=='bank_transfer'&&cardAvailable&&<Action variant="secondary" disabled={pending} onClick={()=>onPay(order)}>{pending?'결제 준비 중…':'결제 계속'}</Action>}
      {order.status==='processing'&&<Action variant="secondary" disabled={pending} onClick={()=>onPage(1)}>결과 다시 조회</Action>}
      {order.status==='paid'&&onRefund&&(order.refundedQuantity||0)<order.quantity&&<Action variant="secondary" disabled={pending} onClick={()=>onRefund(order)}>환불 신청</Action>}
      {order.status==='paid'&&<Link href={`${model.basePath}/beans/success?id=${encodeURIComponent(order.id)}`}>충전 상세 보기 <Icon name="chevron" width={16} height={16}/></Link>}
@@ -152,20 +148,11 @@ export function BeanHistoryView({kind,model,error='',notice='',onNoticeClose=()=
 }
 export function BeanHistoryPage({kind}:{kind:BeanHistoryKind}){
  const model=useBeans(),[error,setError]=useState(''),[notice,setNotice]=useSnackbarMessage(),[pending,setPending]=useState(false),[refund,setRefund]=useState<(BeanRefundDialog&{requestId:string})|null>(null),[instructions,setInstructions]=useState<{transfer:BankTransfer|null;error:string}|null>(null),[selection,setSelection]=useState({kind,filters:{...emptyBeanHistoryFilters}}),busy=useRef(false),current=useRef(model);
- // 2026-11-02 user decision: continuing an unpaid charge shows the same payment conditions and agreement as the charge page.
- const [continuing,setContinuing]=useState<BeanCharge|null>(null),[agreed,setAgreed]=useState(false);
  current.current=model;
  const filters=selection.kind===kind?selection.filters:emptyBeanHistoryFilters;
  useEffect(()=>{setError('');setNotice('');if(current.current?.enabled&&current.current.signedIn)void current.current.refresh(false,1,beanHistoryQuery(filters));},[kind,filters,model?.enabled,model?.signedIn]);
  if(!model?.enabled)return <p>콩 후원을 준비 중입니다.</p>;
  if(!model.signedIn)return <SignInPrompt basePath={model.basePath}/>;
- async function pay(order:BeanCharge){
-  if(busy.current||!model)return;
-  busy.current=true;setPending(true);setError('');setNotice('');
-  try{const result=await model.payCharge(order.id,PAYMENT_TERMS.version);if(!result.success)setError(result.errorMessage);else{setNotice(result.data.message);await model.refresh(false,1,beanHistoryQuery(filters));}}
-  catch{setError('결제 결과를 확인하지 못했습니다. 같은 주문으로 다시 확인해주세요.');}
-  finally{busy.current=false;setPending(false);}
- }
  async function quoteRefund(order:BeanCharge){
   if(busy.current||!model)return;
   busy.current=true;setPending(true);setError('');setNotice('');
@@ -187,5 +174,5 @@ export function BeanHistoryPage({kind}:{kind:BeanHistoryKind}){
   const r=await model.bankTransfer(order.id);
   setInstructions(r.success?{transfer:r.data,error:''}:{transfer:null,error:r.errorMessage});
  }
- return <><BeanHistoryView kind={kind} model={model} error={error} notice={notice} onNoticeClose={()=>setNotice('')} pending={pending} filters={filters} onFiltersChange={filters=>setSelection({kind,filters})} onPay={order=>{setAgreed(false);setContinuing(order);}} onPage={page=>void model.refresh(false,page,beanHistoryQuery(filters))} onRefund={order=>void quoteRefund(order)} refund={refund} onRefundConfirm={account=>void confirmRefund(account)} onRefundClose={()=>setRefund(null)} cardAvailable={!!model.paymentMethods?.card} onInstructions={order=>void showInstructions(order)}/><Dialog open={!!instructions} onClose={()=>setInstructions(null)} title="입금 안내">{instructions&&<>{instructions.transfer?<BankTransferInstructions transfer={instructions.transfer} onReportDeposit={model.reportDeposit?()=>model.reportDeposit!((instructions.transfer)!.orderId):undefined}/>:instructions.error?<p role="alert">{instructions.error}</p>:<LoadingSpinner/>}<DialogActions><Action variant="secondary" onClick={()=>setInstructions(null)}>닫기</Action></DialogActions></>}</Dialog><Dialog open={!!continuing} onClose={()=>setContinuing(null)} title="결제 계속">{continuing&&<><PaymentTerms basePath={model.basePath} agreed={agreed} onAgree={setAgreed} items={[{label:'상품',value:`${beans(continuing.quantity)} 충전`},{label:'결제 금액',value:`${won(continuing.amount)} (VAT 포함)`},{label:'사용처',value:'크리에이터 후원에만 쓸 수 있으며 멤버십·콘텐츠 이용권이 아닙니다.'},{label:'충전 한도',value:beanChargeLimitNote},{label:'환불',value:`${beanRefundNotes[0]} ${beanRefundNotes[1]} ${beanRefundNotes[2]}`},{label:'유효기간',value:beanRefundNotes[3]}]}/><DialogActions><Action variant="secondary" onClick={()=>setContinuing(null)}>취소</Action><Action disabled={!agreed} onClick={()=>{const order=continuing;setContinuing(null);void pay(order);}}>결제창 열기</Action></DialogActions></>}</Dialog></>;
+ return <><BeanHistoryView kind={kind} model={model} error={error} notice={notice} onNoticeClose={()=>setNotice('')} pending={pending} filters={filters} onFiltersChange={filters=>setSelection({kind,filters})} onPage={page=>void model.refresh(false,page,beanHistoryQuery(filters))} onRefund={order=>void quoteRefund(order)} refund={refund} onRefundConfirm={account=>void confirmRefund(account)} onRefundClose={()=>setRefund(null)} onInstructions={order=>void showInstructions(order)}/><Dialog open={!!instructions} onClose={()=>setInstructions(null)} title="입금 안내">{instructions&&<>{instructions.transfer?<BankTransferInstructions transfer={instructions.transfer} onReportDeposit={model.reportDeposit?()=>model.reportDeposit!((instructions.transfer)!.orderId):undefined}/>:instructions.error?<p role="alert">{instructions.error}</p>:<LoadingSpinner/>}<DialogActions><Action variant="secondary" onClick={()=>setInstructions(null)}>닫기</Action></DialogActions></>}</Dialog></>;
 }
