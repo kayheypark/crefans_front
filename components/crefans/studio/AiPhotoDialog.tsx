@@ -263,7 +263,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
   if(r.errorCode==='REVIEW_COMMENT_UNCLEAR')return {invalidComment:r.errorMessage||'한마디를 조금 더 구체적으로 한국어로 써 주세요. 별점만 남겨도 돼요.'};
   return r.errorMessage||'리뷰를 저장하지 못했어요.';
  }const d=r.data;if(d.wallet)setHeartBalance(d.wallet.hearts);setReview(v=>v&&{...v,done:d.tickets?`${v.reward?.unit==='tickets'?'체험 ':''}이용권 ${d.tickets}장을 받았어요.`:d.hearts?`하트 ${d.hearts}개를 받았어요.`:'오늘 받을 수 있는 보상은 모두 받았어요.'});return '';}
- function closeViewer(){setViewer(null);setSourceViewer(false);if(typeof requestAnimationFrame==='function')requestAnimationFrame(()=>editRef.current?.focus({preventScroll:true}));}
+ function closeViewer(){setViewer(null);setSourceViewer(false);if(typeof requestAnimationFrame==='function')requestAnimationFrame(()=>(editRef.current??resultTitleRef.current)?.focus({preventScroll:true}));}
  // 2026-11-22 user request: a library photo can be the edit target itself, and the one last chosen opens as the target on every entry.
  function pickLibrarySource(item:PhotoAsset){setWorkingSources(previous=>previous.some(value=>value.id===item.id)?previous:[...previous,item]);changeSource(item.id);setLibraryAssets(items=>items.filter(value=>value.id!==item.id));setLibraryOpen(false);setStage('edit');void library?.rememberSource?.(item.id);}
  const recentSourceAsked=useRef(false);
@@ -332,7 +332,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
      <details className={s.notice}><summary>AI 생성 표시 및 이용 안내</summary><p>나체·성적인 합성, 미성년자, 다른 사람 얼굴 합성은 만들 수 없어요. 만든 사진에는 ‘AI 생성’ 표시가 붙어요.</p></details>
     </div>:<div className={s.results}>
      {resumed&&!waiting&&<p className={s.resumeNote} role="status">닫기 전에 만든 사진이 그대로 있어요. 이 페이지를 나가거나 새로고침하면 사라져요.</p>}
-     <div className={waiting?s.waitingHeading:s.resultHeading}><h3 ref={resultTitleRef} tabIndex={-1}>{!waiting&&<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="m12 1 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"/></svg>}{busy?'사진을 만들고 있어요':waiting?'리뷰를 마저 작성해 주세요':'사진이 완성됐어요'}</h3>{!waiting&&<button ref={editRef} type="button" className={s.editSettings} onClick={()=>{setStage('edit');setError('');}}>설정 수정</button>}</div>
+     <div className={waiting?s.waitingHeading:s.resultHeading}><h3 ref={resultTitleRef} tabIndex={-1}>{!waiting&&<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="m12 1 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"/></svg>}{busy?'사진을 만들고 있어요':waiting?'리뷰를 마저 작성해 주세요':'사진이 완성됐어요'}</h3></div>
      <AiPhotoDone show={waiting?0:doneLayer} onDone={()=>setDoneLayer(0)}/>
     {waiting?<AiPhotoWaiting generating={busy} elapsed={elapsed} typical={typical} score={heartScore} game={heartGame?{kinds:heartGame.kinds,onHit:recordHeart}:undefined} onCollect={collectHeart} practiceOnly={noHearts&&!heartGame} note={noHearts&&heartGame?GUEST_HEART_NOTE:undefined} showGame={!review} banner={<>{review&&<AiPhotoReview done={review.done} reward={review.reward} draft={reviewDraft} onDraft={setReviewDraft} onSubmit={sendReview}/>}{busy&&review?.done&&<CoupangFeedBanner/>}{noHearts&&<SignupWaitBanner/>}</>}/>:
       <><div className={s.grid}>{results.map((item,index)=><div key={item.id} className={s.resultItem}><div className={s.resultFrame}><button type="button" className={s.result} aria-pressed={selected.includes(item.id)} aria-label={`결과 ${index+1}`} onClick={()=>toggle(item.id)}>
