@@ -149,7 +149,7 @@ export function aiPhotoPresetLocation(kind:AiPhotoKind,prompt:string,gender:'ori
 export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){
  if(kind==='skin'){
   const male=gender==='male';
-  if(example===AI_PHOTO_KEEP_ORIGINAL)return `/brand/ai-photo/presets/${male?'makeup-male-02-v1':'makeup-11-v2'}.webp`;
+  if(example===AI_PHOTO_KEEP_ORIGINAL)return `/brand/ai-photo/presets/skin-${male?'male':'female'}-original-v1.webp`;
   const index=aiPhotoPresets.skin.indexOf(example)+1;
   return `/brand/ai-photo/presets/skin-${male?'male':'female'}-${String(index).padStart(2,'0')}-v2.webp`;
  }
