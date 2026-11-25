@@ -154,5 +154,16 @@
       "background": "fb5079",
       "pose": null
     }
-  ]
+  ],
+  "incrementalVerification": {
+    "previousCheckpointUtc": "2026-11-24T06:46:04+00:00",
+    "limit": null,
+    "pages": 2,
+    "distinctPostsChecked": 198,
+    "recentMediaPosts": 19,
+    "previouslyArchivedPosts": 178,
+    "withoutMedia": 1,
+    "additionalFiles": 0,
+    "stopReason": "Full page in previously archived range"
+  }
 }
