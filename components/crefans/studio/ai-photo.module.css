@@ -537,3 +537,5 @@ dialog.changeUploadDialog{padding:22px 20px 20px;width:min(420px,calc(100vw - 32
 .promptBrand [data-field] label{display:inline-flex;align-items:center;gap:6px;color:#252635;font:900 16px/22px 'Prompt Pretendard',sans-serif;letter-spacing:-.045em;transform:skewX(-7deg)}
 .promptBrand label::before{content:'';width:16px;height:16px;background:url('/brand/crefans-mark.svg') center/contain no-repeat;transform:skewX(7deg)}
 .promptBrand [data-field]>textarea{border:1px solid #d5d5e2;background:var(--cf-color-surface)}
+
+.presetNewBadge{position:absolute;top:32px;left:6px;padding:1px 5px;border-radius:5px;background:#bd185e;color:white;font-size:10px;font-weight:700;line-height:16px;pointer-events:none}

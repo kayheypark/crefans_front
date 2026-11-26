@@ -6,7 +6,7 @@ import {aiPhotoSortByUsage} from './ai-photo-popularity';
 
 // 메이크업 카드: 생성 문구·제목·카드 사진의 제작 성별·파일을 한곳에 둔다(2026-11-15).
 // 여성은 사용자가 고른 하얀 코스어 화장 가상 모델(v2), 남성은 기본 4종만(기존 남성 6종은 사용자 지시로 삭제, 추후 추가 예정).
-export type AiPhotoMakeup={prompt:string;title:string;gender:'female'|'male';image:string};
+export type AiPhotoMakeup={prompt:string;title:string;gender:'female'|'male';image:string;isNew?:boolean};
 export const aiPhotoMakeups:readonly AiPhotoMakeup[]=[
  {prompt:"입술을 자연스러운 코랄 톤으로 바꿔줘.",title:"코랄 립",gender:'female',image:'makeup-01-v2'},
  {prompt:"눈화장은 부드러운 브라운 톤으로 해줘.",title:"브라운 아이",gender:'female',image:'makeup-03-v2'},
@@ -28,7 +28,7 @@ export const aiPhotoMakeups:readonly AiPhotoMakeup[]=[
  {prompt:"잡티와 홍조를 자연스럽게 가려 피부 톤을 고르게 정돈해줘.",title:"피부 톤 정돈",gender:'male',image:'makeup-male-02-v1'},
  {prompt:"눈썹을 깔끔하고 또렷하게 다듬어줘.",title:"눈썹 정리",gender:'male',image:'makeup-male-03-v1'},
  {prompt:"입술 색을 건강한 자연 톤으로 정돈하고 촉촉하게 해줘.",title:"입술 정돈",gender:'male',image:'makeup-male-04-v1'},
- {prompt:"원래 얼굴형과 피부 톤은 유지하고, 눈 앞머리와 눈두덩에 실버 펄을 얹어줘. 검은 아이라인은 눈꼬리 밖으로 길게 빼고 속눈썹은 가닥씩 살려줘. 눈 밑에서 광대 위까지 쿨핑크 블러셔를 넓게 펴고 입술은 촉촉한 로즈핑크 글로스로 마무리해줘.",title:"도우인 쿨핑크",gender:'female',image:'makeup-23-v2'}
+ {prompt:"원래 얼굴형과 피부 톤은 유지하고, 눈 앞머리와 눈두덩에 실버 펄을 얹어줘. 검은 아이라인은 눈꼬리 밖으로 길게 빼고 속눈썹은 가닥씩 살려줘. 눈 밑에서 광대 위까지 쿨핑크 블러셔를 넓게 펴고 입술은 촉촉한 로즈핑크 글로스로 마무리해줘.",title:"도우인 쿨핑크",gender:'female',image:'makeup-23-v2',isNew:true}
 ];
 
 // 편집 가능한 제안 문구. 탐색/선택만으로는 생성 요청을 보내지 않는다.
@@ -126,10 +126,15 @@ export const aiPhotoMultiSelectKinds:readonly AiPhotoKind[]=['makeup'];
 // 메이크업 카드 사진의 제작 성별(aiPhotoMakeups).
 export function aiPhotoMakeupGender(example:string):'female'|'male'|undefined{return aiPhotoMakeups.find(item=>item.prompt===example)?.gender;}
 
+export function aiPhotoPresetIsNew(kind:AiPhotoKind,example:string){
+ return kind==='makeup'&&aiPhotoMakeups.some(item=>item.isNew&&item.prompt===example);
+}
+
 export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'|'female'|'male'='original',query='',posture?:AiPhotoPosePosture,backgroundCategory?:AiPhotoBackgroundCategory,outfitPart?:AiPhotoOutfitPart){
  const available=kind==='body'&&gender==='male'?aiPhotoMaleBodyControls.map(control=>aiPhotoBodyPrompt(control.key,1)):kind==='makeup'&&gender!=='original'?aiPhotoPresets.makeup.filter(example=>aiPhotoMakeupGender(example)===gender):aiPhotoPresets[kind];
  const ordered=kind==='pose'?[...aiPhotoPresets.pose.slice(12),...aiPhotoPresets.pose.slice(0,12)]:available;
  const examples=aiPhotoSortByUsage(kind,ordered.filter(example=>(kind!=='background'||!backgroundCategory||aiPhotoBackgroundCategory(example)===backgroundCategory)&&(kind!=='pose'||!posture||aiPhotoPosePosture(example)===posture)&&(kind!=='outfit'||((gender==='original'||aiPhotoOutfitByPrompt(example)?.gender===gender)&&(!outfitPart||aiPhotoOutfitByPrompt(example)?.part===outfitPart)))&&aiPhotoPresetMatches(query,aiPhotoPresetTitle(kind,example,gender),example)),example=>kind==='background'&&aiPhotoBackgroundId(example)||aiPhotoPresetTitle(kind,example,gender));
+ if(kind==='makeup')examples.sort((a,b)=>Number(aiPhotoPresetIsNew(kind,b))-Number(aiPhotoPresetIsNew(kind,a)));
  // 2026-11-15: 의상·신체 보정을 뺀 탭은 첫 카드로 '원본 유지'를 둔다(그 탭은 바꾸지 않음). total은 실제 프리셋 수만 센다.
  const listed=[...(aiPhotoKeepOriginalKinds.includes(kind)&&aiPhotoPresetMatches(query,'원본 유지')?[AI_PHOTO_KEEP_ORIGINAL]:[]),...examples],pages=Math.max(1,Math.ceil(listed.length/AI_PHOTO_PRESET_PAGE_SIZE));
  const index=((page%pages)+pages)%pages;
