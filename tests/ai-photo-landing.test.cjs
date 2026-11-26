@@ -6,7 +6,7 @@ const {create,act}=require('react-test-renderer');
 const {loadTypeScript}=require('./load-typescript.cjs');
 const styles=new Proxy({},{get:(_,key)=>String(key)});
 const handedOff=[];
-const page=loadTypeScript('components/service/AiPhotoLanding.tsx',{'./ai-photo-landing.module.css':{__esModule:true,default:styles},'@/components/crefans/studio/ai-photo.module.css':{__esModule:true,default:styles},'next/link':({href,children,...props})=>React.createElement('a',{href,...props},children),'@/components/crefans/Brand':{Brand:()=>React.createElement('span',null,'crefans')},'@/components/ui/Primitives':{Dialog:({open,title,onClose,children})=>open?React.createElement('section',{'data-dialog':title,onClose},children):null},'@/components/ui/DialogActions':{DialogActions:({children})=>React.createElement('div',null,children)},'@/features/service/useFunnelStep':{useFunnelStep:()=>{}},'@/lib/crefans/ai-photo-handoff':{saveAiPhotoHandoff:presets=>{handedOff.push(presets);}}});
+const page=loadTypeScript('components/service/AiPhotoLanding.tsx',{'@/lib/crefans/preset-access':{guestPresetAccess:async()=>true},'@/components/crefans/SignupOfferDialog':{SignupOfferDialog:()=>null},'./ai-photo-landing.module.css':{__esModule:true,default:styles},'@/components/crefans/studio/ai-photo.module.css':{__esModule:true,default:styles},'next/link':({href,children,...props})=>React.createElement('a',{href,...props},children),'@/components/crefans/Brand':{Brand:()=>React.createElement('span',null,'crefans')},'@/components/ui/Primitives':{Dialog:({open,title,onClose,children})=>open?React.createElement('section',{'data-dialog':title,onClose},children):null},'@/components/ui/DialogActions':{DialogActions:({children})=>React.createElement('div',null,children)},'@/features/service/useFunnelStep':{useFunnelStep:()=>{}},'@/lib/crefans/ai-photo-handoff':{saveAiPhotoHandoff:presets=>{handedOff.push(presets);}}});
 const text=node=>JSON.stringify(node.toJSON());
 test('hero results come from real presets, the preset browser reuses the editor cards, and the removed sections stay gone',async()=>{
  const fs=require('fs'),sharp=require('sharp');
@@ -28,7 +28,7 @@ test('hero results come from real presets, the preset browser reuses the editor 
   assert.ok(tree.root.findAll(node=>node.type==='button'&&node.props['aria-label']==='리본 메이드').length===1);
   const tab=tree.root.findAll(node=>node.props.role==='tab').find(node=>node.findAllByType('span').some(span=>span.props.children==='포즈'));act(()=>tab.props.onClick());
   const card=()=>tree.root.find(node=>node.type==='button'&&node.props['aria-label']==='소품 어깨에 메기');
-  assert.equal(card().props['aria-pressed'],false);act(()=>card().props.onClick());assert.equal(card().props['aria-pressed'],true);act(()=>card().props.onClick());assert.equal(card().props['aria-pressed'],false);
+  assert.equal(card().props['aria-pressed'],false);await act(async()=>card().props.onClick());assert.equal(card().props['aria-pressed'],true);await act(async()=>card().props.onClick());assert.equal(card().props['aria-pressed'],false);
   // 2026-11-17: enters at 100% (all original), eases to 20% (more of the result), hints appear after the intro and stay until the line moves.
   assert.ok(tree.root.findAll(node=>node.props.style?.clipPath==='inset(0 0 0 100%)').length===1,'enters from the far right');assert.doesNotMatch(text(tree),/밀거나 눌러서/);
   await act(async()=>{await new Promise(r=>setTimeout(r,1650));});

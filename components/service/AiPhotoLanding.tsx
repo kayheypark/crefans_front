@@ -1,6 +1,9 @@
 'use client';
 import {useEffect,useRef,useState,type CSSProperties} from 'react';
 import Link from 'next/link';
+import {guestPresetAccess} from '@/lib/crefans/preset-access';
+import {SignupOfferDialog} from '@/components/crefans/SignupOfferDialog';
+import {useCurrentSignupHref} from '@/components/crefans/useCurrentLoginHref';
 import {Brand} from '@/components/crefans/Brand';
 import {ServiceFooter} from '@/components/crefans/ServiceFooter';
 import {SelectField} from '@/components/ui/SelectField';
@@ -94,10 +97,20 @@ export function LandingPresetBrowser({onPicked,onChoose}:{onPicked?:(picked:Reco
  const chosen=picked[kind]||[];
  function change(next:AiPhotoKind){setKind(next);setPage(0);setQuery('');}
  function search(value:string){setQuery(value);setPage(0);}
- function pick(value:string){if(value!==AI_PHOTO_KEEP_ORIGINAL&&!chosen.includes(value))onChoose?.({kind,title:aiPhotoPresetTitle(kind,value),image:aiPhotoPresetImage(kind,value)});setPicked(previous=>{const current=previous[kind]||[];if(value===AI_PHOTO_KEEP_ORIGINAL)return {...previous,[kind]:[]};
+ const [memberPreset,setMemberPreset]=useState(false),[accessError,setAccessError]=useState('');
+ const signupHref=useCurrentSignupHref('/service');
+ async function allowed(value:string){
+  setAccessError('');
+  try{if(await guestPresetAccess([{kind,prompt:value}],true))return true;setMemberPreset(true);}
+  catch{setAccessError('프리셋 설정을 확인하지 못했어요. 다시 눌러 주세요.');}
+  return false;
+ }
+ async function pick(value:string){if(value!==AI_PHOTO_KEEP_ORIGINAL&&!chosen.includes(value)&&!await allowed(value))return;if(value!==AI_PHOTO_KEEP_ORIGINAL&&!chosen.includes(value))onChoose?.({kind,title:aiPhotoPresetTitle(kind,value),image:aiPhotoPresetImage(kind,value)});setPicked(previous=>{const current=previous[kind]||[];if(value===AI_PHOTO_KEEP_ORIGINAL)return {...previous,[kind]:[]};
   const next=current.includes(value)?current.filter(item=>item!==value):kind==='makeup'?[...current,value]:[value];return {...previous,[kind]:next};});}
  const selected=(value:string)=>value===AI_PHOTO_KEEP_ORIGINAL?chosen.length===0:chosen.includes(value);
  return <div className={`${e.controls} ${s.browser}`}>
+  <SignupOfferDialog open={memberPreset} onClose={()=>setMemberPreset(false)} title="회원 전용 프리셋이에요" art="/illustrations/try/guest-ticket-v1.webp" signupHref={signupHref}>회원가입하면 이 프리셋으로 사진을 만들 수 있어요.</SignupOfferDialog>
+  {accessError&&<p role="alert">{accessError}</p>}
   <div className={e.tabs} role="tablist" aria-label="편집 카테고리">{landingKinds.map(item=><button key={item.value} type="button" role="tab" aria-selected={kind===item.value} onClick={()=>change(item.value)}><AiPhotoCategoryIcon kind={item.value}/><span>{item.label}</span>{kind===item.value&&<svg className={e.tabCheck} aria-hidden="true" width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="m2 6 3 3 5-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>}</button>)}</div>
   {kind==='background'&&<div className={e.posePosture} role="group" aria-label="배경 카테고리">{(['indoor','outdoor'] as const).map(value=><button key={value} type="button" aria-pressed={backgroundCategory===value} onClick={()=>{setBackgroundCategory(value);search('');}}>{value==='indoor'?'실내':'아웃도어'}</button>)}</div>}
   {kind==='pose'&&<div className={e.posePosture} role="group" aria-label="포즈 자세">{(['sitting','standing'] as const).map(value=><button key={value} type="button" aria-pressed={posture===value} onClick={()=>{setPosture(value);search('');}}>{value==='sitting'?'앉기':'서기'}</button>)}</div>}
@@ -105,7 +118,7 @@ export function LandingPresetBrowser({onPicked,onChoose}:{onPicked?:(picked:Reco
   {kind==='outfit'?<div role="tabpanel" aria-label="코스튬 프리셋" className={e.wardrobe}>
    <p className={e.costumeHint}>{AI_PHOTO_COSTUME_HINT}</p>
    <div className={e.costumeCategoryBar}><SelectField className={e.costumeCategoryPicker} label="의상 카테고리" hideLabel value={costumeCategory} onChange={value=>{setCostumeCategory(value as AiPhotoCostumeCategory);search('');}} options={aiPhotoCostumeCategories.map(item=>({value:item.value,label:item.label,image:item.image}))}/><span>{query.trim()?'전체 의상 검색':category.group} · {costumes.length}종</span></div>
-   <AiPhotoWardrobe key={`${costumeCategory}-${query}`} items={costumes} selectedPrompts={picked.outfit||[]} disabled={false} onPick={value=>{const text=aiPhotoPresetText(value);const costume=costumes.find(item=>item.prompt===value);if(costume&&!(picked.outfit||[]).includes(text))onChoose?.({kind:'outfit',title:costume.name,image:costume.image});setPicked(previous=>({...previous,outfit:(previous.outfit||[]).includes(text)?[]:[text]}));}}/>
+   <AiPhotoWardrobe key={`${costumeCategory}-${query}`} items={costumes} selectedPrompts={picked.outfit||[]} disabled={false} onPick={async value=>{const text=aiPhotoPresetText(value);if(!(picked.outfit||[]).includes(text)&&!await allowed(value))return;const costume=costumes.find(item=>item.prompt===value);if(costume&&!(picked.outfit||[]).includes(text))onChoose?.({kind:'outfit',title:costume.name,image:costume.image});setPicked(previous=>({...previous,outfit:(previous.outfit||[]).includes(text)?[]:[text]}));}}/>
   </div>:<div role="tabpanel" aria-label={`${landingKinds.find(item=>item.value===kind)!.label} 프리셋`} className={e.presets}>
    <div className={e.presetHeading}><span>{query.trim()?`검색 결과 ${preset.total}개`:'프리셋'}</span><div className={e.presetNavigation}><button type="button" aria-label="이전 프리셋 페이지" disabled={preset.pages<=1} onClick={()=>setPage(preset.index-1)}>‹</button><span aria-live="polite">{preset.index+1} / {preset.pages}</span><button type="button" aria-label="다음 프리셋 페이지" disabled={preset.pages<=1} onClick={()=>setPage(preset.index+1)}>›</button></div></div>
    <AiPresetPager key={`${kind}-${query}`} onStep={step=>setPage(preset.index+step)} disabled={preset.pages<=1}><div className={e.photoPresetGrid}>{preset.examples.map(example=><button type="button" key={example} className={e.preset} aria-label={aiPhotoPresetTitle(kind,example)} aria-pressed={selected(example)} onClick={()=>pick(example)}>

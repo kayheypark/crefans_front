@@ -1,4 +1,5 @@
 "use client";
+import {guestPresetAccess} from '@/lib/crefans/preset-access';
 import {AiPhotoLibrary} from './AiPhotoLibrary';
 import type {PhotoAsset,PhotoLibraryModel} from '@/types/crefans-photo-library';
 import {PHOTO_LIBRARY_REFERENCE_MAX,photoAssetKind,photoAssetLabel} from '@/lib/crefans/photo-library';
@@ -118,7 +119,16 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
  // '내 사진' background: one uploaded photo; it replaces a background preset and vice versa (the server accepts one background).
  function pickOwnBackground(item:StudioMedia|null){setOwnBackground(item);const rest=selectedPresets.filter(preset=>preset.kind!=='background');applyPresets(item?[...rest,{kind:'background',prompt:AI_PHOTO_OWN_BACKGROUND_PROMPT}]:rest);setError('');}
  async function uploadOwnBackground(file:File){if(!onUploadBackground)return;setBackgroundUploading(true);setError('');try{const r=await onUploadBackground(file);if(!r.success||!r.data){setError(r.errorMessage||'사진을 올리지 못했어요.');return;}const item=r.data;setUploadedBackgrounds(items=>[...items,item]);pickOwnBackground(item);}catch{setError('사진을 올리지 못했어요. 잠시 후 다시 시도해 주세요.');}finally{setBackgroundUploading(false);}}
- function pickPreset(value:string){setLibraryAssets(items=>items.filter(item=>photoAssetKind(item.category)!==kind));if(kind==='background')setOwnBackground(null);if(value===AI_PHOTO_KEEP_ORIGINAL){applyPresets(selectedPresets.filter(item=>item.kind!==kind));return;}const part=kind==='outfit'?aiPhotoOutfitByPrompt(aiPhotoPresetText(value))?.part:undefined,multi=aiPhotoMultiSelectKinds.includes(kind);applyPresets([...selectedPresets.filter(item=>item.kind!==kind||(multi&&item.prompt!==aiPhotoPresetText(value))||(!!part&&!!aiPhotoOutfitByPrompt(item.prompt)&&aiPhotoOutfitByPrompt(item.prompt)!.part!==part)),...(isPresetSelected(value)?[]:[{kind,prompt:aiPhotoPresetText(value)}])]);}
+ const [memberPreset,setMemberPreset]=useState(false);
+ async function allowedPresets(items:AiPhotoPresetSelection[]){
+  if(!noHearts)return true;
+  try{if(await guestPresetAccess(items))return true;setMemberPreset(true);}
+  catch{setError('프리셋 설정을 확인하지 못했어요. 다시 눌러 주세요.');}
+  return false;
+ }
+ async function pickPreset(value:string){
+  if(noHearts&&value!==AI_PHOTO_KEEP_ORIGINAL&&!isPresetSelected(value)&&!await allowedPresets([{kind,prompt:value}]))return;
+  setLibraryAssets(items=>items.filter(item=>photoAssetKind(item.category)!==kind));if(kind==='background')setOwnBackground(null);if(value===AI_PHOTO_KEEP_ORIGINAL){applyPresets(selectedPresets.filter(item=>item.kind!==kind));return;}const part=kind==='outfit'?aiPhotoOutfitByPrompt(aiPhotoPresetText(value))?.part:undefined,multi=aiPhotoMultiSelectKinds.includes(kind);applyPresets([...selectedPresets.filter(item=>item.kind!==kind||(multi&&item.prompt!==aiPhotoPresetText(value))||(!!part&&!!aiPhotoOutfitByPrompt(item.prompt)&&aiPhotoOutfitByPrompt(item.prompt)!.part!==part)),...(isPresetSelected(value)?[]:[{kind,prompt:aiPhotoPresetText(value)}])]);}
  // 2026-11-19 이탈 분석: 편집창이 열릴 때마다 퍼널 단계를 남긴다(모델이 actor를 붙여 PostHog로 보냄).
  useEffect(()=>{if(open)onTrack?.('ai_editor_opened',{mode:cosplayOpen?'cosplay':'general'});
  // eslint-disable-next-line react-hooks/exhaustive-deps -- count each open
@@ -126,7 +136,8 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
  // 2026-11-17 user request: presets picked on the AI photo landing are applied the first time the editor opens.
  const handoffTried=useRef(false);
  useEffect(()=>{if(!open||handoffTried.current)return;handoffTried.current=true;const presets=takeAiPhotoHandoff();if(!presets.length)return;
-  if(applyPresets(presets)){if(presets.some(item=>item.kind==='outfit'))setCosplayOpen(true);setKind(presets[0].kind);for(const item of presets)revealSelection(item.kind,presets);}
+  void (async()=>{if(!await allowedPresets(presets))return;
+  if(applyPresets(presets)){if(presets.some(item=>item.kind==='outfit'))setCosplayOpen(true);setKind(presets[0].kind);for(const item of presets)revealSelection(item.kind,presets);}})();
  // eslint-disable-next-line react-hooks/exhaustive-deps -- once, on the first open
  },[open]);
  function changeBody(key:string,level:number){const next=updateAiPhotoBodySelection(selectedPresets,bodySelection,key,level);if(applyPresets(next.presets))setBodySelection(next.values);}
@@ -242,7 +253,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
    if(requiresMask&&!mask){blocked('mask_build');setError('칠한 영역을 처리하지 못했어요. 다시 칠해 주세요.');setStage('edit');return;}
    const ownBackgroundId=ownBackground&&selectedPresets.some(item=>item.kind==='background'&&item.prompt===AI_PHOTO_OWN_BACKGROUND_PROMPT)?ownBackground.id:undefined;
    const result=await onEdit({generationMethod:method.value,...(ownBackgroundId?{backgroundMediaId:ownBackgroundId}:{}),...(retryImproved?{retryImproved:true}:{}),backgroundId:aiPhotoBackgroundId(selectedPresets.find(item=>item.kind==='background')?.prompt),presetKeys:selectedPresets.filter(item=>item.kind!=='outfit'&&!(item.kind==='background'&&(aiPhotoBackgroundId(item.prompt)||item.prompt===AI_PHOTO_OWN_BACKGROUND_PROMPT))).map(item=>({kind:item.kind,key:aiPhotoPresetTitle(item.kind,item.prompt,targetGender)})).filter(item=>item.key),aspectRatio,...(libraryAssets.length?{libraryIds:libraryAssets.map(item=>item.id)}:{}),...(game?{heartGameId:game.id}:{}),source,mode:cosplayOpen?'cosplay':'general',kind:editKinds.length>1?'combined':requestKind,...(editKinds.length>1?{editKinds}:{}),prompt:prompt.trim(),style,...(costume?{costumeIds:aiPhotoCostumeRequest(selectedPresets).costumeIds}:{}),...(targetGender!=='original'?{targetGender}:{}),...(mask?{mask}:{}),consent:true});
-   if(!result.success){if(publishReward&&result.errorCode==='GUEST_AI_LIMIT'){publishOfferShown.current=true;setPublishOffer(true);}else if((result.errorCode==='DAILY_LIMIT'||result.errorCode==='GUEST_AI_LIMIT')&&tickets<=0){refillShown.current=true;setRefillNotice(true);}else if(result.errorCode==='DAILY_LIMIT'&&shop){setShopOpen(true);void shop.refresh();}else{{/* 2026-11-23 이탈 분석: the network (GUEST_IP_LIMIT) and all-guest daily (GUEST_DAILY_CLOSED) limits also say "sign up to continue". */if(noHearts&&(result.errorCode==='GUEST_AI_LIMIT'||result.errorCode==='GUEST_IP_LIMIT'||result.errorCode==='GUEST_DAILY_CLOSED'))setSignupOffer(true);setRetryable(result.errorCode==='OUTPUT_MATERIAL_BLOCKED'||result.errorCode==='PROVIDER_OUTPUT_BLOCKED');setInputBlocked(result.errorCode==='PROVIDER_INPUT_BLOCKED'?'returned':result.errorCode==='INPUT_BLOCKED_LIMIT'?'used':result.errorCode==='UNSAFE_INPUT'?'unsafe':'');setError(result.errorMessage);}}setStage(results.length?'results':'edit');return;}
+   if(!result.success){if(noHearts&&result.errorCode==='MEMBER_ONLY_PRESET'){setMemberPreset(true);setStage('edit');return;}if(publishReward&&result.errorCode==='GUEST_AI_LIMIT'){publishOfferShown.current=true;setPublishOffer(true);}else if((result.errorCode==='DAILY_LIMIT'||result.errorCode==='GUEST_AI_LIMIT')&&tickets<=0){refillShown.current=true;setRefillNotice(true);}else if(result.errorCode==='DAILY_LIMIT'&&shop){setShopOpen(true);void shop.refresh();}else{{/* 2026-11-23 이탈 분석: the network (GUEST_IP_LIMIT) and all-guest daily (GUEST_DAILY_CLOSED) limits also say "sign up to continue". */if(noHearts&&(result.errorCode==='GUEST_AI_LIMIT'||result.errorCode==='GUEST_IP_LIMIT'||result.errorCode==='GUEST_DAILY_CLOSED'))setSignupOffer(true);setRetryable(result.errorCode==='OUTPUT_MATERIAL_BLOCKED'||result.errorCode==='PROVIDER_OUTPUT_BLOCKED');setInputBlocked(result.errorCode==='PROVIDER_INPUT_BLOCKED'?'returned':result.errorCode==='INPUT_BLOCKED_LIMIT'?'used':result.errorCode==='UNSAFE_INPUT'?'unsafe':'');setError(result.errorMessage);}}setStage(results.length?'results':'edit');return;}
    const made=result.data.images.map(item=>({...item,aiGenerated:true}));for(const item of made){sourceOrigins.current.set(item.id,sourceOrigins.current.get(source.id)||source.id);resultPresets.current.set(item.id,selectedPresets);}
    setShopLink(costumeShopLink(selectedPresets.filter(item=>item.kind==='outfit').map(item=>item.prompt)));
    if(made.length)madeOk=true;setResultHearts(heartScoreRef.current);setResults(made);setSelected(made.slice(0,1).map(item=>item.id));setRemaining(result.data.remaining);
@@ -419,6 +430,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
    <div className={s.publishOfferActions}>{noHearts?<ActionLink href={signupLink} variant="secondary">회원가입하면 하루 10장</ActionLink>:shop?<Action type="button" variant="secondary" onClick={()=>{setRefillNotice(false);setShopOpen(true);void shop.refresh();}}>이용권 구매</Action>:null}<a className={s.refillCalendar} href={`/calendar/ai-photo-reset.ics${noHearts?'':'?for=member'}`}>캘린더에 추가하기</a></div></div>
  </Dialog>
  <Dialog open={open&&shopOpen} onClose={()=>setShopOpen(false)} title="AI 이용권 구매" fullscreenOnMobile>{shop&&<ShopPage model={shop} basePath={shopBasePath}/>}</Dialog>
+ {noHearts&&<SignupOfferDialog open={open&&memberPreset} onClose={()=>setMemberPreset(false)} title="회원 전용 프리셋이에요" art="/illustrations/try/guest-ticket-v1.webp" signupHref={signupLink}>회원가입하면 이 프리셋으로 사진을 만들 수 있어요.</SignupOfferDialog>}
  {noHearts&&<SignupOfferDialog open={open&&signupNudge} onClose={()=>setSignupNudge(false)} title="회원가입하면 매일 10장" art="/illustrations/try/guest-ticket-v1.webp" signupHref={signupLink}>
   비회원은 기본 하루 3장이지만<br/>회원은 <strong>매일 10장</strong>을 무료로 만들 수 있어요.<br/><small>매일 오전 9시(한국 시간)에 다시 채워져요.</small>
  </SignupOfferDialog>}

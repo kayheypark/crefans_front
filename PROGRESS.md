@@ -6771,3 +6771,6 @@ NSFW관 입장 문구에 신체 노출·성적 표현, 폭력·유혈, 혐오·�
 
 ## 2026-11-26 — 회원가입 이메일 인증 안내 간소화
 이메일 인증 전 휴대폰 번호 밑에 있던 “이메일 인증 후 진행해 주세요.” 문구를 제거했다. node --test --test-name-pattern='phone at signup' tests/crefans-account.test.cjs 종료 0. 문구 제거 및 인증 순서 검증.
+
+## 2026-11-26 프리셋 회원 전용 설정
+- 피부 5종 기존 카탈로그 확인. 콘솔 상세에서 개별 설정, 게스트 카드 클릭 시 가입 안내. 서버 생성 전 실제 참조 ID·프롬프트 검증. 기존 항목 기본 허용. 기준 https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html (2026-11-26).
