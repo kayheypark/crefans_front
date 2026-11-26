@@ -7,7 +7,7 @@ import {aiPhotoRatios,photoCrop,type AiPhotoRatio,type PhotoCrop} from '@/lib/cr
 import type {StudioMedia} from '@/types/crefans-studio-management';
 import s from './ai-photo.module.css';
 export function AiPhotoRatioPresets({value,onChange,disabled=false}:{value:AiPhotoRatio;onChange:(value:AiPhotoRatio)=>void;disabled?:boolean}){
- return <div className={s.ratioPresets} role="group" aria-label="사진 비율">{aiPhotoRatios.map(r=><button key={r} type="button" aria-pressed={value===r} disabled={disabled} onClick={()=>onChange(r)}><span aria-hidden="true" style={{aspectRatio:r==='original'?'1':r.replace(':',' / '),height:20,maxWidth:36,border:'1.5px solid currentColor',borderRadius:3}}/>{r==='original'?'원본':r}</button>)}</div>;
+ return <div className={s.ratioPresets} role="group" aria-label="사진 비율">{aiPhotoRatios.map(r=><button key={r} type="button" aria-pressed={value===r} disabled={disabled} onClick={()=>onChange(r)}>{r==='original'?<b aria-hidden="true">Original</b>:<img src={`/brand/ai-photo/ratios/${r.replace(':','-')}.webp`} alt=""/>}<span>{r==='original'?'원본':r}</span></button>)}</div>;
 }
 export function AiPhotoCrop({item,onClose,onApply}:{item:StudioMedia;onClose:()=>void;onApply:(crop:PhotoCrop)=>Promise<void>}){
  const [ratio,setRatio]=useState<AiPhotoRatio>('original'),[size,setSize]=useState({width:0,height:0}),[position,setPosition]=useState({x:.5,y:.5}),[zoom,setZoom]=useState(1),[busy,setBusy]=useState(false),[error,setError]=useState('');
