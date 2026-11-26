@@ -57,7 +57,7 @@ test('the server HTML shows the open post until the app loads',()=>{
  const React=require('react'),{create,act}=require('react-test-renderer');globalThis.IS_REACT_ACT_ENVIRONMENT=true;
  const {PostSeoFallback}=loadTypeScript('components/service/PostSeoFallback.tsx');
  let tree;act(()=>{tree=create(React.createElement(PostSeoFallback,{post:{title:'벚꽃 코스프레',body:'봄 사진',author:'체험 사용자',time:'2026-11-25T09:00:00.000Z',category:'코스프레',images:['/a','/b']}}));});
- assert.equal(tree.root.findByType('h1').children.join(''),'벚꽃 코스프레');assert.deepEqual(tree.root.findAllByType('img').map(i=>[i.props.src,i.props.alt]),[['/a','벚꽃 코스프레'],['/b','벚꽃 코스프레 사진 2']]);
+ assert.equal(tree.root.findByType('h1').children.join(''),'벚꽃 코스프레');assert.deepEqual(tree.root.findByType('time').children,['2026. 11. 25.']);assert.deepEqual(tree.root.findAllByType('img').map(i=>[i.props.src,i.props.alt]),[['/a','벚꽃 코스프레'],['/b','벚꽃 코스프레 사진 2']]);
  const fs=require('node:fs'),router=fs.readFileSync('components/service/ServiceRouter.tsx','utf8'),page=fs.readFileSync('app/service/[...screen]/page.tsx','utf8');
  assert.match(router,/function content\(\)\{if\(loading\)return fallback\?\?\(slow\?<LoadingSpinner\/>:null\);/);
  assert.match(page,/fallback=\{post\?<PostSeoFallback post=\{post\}\/>:undefined\}/);
