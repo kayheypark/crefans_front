@@ -30,7 +30,7 @@ import {getPostMembershipOffer} from '@/lib/crefans/membership-plans';
 import {Radio} from '@/components/ui/Choice';
 import {reportReasons,type ReportReason} from '@/lib/crefans/report-reasons';
 import {ChipRow} from '@/components/ui/ChipRow';
-import {CategoryChip,CategoryIcon} from './CategoryChip';
+import {CategoryChip,CategoryIcon,categoryImageSrc} from './CategoryChip';
 import type {ApiResult,Post,ServiceData,ServiceViewModel} from '@/types/crefans';
 import type {MessagesViewModel,SocialActionResult,SocialComment,SocialReply} from '@/types/crefans-social';
 import Icon from './Icon';
@@ -178,6 +178,11 @@ function PostActions({post,model,comments=post.comments,readOnly=false,onComment
 /** `context` is the ordered list the card sits in (feed, profile feed); the overlay uses it for 이전/다음 게시물.
  * `preview` (post search, 2026-11-09 "검색은 제외, 피드·상세는 열람"): the server sends membership posts locked even to
  * subscribers so a search never counts as viewing; a viewer who may open it gets a link to the detail instead of a sales notice. */
+function PostTitle({post,icons}:{post:Post;icons?:ServiceData['categoryIcons']}){
+  const category=post.category;
+  return <>{category&&<span className={s.postCategory}><CategoryIcon label={category} iconUrl={categoryImageSrc(category,icons?.[category]??undefined)??categoryImageSrc('전체')}/>{category}</span>}{post.title}</>;
+}
+
 export function PostCard({post,model,context,preview=false}:{post:Post;model:PostCardModel&Partial<CommentsModel>;context?:Post[];preview?:boolean}){
   const exposure=usePostExposure(post.id,model.basePath==='/service'&&!model.ownCreatorIds?.includes(post.creatorId)&&post.creatorId!==model.viewerId,'feed');
   const {canAccess,basePath}=model,[commentsOpen,setCommentsOpen]=useState(false),[viewer,setViewer]=useState(0),[viewerOpen,setViewerOpen]=useState(false);
@@ -186,7 +191,7 @@ export function PostCard({post,model,context,preview=false}:{post:Post;model:Pos
   const locked=!(post.canAccess??canAccess(post.creatorId,post.requiredRank,post.requiredPlanId)),count=model.commentCounts[post.id]??post.comments;
   const openInDetail=preview&&locked&&canAccess(post.creatorId,post.requiredRank,post.requiredPlanId);
   const inline=!openInDetail&&model.commentsByPost&&model.addComment&&model.loadReplies?{commentsByPost:model.commentsByPost,addComment:model.addComment,loadReplies:model.loadReplies,loadComments:model.loadComments,commentPaging:model.commentPaging,editComment:model.editComment,deleteComment:model.deleteComment,likeComment:model.likeComment,basePath:model.basePath,reportComment:model.reportComment,mentionCandidates:model.mentionCandidates}:null;
-  return <article ref={exposure} className={s.post}><PostHeading post={post} model={model}/>{openInDetail?<div className={s.lockedMedia}><Icon name="lock" width={30} height={30}/><strong>구독 중인 멤버십 게시물</strong><p>검색 결과에서는 내용이 보이지 않아요.</p><Link className={s.subscribe} href={`${basePath}/post/${post.id}`}>게시물 보기</Link></div>:<PostMedia post={post} locked={locked} model={model} onOpen={index=>{setViewer(index);setViewerOpen(true);}}/>}{viewerPresent&&<PostOverlay post={post} model={model} inline={inline} initialIndex={viewer} context={context} open={viewerOpen} onClose={()=>setViewerOpen(false)}/>}<Link className={s.postCopy} href={`${basePath}/post/${post.id}`}><h2>{post.title}</h2><p>{locked?'멤버십으로 이어지는 조금 더 가까운 이야기.':post.body}</p></Link><PostActions post={post} model={model} comments={count} onComments={inline?()=>setCommentsOpen(open=>!open):undefined} commentsOpen={commentsOpen}/>{inline&&commentsOpen&&<div className={s.inlineComments}><CommentsSection post={post} model={inline} count={count} locked={locked} onClose={()=>setCommentsOpen(false)}/></div>}</article>;
+  return <article ref={exposure} className={s.post}><PostHeading post={post} model={model}/>{openInDetail?<div className={s.lockedMedia}><Icon name="lock" width={30} height={30}/><strong>구독 중인 멤버십 게시물</strong><p>검색 결과에서는 내용이 보이지 않아요.</p><Link className={s.subscribe} href={`${basePath}/post/${post.id}`}>게시물 보기</Link></div>:<PostMedia post={post} locked={locked} model={model} onOpen={index=>{setViewer(index);setViewerOpen(true);}}/>}{viewerPresent&&<PostOverlay post={post} model={model} inline={inline} initialIndex={viewer} context={context} open={viewerOpen} onClose={()=>setViewerOpen(false)}/>}<Link className={s.postCopy} href={`${basePath}/post/${post.id}`}><h2><PostTitle post={post} icons={model.data.categoryIcons}/></h2><p>{locked?'멤버십으로 이어지는 조금 더 가까운 이야기.':post.body}</p></Link><PostActions post={post} model={model} comments={count} onComments={inline?()=>setCommentsOpen(open=>!open):undefined} commentsOpen={commentsOpen}/>{inline&&commentsOpen&&<div className={s.inlineComments}><CommentsSection post={post} model={inline} count={count} locked={locked} onClose={()=>setCommentsOpen(false)}/></div>}</article>;
 }
 
 /** Full-screen post viewer opened from a feed image: large media on the left (dark), author · text · actions · comments on the right (white). */
@@ -236,7 +241,7 @@ function PostOverlay({post:initialPost,model,inline,initialIndex,context,open,on
       <button type="button" className={s.panelHandle} aria-label={`상세 패널 크기: ${panelModes[panelSnap]}`} aria-controls={panelContentId} title="위아래로 드래그하거나 눌러 크기 변경" onPointerDown={panelStart} onPointerMove={panelMove} onPointerUp={panelEnd} onPointerCancel={panelCancel} onLostPointerCapture={panelCancel} onClick={event=>{if(event.detail===0||!suppressPanelClick.current)setPanelSnap(current=>(current+1)%panelStops.length);suppressPanelClick.current=false;}} onKeyDown={event=>{if(!['ArrowUp','ArrowDown','Home','End'].includes(event.key))return;event.preventDefault();setPanelSnap(current=>event.key==='Home'?0:event.key==='End'?2:Math.max(0,Math.min(2,current+(event.key==='ArrowUp'?1:-1))));}}><span aria-hidden="true"/></button>
       <div id={panelContentId} className={s.panelContent}>
       <PostHeading post={post} model={model}/>
-      <div className={s.panelBody}><h2>{post.title}</h2><p>{post.body}</p></div>
+      <div className={s.panelBody}><h2><PostTitle post={post} icons={model.data.categoryIcons}/></h2><p>{post.body}</p></div>
       <PostActions post={post} model={model} comments={count} onComments={inline?()=>setCommentsOpen(open=>!open):undefined} commentsOpen={commentsOpen}/>
       {inline&&<div className={s.inlineComments} hidden={!commentsOpen}><CommentsSection key={post.id} post={post} model={inline} count={count} locked={false} collapsed={!commentsOpen}/></div>}
       {context&&<div className={s.panelNav}><Action variant="secondary" disabled={!previousPost} onClick={()=>jump(previousPost)}><span aria-hidden="true">‹</span>이전 게시물</Action><Action variant="secondary" disabled={!nextPost} onClick={()=>jump(nextPost)}>다음 게시물<span aria-hidden="true">›</span></Action><Action variant="secondary" className={s.panelNavClose} aria-label="갤러리 닫기" onClick={onClose}>닫기</Action></div>}
@@ -402,7 +407,7 @@ export function PostDetailPage({id,model,forceLocked=false,readOnly=false}:{id:s
   const back=readOnly?null:<BackButton href={`${basePath}/feed`} label="피드로 돌아가기"/>;
   if(!post)return <div className={s.feed}>{back&&<div className={s.back}>{back}</div>}<Empty title="게시물을 찾을 수 없어요" illustration={false}/></div>;
   const count=commentCounts[id]??post.comments;
-  return <div className={s.feed} data-post-detail><article ref={exposure} className={s.post}><PostHeading post={post} model={model} readOnly={readOnly} backButton={back}/><PostMedia post={post} locked={locked} model={model} readOnly={readOnly} onOpen={!locked&&!readOnly?index=>setViewer({postId:id,index,open:true}):undefined}/>{viewerPresent&&viewer.postId===id&&!locked&&!readOnly&&<PostOverlay key={id} post={post} model={model} inline={model} initialIndex={viewer.index} open={viewerOpen} onClose={()=>setViewer(current=>({...current,open:false}))}/>}<div className={s.postCopy}><h1>{post.title}</h1><p>{locked?'멤버십 전용 게시물이에요. 이용 가능한 멤버십을 확인해 주세요.':post.body}</p></div><PostActions post={post} model={model} comments={count} readOnly={readOnly}/></article><CommentsSection post={post} model={model} count={count} locked={locked} readOnly={readOnly}/></div>;
+  return <div className={s.feed} data-post-detail><article ref={exposure} className={s.post}><PostHeading post={post} model={model} readOnly={readOnly} backButton={back}/><PostMedia post={post} locked={locked} model={model} readOnly={readOnly} onOpen={!locked&&!readOnly?index=>setViewer({postId:id,index,open:true}):undefined}/>{viewerPresent&&viewer.postId===id&&!locked&&!readOnly&&<PostOverlay key={id} post={post} model={model} inline={model} initialIndex={viewer.index} open={viewerOpen} onClose={()=>setViewer(current=>({...current,open:false}))}/>}<div className={s.postCopy}><h1><PostTitle post={post} icons={model.data.categoryIcons}/></h1><p>{locked?'멤버십 전용 게시물이에요. 이용 가능한 멤버십을 확인해 주세요.':post.body}</p></div><PostActions post={post} model={model} comments={count} readOnly={readOnly}/></article><CommentsSection post={post} model={model} count={count} locked={locked} readOnly={readOnly}/></div>;
 }
 
 export function MessagesPage({model,back,startWith}:{model:MessagesViewModel;back?:ReactNode;startWith?:string}){

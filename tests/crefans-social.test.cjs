@@ -900,3 +900,19 @@ test('startWith opens a first conversation with a member who has none yet',async
   assert.doesNotMatch(JSON.stringify(plain.toJSON()),/처음 팬/,'control: without startWith a member with no conversation is not listed');
   close(plain);
 });
+
+test('feed and detail put the post category and its flat icon before the title',()=>{
+  const daily={...post,category:'일상'};
+  const view=model({data:{...data,posts:[daily]}});
+  for(const [component,props,tag] of [[PostCard,{post:daily,model:view},'h2'],[PostDetailPage,{id:daily.id,model:view},'h1']]){
+    const tree=mount(component,props);
+    try{
+      const heading=tree.root.findAllByType(tag).find(node=>node.findAllByProps({className:'postCategory'}).length);
+      const badge=heading.findByProps({className:'postCategory'});
+      assert.ok(badge.children.includes('일상'));
+      assert.match(badge.findByType('img').props.src,/daily-round-flat-v1/);
+      const content=heading.children[0].children;
+      assert.equal(content[0],badge);assert.equal(content[1],daily.title);
+    }finally{close(tree);}
+  }
+});

@@ -36,6 +36,8 @@
 .membershipOfferHeading{display:flex;align-items:baseline;justify-content:space-between;gap:12px}.membershipOfferHeading h3{margin:0;font-size:17px;overflow-wrap:anywhere}.membershipOfferHeading p{margin:0;white-space:nowrap}.membershipOfferHeading strong{font-size:19px;color:var(--cf-color-text)}.membershipOfferHeading p>span{font-size:13px;margin-left:4px}
 .membershipOffer>p{font-size:14px;margin:12px 0;overflow-wrap:anywhere}.membershipOffer ul{list-style:none;margin:16px 0;padding:0;display:grid;gap:8px}.membershipOffer li{display:flex;align-items:flex-start;gap:8px;font-size:14px;line-height:1.6;overflow-wrap:anywhere}.membershipOffer li svg{flex:none;margin-top:3px;color:var(--cf-service-brand)}.membershipOffer .subscribe{display:flex;width:100%;box-sizing:border-box;margin-top:16px}
 .postCopy{display:block;color:inherit;text-decoration:none;padding:15px 2px 6px}
+.postCategory{display:inline-flex;align-items:center;gap:4px;max-width:100%;padding:2px 7px;margin-inline-end:6px;border-radius:999px;background:var(--cf-color-surfaceSubtle);color:var(--cf-color-textSecondary);font-size:12px;font-weight:600;line-height:1.4;vertical-align:middle;overflow-wrap:anywhere}
+.postCategory img{width:16px;height:16px;flex:none}
 .postCopy h1,.postCopy h2{font-size:15px;line-height:1.6;margin:0 0 4px;font-weight:600}
 .postCopy p{font-size:max(13px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textSecondary);line-height:1.75;margin:0;overflow-wrap:anywhere}
 .postActions{display:flex;align-items:center;gap:clamp(12px,3vw,23px);min-height:49px}
