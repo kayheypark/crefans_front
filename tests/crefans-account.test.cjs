@@ -118,7 +118,13 @@ async function signupEmail(tree,email,code='123456'){
   change(field(tree,'인증 코드'),'111111');await act(async()=>button('확인').props.onClick());assert.match(text(tree),/코드 불일치/);
   change(field(tree,'인증 코드'),'000000');await act(async()=>button('확인').props.onClick());assert.match(text(tree),/인증 완료/);
   advanceSignup(tree);
-  signupProfile(tree,'test-password','새 이름');
+  const profileLabels=()=>tree.root.findAllByType('label').flatMap(label=>label.children.filter(child=>typeof child==='string'));
+  assert.deepEqual(profileLabels(),['비밀번호']);
+  change(field(tree,'비밀번호'),'short');assert.deepEqual(profileLabels(),['비밀번호']);
+  change(field(tree,'비밀번호'),'test-password');assert.deepEqual(profileLabels(),['비밀번호 확인','비밀번호']);
+  change(field(tree,'비밀번호 확인'),'wrong');assert.deepEqual(profileLabels(),['비밀번호 확인','비밀번호']);
+  change(field(tree,'비밀번호 확인'),'test-password');assert.deepEqual(profileLabels(),['닉네임','비밀번호 확인','비밀번호']);
+  change(field(tree,'닉네임'),'새 이름');
   change(field(tree,'비밀번호 확인'),'test-passwor');assert.match(text(tree),/서로 일치하지 않습니다/);change(field(tree,'비밀번호 확인'),'test-password');
   advanceSignup(tree);
   act(()=>button('이전').props.onClick());assert.equal(field(tree,'닉네임').props.value,'새 이름');advanceSignup(tree);

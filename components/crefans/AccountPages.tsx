@@ -131,10 +131,10 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
         {emailNotice&&(emailVerified?<VerifiedNote>{emailNotice}</VerifiedNote>:<p className={s.hint} role="status">{emailNotice}</p>)}{emailError&&<p className={s.error} role="alert">{emailError}</p>}
         </>}
         {step===1&&<>
+        {!errors.password&&!errors.confirm&&<Field label="닉네임" autoComplete="nickname" maxLength={20} value={nickname} onChange={e=>setNickname(e.target.value)} placeholder="닉네임을 입력하세요" error={submitted?errors.nickname:undefined}/>}
+        {!errors.password&&<Field label="비밀번호 확인" type="password" showPasswordToggle autoComplete="new-password" value={confirm} onChange={e=>setConfirm(e.target.value)} placeholder="비밀번호를 다시 입력하세요" error={confirm&&confirm!==password?errors.confirm:undefined}/>}
         <Field label="비밀번호" type="password" showPasswordToggle autoComplete="new-password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="비밀번호를 입력하세요" hint={errors.password?'8자 이상 입력해주세요.':undefined} error={submitted?errors.password:undefined}/>
         {!errors.password&&<VerifiedNote>사용할 수 있는 비밀번호입니다.</VerifiedNote>}
-        <Field label="비밀번호 확인" type="password" showPasswordToggle autoComplete="new-password" value={confirm} onChange={e=>setConfirm(e.target.value)} placeholder="비밀번호를 다시 입력하세요" error={confirm&&confirm!==password?errors.confirm:undefined}/>
-        <Field label="닉네임" autoComplete="nickname" maxLength={20} value={nickname} onChange={e=>setNickname(e.target.value)} placeholder="닉네임을 입력하세요" error={submitted?errors.nickname:undefined}/>
         </>}
         {step===2&&<>
         {identityRequired&&<div className={s.identityRow}><div><strong>본인인증</strong><span>{identityVerified?'PASS 본인인증 완료':'PASS 앱으로 본인인증을 진행합니다.'}</span></div>{identityVerified?<span className={s.verified}>인증 완료</span>:<Action type="button" variant="secondary" disabled={!policiesReady} onClick={()=>{setPassError('');setPassOpen(true);}}>PASS 본인인증</Action>}</div>}
