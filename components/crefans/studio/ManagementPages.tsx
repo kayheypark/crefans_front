@@ -248,12 +248,6 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
   // 2026-11-17 user feedback: after the sample photo is added the next step was unclear, so the AI button is highlighted with a
   // short hint until it is opened once.
   const [aiTouched,setAiTouched]=useState(false),nudgeAi=sampleShown&&!aiTouched;
-  const openedFromFeed=useRef(false);
-  useEffect(()=>{
-    if(openedFromFeed.current||guest||content||!model.actions.aiEditPhoto||task.busy||uploading||typeof window==='undefined'||window.location?.hash!=='#ai-photo')return;
-    openedFromFeed.current=true;
-    setAiOpen(true);setAiTouched(true);void model.actions.refreshAiPhotoQuota?.();
-  },[guest,content,model.actions,task.busy,uploading]);
   // 2026-11-24 이탈 분석: the hint bubble says "여기를 눌러" but was a plain note, so tapping it did nothing (dead clicks right after
   // consent). Tapping the bubble now opens the editor like the button; the button stays the keyboard/screen-reader control.
   // 2026-11-26 이탈 분석 수정안 B: right after consent the sample photo is still uploading, and the button was disabled then (taps
@@ -264,6 +258,12 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
   useEffect(()=>{if(!aiOpenQueued||uploading)return;setAiOpenQueued(false);if(uploadFailed.current||task.busy)return;setAiOpen(true);void model.actions.refreshAiPhotoQuota?.();
   // eslint-disable-next-line react-hooks/exhaustive-deps -- runs when the upload ends
   },[aiOpenQueued,uploading]);
+  const openedFromFeed=useRef(false);
+  useEffect(()=>{
+    if(openedFromFeed.current||guest||content||!model.actions.aiEditPhoto||task.busy||uploading||typeof window==='undefined'||window.location?.hash!=='#ai-photo')return;
+    openedFromFeed.current=true;
+    setAiOpen(true);setAiTouched(true);void model.actions.refreshAiPhotoQuota?.();
+  },[guest,content,model.actions,task.busy,uploading]);
   // 2026-11-17 user request: after an AI photo, nudge 'AI로 내용 작성' until pressed once; once title and body are both filled
   // (by the AI or typed), nudge the publish button instead. One nudge at a time; guest trial only.
   const [writeForReward,setWriteForReward]=useState(false),writeSection=useRef<HTMLElement>(null);
