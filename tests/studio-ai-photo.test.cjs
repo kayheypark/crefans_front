@@ -523,7 +523,8 @@ test('default cosplay wardrobe keeps all eight general costumes on one nine-card
  assert.deepEqual(badges(),Array(8).fill('female'),'women cards carry the ♀ mark; keep-original has none');await click('남성');assert.equal(previews().length,4);assert.equal(calls.length,0);
  // 2026-11-15: ten X-sourced women's looks (cards 13-22) join the female list only; a selection on page 2 survives a same-gender click.
  const {aiPhotoPresetPage,aiPhotoMakeupGender}=loadTypeScript('lib/crefans/ai-photo-presets.ts');
- assert.equal(aiPhotoPresetPage('makeup',0,'female').total,16);assert.equal(aiPhotoPresetPage('makeup',0,'male').total,4);assert.equal(aiPhotoPresetPage('makeup',0,'original').total,20);
+ assert.equal(aiPhotoPresetPage('makeup',0,'female').total,17);assert.equal(aiPhotoPresetPage('makeup',0,'male').total,4);assert.equal(aiPhotoPresetPage('makeup',0,'original').total,21);
+ assert.equal(aiPhotoPresetPage('makeup',0,'female','도우인 쿨핑크').examples.length,1);
  assert.equal(aiPhotoMakeupGender('한쪽 눈 밑에 작은 점을 찍어 포인트를 줘.'),'female');assert.equal(aiPhotoMakeupGender('없는 문구'),undefined);
  await click('여성');await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'눈 밑 점'}}));await click('눈 밑 점');
  await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:''}}));await click('여성');
@@ -889,7 +890,7 @@ test('keep-original card leads every non-outfit preset tab, has an image, hides 
  assert.deepEqual([...aiPhotoKeepOriginalKinds].sort(),['background','camera','expression','lens','makeup','pose','skin']);
  for(const kind of aiPhotoKeepOriginalKinds){const page=aiPhotoPresetPage(kind,0,'female');assert.equal(page.examples[0],AI_PHOTO_KEEP_ORIGINAL,kind);assert.equal(aiPhotoPresetTitle(kind,AI_PHOTO_KEEP_ORIGINAL),'원본 유지');assert.ok(fs.existsSync(path.join(__dirname,'..','public',aiPhotoPresetImage(kind,AI_PHOTO_KEEP_ORIGINAL))),kind);assert.equal(aiPhotoPresetPage(kind,0,'female','없는검색어').examples.length,0);assert.equal(aiPhotoPresetPage(kind,0,'female','원본').examples[0],AI_PHOTO_KEEP_ORIGINAL);}
  assert.ok(!aiPhotoPresetPage('outfit',0,'female').examples.includes(AI_PHOTO_KEEP_ORIGINAL));
- assert.equal(aiPhotoPresetPage('makeup',0,'female').pages,2);assert.equal(aiPhotoPresetPage('makeup',0,'female').total,16,'total counts real presets only');
+ assert.equal(aiPhotoPresetPage('makeup',0,'female').pages,2);assert.equal(aiPhotoPresetPage('makeup',0,'female').total,17,'total counts real presets only');
 });
 
 // 2026-11-15 user choice B: the library opens as one row per category ("{분류} {전체 수}" + 전체보기), 전체보기 opens that category's grid,

@@ -27,7 +27,8 @@ export const aiPhotoMakeups:readonly AiPhotoMakeup[]=[
  {prompt:"피부를 밝고 매끈한 하얀 매트 베이스로 정돈해 코스프레용 하얀 얼굴로 바꿔줘.",title:"하얀 피부 베이스",gender:'male',image:'makeup-male-01-v1'},
  {prompt:"잡티와 홍조를 자연스럽게 가려 피부 톤을 고르게 정돈해줘.",title:"피부 톤 정돈",gender:'male',image:'makeup-male-02-v1'},
  {prompt:"눈썹을 깔끔하고 또렷하게 다듬어줘.",title:"눈썹 정리",gender:'male',image:'makeup-male-03-v1'},
- {prompt:"입술 색을 건강한 자연 톤으로 정돈하고 촉촉하게 해줘.",title:"입술 정돈",gender:'male',image:'makeup-male-04-v1'}
+ {prompt:"입술 색을 건강한 자연 톤으로 정돈하고 촉촉하게 해줘.",title:"입술 정돈",gender:'male',image:'makeup-male-04-v1'},
+ {prompt:"원래 얼굴형과 피부 톤은 유지하고, 눈 앞머리와 눈두덩에 실버 펄을 얹어줘. 검은 아이라인은 눈꼬리 밖으로 길게 빼고 속눈썹은 가닥씩 살려줘. 눈 밑에서 광대 위까지 쿨핑크 블러셔를 넓게 펴고 입술은 촉촉한 로즈핑크 글로스로 마무리해줘.",title:"도우인 쿨핑크",gender:'female',image:'makeup-23-v2'}
 ];
 
 // 편집 가능한 제안 문구. 탐색/선택만으로는 생성 요청을 보내지 않는다.
