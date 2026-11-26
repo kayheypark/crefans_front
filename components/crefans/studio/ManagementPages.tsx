@@ -19,6 +19,7 @@ import {useState,useEffect,useRef,useId,type FormEvent,type ReactNode} from 'rea
 import Link from 'next/link';
 import Image from 'next/image';
 import {TextLink} from '@/components/ui/TextLink';
+import {PostCategoryField} from '../PostCategoryField';
 import {SelectField} from '@/components/ui/SelectField';
 import {BenefitsField} from '@/components/ui/BenefitsField';
 import {MediaUpload} from '@/components/ui/MediaUpload';
@@ -150,6 +151,8 @@ export function ContentEditorPage({model,basePath,id,previewModel,previewCreator
   return <ContentEditor key={id||'new'} model={model} basePath={basePath} content={content} previewModel={previewModel} previewCreatorId={previewCreatorId} commentsGloballyEnabled={commentsGloballyEnabled} memberMode={memberMode||!!guest} guest={guest} draftOwner={draftOwner}/>;
 }
 function ContentEditor({model,basePath,content,previewModel,previewCreatorId,commentsGloballyEnabled=true,memberMode=false,guest,draftOwner}:EditorProps&{content?:StudioContent}){
+  const [chosenCategory,setCategory]=useState<string>();
+  const category=chosenCategory??content?.category??(!content&&previewModel?.data.categories?.includes('코스프레')?'코스프레':'');
   const [previewOpen,setPreviewOpen]=useState(false),[savedId,setSavedId]=useState(content?.id),[title,setTitle]=useState(content?.title||''),[body,setBody]=useState(content?.body||''),[media,setMedia]=useState<StudioMedia[]>(content?.media||[]),[tipsEnabled,setTipsEnabled]=useState(content?.tipsEnabled??true),[commentsEnabled,setCommentsEnabled]=useState(content?.commentsEnabled??true),[access,setAccess]=useState(content?.accessLevel?`level:${content.accessLevel}`:content?.accessPlanId||''),[scheduledAt,setScheduledAt]=useState(localDateInput(content?.scheduledAt||null)),[scheduleEnabled,setScheduleEnabled]=useState(content?.status==='scheduled'),[error,setError]=useState('');
   // 2026-11-20 user request: while the share reward is still available, a floating ticket (bottom right) reopens the share-reward guide.
   const [shareGuideOpen,setShareGuideOpen]=useState(false);
@@ -225,16 +228,16 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
   // from this browser; then no new sample photo is added. Saved on every change once restored; cleared after publishing.
   const [draftReady,setDraftReady]=useState(false);
   useEffect(()=>{if(!guest||content)return;const draft=loadGuestTrialDraft(guest.authorId);
-    if(draft){sampleTried.current=true;setMedia(draft.media);setTitle(draft.title);setBody(draft.body);if(draft.title||draft.body)setCaptionReady(true);setSampleNotice('작성하던 내용을 이어서 불러왔어요.');}
+    if(draft){sampleTried.current=true;setMedia(draft.media);setCategory(draft.category);setTitle(draft.title);setBody(draft.body);if(draft.title||draft.body)setCaptionReady(true);setSampleNotice('작성하던 내용을 이어서 불러왔어요.');}
     setDraftReady(true);
   // eslint-disable-next-line react-hooks/exhaustive-deps -- once, when the trial editor opens
   },[]);
-  useEffect(()=>{if(guest&&!content&&draftReady)saveGuestTrialDraft(guest.authorId,{media,title,body});},[guest,content,draftReady,media,title,body]);
+  useEffect(()=>{if(guest&&!content&&draftReady)saveGuestTrialDraft(guest.authorId,{media,title,body,category:chosenCategory});},[guest,content,draftReady,media,title,body,chosenCategory]);
   // 2026-11-23 user request (C 테스트): after sign-up the linked trial draft (photos, title, body) continues in the member's new post.
   // It stays stored until a save succeeds, so leaving the editor does not lose it.
   const memberDraft=useRef(false);
   useEffect(()=>{if(guest||content)return;const draft=loadGuestTrialDraft(memberDraftOwner(draftOwner),Date.now(),false);if(!draft)return;
-    memberDraft.current=true;setMedia(draft.media);setTitle(draft.title);setBody(draft.body);setSampleNotice('체험에서 작성하던 내용을 이어서 불러왔어요.');
+    memberDraft.current=true;setMedia(draft.media);setCategory(draft.category);setTitle(draft.title);setBody(draft.body);setSampleNotice('체험에서 작성하던 내용을 이어서 불러왔어요.');
   // eslint-disable-next-line react-hooks/exhaustive-deps -- once, when a new post opens
   },[draftOwner]);
   useEffect(()=>{const sample=guest?.samplePhoto;if(!sample||content||sampleTried.current)return;sampleTried.current=true;
@@ -298,7 +301,7 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
     if(media.some(item=>item.failed)){setError('변환에 실패한 동영상을 지우고 다시 올려 주세요.');return;}if(nextStatus!=='draft'&&!body.trim()){setError('게시할 내용을 입력해주세요.');return;}
     const scheduled=scheduleEnabled&&scheduledAt?new Date(scheduledAt):null;
     if(nextStatus==='scheduled'&&(!scheduled||!Number.isFinite(scheduled.getTime())||scheduled.getTime()<=Date.parse(model.now))){setError('예약 시각을 현재보다 미래로 선택해주세요.');return;}
-    void task.run(()=>model.actions.saveContent({id:savedId,title,body,media:publishableMedia.map(({id,type,url,aiGenerated,thumbnailUrl})=>({id,type,url,...(aiGenerated?{aiGenerated}:{}),...(thumbnailUrl?{thumbnailUrl}:{})})),commentsEnabled,tipsEnabled:memberMode?false:tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status:nextStatus,scheduledAt:nextStatus==='scheduled'?scheduled!.toISOString():null}),data=>{if(data.id)setSavedId(data.id);if(memberDraft.current){memberDraft.current=false;clearGuestTrialDraft();}
+    void task.run(()=>model.actions.saveContent({id:savedId,...(chosenCategory?{category:chosenCategory}:{}),title,body,media:publishableMedia.map(({id,type,url,aiGenerated,thumbnailUrl})=>({id,type,url,...(aiGenerated?{aiGenerated}:{}),...(thumbnailUrl?{thumbnailUrl}:{})})),commentsEnabled,tipsEnabled:memberMode?false:tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status:nextStatus,scheduledAt:nextStatus==='scheduled'?scheduled!.toISOString():null}),data=>{if(data.id)setSavedId(data.id);if(memberDraft.current){memberDraft.current=false;clearGuestTrialDraft();}
       // Publishing, scheduling or saving a published post returns to the list; a draft save keeps editing (2026-11-01).
       if(nextStatus!=='draft'){if(guest)clearGuestTrialDraft();router.push(guest?guest.doneHref:`${basePath}/content`);return;}
       setScheduleEnabled(false);setScheduledAt('');});
@@ -334,6 +337,7 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
       {model.actions.aiEditPhoto&&(()=>{const photos=media.filter(item=>item.type==='image'&&!item.processing&&!item.failed);return <div className={ai.aiAction}>{nudgeAi&&<p className={ai.aiNudgeHint} role="note" onClick={openAi}>이제 여기를 눌러 의상·포즈를 골라 보세요</p>}<button type="button" className={`${ai.aiWide} ${nudgeAi?ai.aiNudge:''}`} aria-label="AI 사진 편집" aria-describedby={aiDescriptionId} onClick={openAi} disabled={aiOpenBlocked}><Image src="/brand/featured-creators-v1.png" alt="" width={24} height={24} sizes="24px"/><span className={ai.aiActionCopy}><span>AI 사진 편집</span><small id={aiDescriptionId}>{uploading?(aiOpenQueued?'사진 준비가 끝나면 바로 열려요':'사진 준비 중이에요'):'메이크업, 헤어변경, 옷변경, 포즈변경, 배경변경'}</small></span><Icon name="chevron" width={18} height={18}/></button>
         <AiPhotoDialog shopReward={guest?.shopReward} preferSourceId={uploadedSourceId} onUploadBackground={model.actions.uploadContentMedia} shareReward={guest?.shareReward} publishReward={publishReward} noHearts={!!guest} library={model.photoLibrary} onCrop={model.actions.aiCropPhoto} onHeartGame={model.actions.aiHeartGame} onReview={model.actions.aiReview} shop={model.shop} shopBasePath={basePath} open={aiOpen} onClose={()=>setAiOpen(false)} images={photos} quota={model.aiPhotoQuota||{remaining:AI_PHOTO_DAILY_LIMIT,limit:AI_PHOTO_DAILY_LIMIT}} room={mediaUploadMaxItems-media.length} onEdit={model.actions.aiEditPhoto!} onUseTicket={model.actions.useAiPhotoTicket} onShareReport={model.actions.reportShare} onTrack={model.actions.trackAiPhoto} onAdd={(made,context,replaceSourceIds=[])=>{replaceSourceIds.forEach(removeMedia);if(context){context.labels.forEach(label=>captionItems.current.add(label));if(context.prompt)captionPrompt.current=context.prompt;}draftMedia.current=[...draftMedia.current,...made.map(item=>item.url)];setMedia(previous=>[...previous,...made]);setMediaError('');}}/></div>;})()}
       </>}
+      <PostCategoryField data={previewModel?.data} value={category} onChange={setCategory} disabled={task.busy}/>
       {!memberMode&&<div className={s.editorOptions}><SelectField marquee label="공개 범위" value={shownAccess} onChange={setAccess} disabled={franchise} hint={franchise?'게임·애니메이션 의상 사진이 있어 전체 공개로만 올릴 수 있어요.':undefined} options={[{value:'',label:'전체 공개'},...levels.map(rank=>({value:`level:${rank}`,label:`레벨 ${rank} 이상`})),...model.memberships.map(plan=>({value:plan.id,label:`${plan.name} 전용${!plan.active?' · 신규 가입 중단':''}`}))]} searchable/>{status!=='published'&&<section className={s.scheduleBox} aria-label="예약 게시 설정"><Toggle label="예약 사용" checked={scheduleEnabled} disabled={task.busy} onChange={enabled=>{setScheduleEnabled(enabled);if(!enabled)setScheduledAt('');setError('');}}/><Field label="예약 게시 시각" type="datetime-local" value={scheduledAt} min={localDateInput(model.now)} disabled={!scheduleEnabled||task.busy} clearable onClear={()=>{setScheduledAt('');setError('');}} onChange={e=>{setScheduledAt(e.target.value);setError('');}} hint="현재 기기의 시간대를 기준으로 선택해주세요."/></section>}</div>}
       {!memberMode&&<div className={s.commentOption}><Checkbox label="이 게시물에서 후원 받기" description={franchise?'게임·애니메이션 의상 사진이 있는 게시물은 저작권 문제로 후원을 받을 수 없어요.':'전체공개 게시물에서도 후원을 받을 수 있습니다.'} checked={tipsEnabled&&!franchise} disabled={task.busy||franchise} onChange={setTipsEnabled}/></div>}
       {!guest&&<div className={s.commentOption}><Toggle label="댓글 허용" description={commentsGloballyEnabled?'끄면 이 게시물에서만 댓글을 닫습니다.':'스튜디오 설정에서 댓글 기능이 꺼져 있어 모든 게시물의 댓글이 닫힙니다. 크리에이터 설정에서 먼저 켜 주세요.'} checked={commentsEnabled} disabled={task.busy||!commentsGloballyEnabled} onChange={setCommentsEnabled}/></div>}

@@ -172,3 +172,19 @@ test('multiple select retains text summary while options can have images',()=>{
   view.open();assert.equal(view.role('listbox').findAllByType('img').length,1);
  }finally{view.dispose();}
 });
+
+test('post category selection shows studio flat icons for the current value and options',()=>{
+ const {PostCategoryField}=loadTypeScript('components/crefans/PostCategoryField.tsx');
+ let chosen;
+ const field=PostCategoryField({data:{categories:['코스프레','일상']},value:'코스프레',onChange:value=>{chosen=value;},disabled:false});
+ const view=mount(field.props);
+ try{
+  assert.equal(view.role('combobox').findByType('img').props.src,'/brand/categories/cosplay-round-flat-v1.png');
+  view.open();
+  const daily=view.rendered.root.findAllByProps({role:'option'})[1];
+  assert.equal(daily.findByType('img').props.src,'/brand/categories/daily-round-flat-v1.png');
+  act(()=>daily.props.onClick());assert.equal(chosen,'일상');
+  view.update({...field.props,value:chosen});
+  assert.equal(view.role('combobox').findByType('img').props.src,'/brand/categories/daily-round-flat-v1.png');
+ }finally{view.dispose();}
+});

@@ -16,7 +16,7 @@ export type Plan={id:string;name:string;price:number;rank:number;benefits:string
 /** `processing`: a video still being optimized or a photo still being watermarked on the server; viewers see a notice instead (photos since 2026-11-13). */
 export type PostMediaItem={sensitivePhoto?:boolean;type:'image'|'video';url:string;processing?:boolean;/** Made with the studio AI photo editor (AI 기본법 표시, 2026-11-08). */aiGenerated?:boolean;/** Game/anime costume AI photo (2026-11-18). */franchiseCostume?:boolean};
 /** `image` stays the cover for cards; `media` carries the full gallery (images and videos, up to 10) when present. */
-export type Post={id:string;creatorId:string;title:string;body:string;image:string;position:string;likes:number;comments:number;/** Stored cumulative views; absent when the source does not supply a count. */views?:number;supporterCount?:number;tipsEnabled?:boolean;/** A game/anime costume AI photo is attached: no post tips, fully public only (server, 2026-11-18). */commercialRestricted?:boolean;requiredRank:number;requiredPlanId?:string;time:string;media?:PostMediaItem[];/** Effective flag after the studio-wide switch; undefined means open. */commentsEnabled?:boolean;/** 2026-11-24: server, per viewer: may write a top-level comment now (also true for the official account on an AI trial post whose comments stay closed). */canComment?:boolean;canAccess?:boolean};
+export type Post={id:string;category?:string|null;creatorId:string;title:string;body:string;image:string;position:string;likes:number;comments:number;/** Stored cumulative views; absent when the source does not supply a count. */views?:number;supporterCount?:number;tipsEnabled?:boolean;/** A game/anime costume AI photo is attached: no post tips, fully public only (server, 2026-11-18). */commercialRestricted?:boolean;requiredRank:number;requiredPlanId?:string;time:string;media?:PostMediaItem[];/** Effective flag after the studio-wide switch; undefined means open. */commentsEnabled?:boolean;/** 2026-11-24: server, per viewer: may write a top-level comment now (also true for the official account on an AI trial post whose comments stay closed). */canComment?:boolean;canAccess?:boolean};
 export type Subscription={id?:string;renewalPending?:boolean;billingIssue?:'action_required'|'retrying';retryAt?:string;orderId?:string;paidAt?:string;paymentStatus?:'paid'|'refunding'|'refunded';creatorId:string;planId:string;status:'active'|'cancelled'|'expired';renewAt:string;price:number;planSnapshot?:Plan};
 export type Notification={id:string;creatorId:string|null;type:string;text:string;time:string;href:string};
 /** `read`: on my own message, the other side has opened it (2026-11-01). */
@@ -41,7 +41,7 @@ export type ServiceViewModel=AccountModel&SocialModel&{
   viewerId?:string|null;
   /** Signed-out visitor's author id from /guest/session (2026-11-16): their own guest posts get 수정 (title and body only, never delete). */
   guestAuthorId?:string|null;
-  editGuestPost?:(id:string,input:{title:string;body:string})=>Promise<ApiResult<{id:string;message:string}>>;
+  editGuestPost?:(id:string,input:{category?:string;title:string;body:string})=>Promise<ApiResult<{id:string;message:string}>>;
   signedIn:boolean;setSignedIn:Dispatch<SetStateAction<boolean>>;
   /** 로그인이 필요한 동작을 비로그인 상태에서 눌렀을 때 공용 로그인 필요 창을 띄운다(실제 서비스). 없으면 로그인 화면으로 이동. */
   requireSignIn?:()=>void;

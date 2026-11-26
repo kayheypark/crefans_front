@@ -43,6 +43,7 @@ import {CommentBody,CommentContext,useMentionInput} from './CommentMention';
 import {MediaSummary} from './MediaSummary';
 import {usePresence} from '@/components/ui/usePresence';
 import {designTokens} from '@/lib/design/tokens';
+import {PostCategoryField} from './PostCategoryField';
 import {GuestPostNotice} from './GuestPostNotice';
 import {SensitivePhoto,SensitiveRoomConsent} from './SensitivePhoto';
 import {MediaOverlay} from './MediaOverlay';
@@ -54,7 +55,7 @@ import {MembershipThumb} from './MembershipThumb';
 import {getSubscriptionPlan} from '@/lib/crefans/membership-plans';
 import s from './social.module.css';
 
-export type PostCardModel=Pick<ServiceViewModel,'basePath'|'canAccess'|'liked'|'saved'|'toggleLike'|'toggleSave'|'likeCounts'|'commentCounts'>&Partial<Pick<ServiceViewModel,'ownCreatorIds'|'viewerId'|'guestAuthorId'|'editGuestPost'|'reportPost'|'reportComment'|'mentionCandidates'>>&{data:Pick<ServiceData,'creators'|'plans'|'creatorPlans'>};
+export type PostCardModel=Pick<ServiceViewModel,'basePath'|'canAccess'|'liked'|'saved'|'toggleLike'|'toggleSave'|'likeCounts'|'commentCounts'>&Partial<Pick<ServiceViewModel,'ownCreatorIds'|'viewerId'|'guestAuthorId'|'editGuestPost'|'reportPost'|'reportComment'|'mentionCandidates'>>&{data:Pick<ServiceData,'creators'|'plans'|'creatorPlans'>&Partial<Pick<ServiceData,'categories'|'categoryIcons'>>};
 type CommentsModel=Pick<PostDetailModel,'commentsByPost'|'addComment'|'loadReplies'|'commentPaging'>&Pick<PostDetailModel,'editComment'|'deleteComment'|'likeComment'>&Partial<Pick<ServiceViewModel,'basePath'|'reportComment'|'mentionCandidates'>>&{loadComments?:(postId:string)=>Promise<void>};
 type CommentActions={onEdit?:(commentId:string,body:string)=>Promise<SocialActionResult>;onDelete?:(commentId:string)=>Promise<SocialActionResult>};
 export type PostDetailModel=PostCardModel&Pick<ServiceViewModel,'commentsByPost'|'addComment'|'loadReplies'|'loadComments'|'commentPaging'|'editComment'|'deleteComment'|'likeComment'>&{data:PostCardModel['data']&Pick<ServiceData,'posts'>};
@@ -92,22 +93,24 @@ function PostMenu({post,model,readOnly=false}:{post:Post;model:PostCardModel;rea
       {guestOwn&&<button type="button" role="menuitem" onClick={()=>{setOpen(false);setEditing(true);}}>수정</button>}
     </div>}
     <Toast message={feedback} onClose={()=>setFeedback('')}/>
-    {guestOwn&&<GuestPostEditDialog open={editing} post={post} onClose={()=>setEditing(false)} onSave={input=>model.editGuestPost!(post.id,input)} onSaved={message=>setFeedback(message)}/>}
+    {guestOwn&&<GuestPostEditDialog open={editing} post={post} data={model.data} onClose={()=>setEditing(false)} onSave={input=>model.editGuestPost!(post.id,input)} onSaved={message=>setFeedback(message)}/>}
     <PostShareDialog open={sharing} onClose={()=>setSharing(false)} basePath={model.basePath} postId={post.id} title={post.title} previewImage={post.media?.length?(post.media[0].type==='image'&&!post.media[0].processing&&!post.media[0].sensitivePhoto?post.media[0].url:undefined):post.image}/>
     <Dialog open={report} onClose={()=>{if(!pending)setReport(false);}} title="게시물을 신고할까요?"><p className={s.dialogCopy}>부적절한 게시물을 신고하면 운영팀이 검토합니다. 신고 내용은 크리에이터에게 공개되지 않습니다.</p><fieldset className={s.reportReasons}><legend>신고 사유</legend>{reportReasons.map(option=><Radio key={option.value} name={`report-${post.id}`} label={option.label} checked={reason===option.value} disabled={pending} onChange={()=>setReason(option.value)}/>)}</fieldset><DialogActions style={{marginTop:16}}><Action variant="secondary" disabled={pending} onClick={()=>setReport(false)}>취소</Action><Action variant="danger" disabled={pending||!reason} onClick={()=>void submitReport()}>{pending?'접수 중...':'신고하기'}</Action></DialogActions></Dialog>
   </div>;
 }
 
 /** Title and body only: photos, visibility and deletion of a trial post stay as published. */
-function GuestPostEditDialog({open,post,onClose,onSave,onSaved}:{open:boolean;post:Post;onClose:()=>void;onSave:(input:{title:string;body:string})=>Promise<ApiResult<{id:string;message:string}>>;onSaved:(message:string)=>void}){
+function GuestPostEditDialog({open,post,data,onClose,onSave,onSaved}:{open:boolean;post:Post;data:PostCardModel['data'];onClose:()=>void;onSave:(input:{title:string;body:string;category?:string})=>Promise<ApiResult<{id:string;message:string}>>;onSaved:(message:string)=>void}){
+  const [category,setCategory]=useState<string>();
   const [title,setTitle]=useState(post.title),[body,setBody]=useState(post.body),[busy,setBusy]=useState(false),[error,setError]=useState('');
-  useEffect(()=>{if(open){setTitle(post.title);setBody(post.body);setError('');}},[open,post.title,post.body]);
+  useEffect(()=>{if(open){setCategory(undefined);setTitle(post.title);setBody(post.body);setError('');}},[open,post.title,post.body]);
   async function save(event:FormEvent){event.preventDefault();if(busy)return;if(!title.trim()||!body.trim()){setError('제목과 내용을 입력해 주세요.');return;}setBusy(true);setError('');
-    try{const r=await onSave({title:title.trim(),body:body.trim()});if(r.success){onSaved(r.data.message);onClose();}else setError(r.errorMessage);}catch{setError('저장하지 못했어요. 다시 시도해 주세요.');}finally{setBusy(false);}}
+    try{const r=await onSave({title:title.trim(),body:body.trim(),...(category?{category}:{})});if(r.success){onSaved(r.data.message);onClose();}else setError(r.errorMessage);}catch{setError('저장하지 못했어요. 다시 시도해 주세요.');}finally{setBusy(false);}}
   return <Dialog open={open} onClose={()=>{if(!busy)onClose();}} title="게시물 수정"><form onSubmit={event=>void save(event)} className={s.guestEditForm}>
     <Field label="제목" value={title} maxLength={200} disabled={busy} onChange={event=>setTitle(event.target.value)}/>
     <TextAreaField label="내용" value={body} maxLength={10000} rows={6} disabled={busy} onChange={event=>setBody(event.target.value)}/>
-    <p className={s.dialogCopy}>제목과 내용만 고칠 수 있어요. 사진은 바꿀 수 없고, 체험 게시물은 삭제할 수 없어요.</p>
+    <PostCategoryField data={data} value={category??post.category??''} onChange={setCategory} disabled={busy}/>
+    <p className={s.dialogCopy}>제목과 내용, 카테고리를 고칠 수 있어요. 사진은 바꿀 수 없고, 체험 게시물은 삭제할 수 없어요.</p>
     {error&&<p className={s.error} role="alert">{error}</p>}
     <DialogActions><Action type="button" variant="secondary" disabled={busy} onClick={onClose}>취소</Action><Action type="submit" disabled={busy}>{busy?'저장 중…':'저장'}</Action></DialogActions>
   </form></Dialog>;
