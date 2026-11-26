@@ -7,7 +7,7 @@ import {aiPhotoEditBody} from './useStudioModel';
 import {aiProps,captureEvent,replaySessionId,replayVisitorId,setReplayInlineImages,setReplayUnmasked} from '@/lib/analytics/posthog';
 import {rememberEntrySource} from '@/lib/api/funnel';
 import {reportShare} from '@/lib/api/share-report';
-import type {AiPhotoFunnelStep} from '@/types/crefans-studio-management';
+import type {AiPhotoBlockReason,AiPhotoFunnelStep} from '@/types/crefans-studio-management';
 import {xEvent} from '@/lib/analytics/x-pixel';
 import type {AiHeartInput,AiHeartResult,AiPhotoEditInput,AiPhotoEditResult,AiReviewInput,AiReviewResult,AiReviewStatus,StudioMedia} from '@/types/crefans-studio-management';
 
@@ -52,7 +52,9 @@ export function useGuestTrialModel(enabled:boolean){
  // 2026-11-21 이탈 분석: any failed generation re-reads the server balance. A NETWORK_ERROR may still have been charged on the server,
  // and only refreshing on GUEST_AI_LIMIT left a stale balance that made the next try hit the limit at once.
  const aiEdit=async(input:AiPhotoEditInput)=>{if(session?.replayConsented)void reportReplaySession();const props=aiProps('guest',input);captureEvent('ai_generation_started',props);xEvent('ai_photo');const result=await api<AiPhotoEditResult>('/guest/ai-photo/edit',guestAiPhotoEditBody(input));captureEvent(result.success?'ai_generation_succeeded':'ai_generation_failed',result.success?props:{...props,error_code:result.errorCode||'UNKNOWN'});if(result.success)setSession(previous=>previous&&{...previous,remaining:result.data.remaining});else await refresh();return result;};
- const track=(step:AiPhotoFunnelStep,props:{mode:string;kind?:string})=>captureEvent(step,{actor:'guest',mode:props.mode,...(props.kind?{kind:props.kind}:{})});
+ const track=(step:AiPhotoFunnelStep,props:{mode:string;kind?:string;reason?:AiPhotoBlockReason})=>captureEvent(step,{actor:'guest',mode:props.mode,...(props.kind?{kind:props.kind}:{}),...(props.reason?{reason:props.reason}:{})});
+ // 2026-11-26 이탈 분석 수정안 E: the trial editor's back button (to the feed) is a step, to check whether visitors leave there.
+ const backClick=()=>captureEvent('guest_editor_back',{actor:'guest'});
  // 2026-11-20 user decision: the share reward is paid when the result is shared (share sheet finished or link copied).
  const shopClick=async()=>{const r=await api<{granted:boolean}>('/guest/ai-photo/shop-click',{});if(r.success)await refresh();return r.success&&r.data.granted;};
  const shareDone=async(mediaId:string)=>{const r=await api<{granted:boolean}>('/guest/ai-photo/share-done',{mediaId});if(r.success)await refresh();return r.success&&r.data.granted;};
@@ -60,5 +62,5 @@ export function useGuestTrialModel(enabled:boolean){
  const heartGame=(input:AiHeartInput)=>api<AiHeartResult>('/guest/ai-photo/hearts',input);
  // 2026-11-21: review instead of the game once a day after a first success (0.5 credit, same daily limit as the game).
  const review={status:()=>api<AiReviewStatus>('/guest/ai-photo/review'),submit:async(input:AiReviewInput)=>{const r=await api<AiReviewResult>('/guest/ai-photo/review',input);if(r.success)await refresh();return r;}};
- return{session,error,start,upload,save,aiEdit,refresh,caption,share:reportShare,track,shareDone,shopClick,heartGame,review};
+ return{session,error,start,upload,save,aiEdit,refresh,caption,share:reportShare,track,backClick,shareDone,shopClick,heartGame,review};
 }

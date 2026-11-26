@@ -4,7 +4,7 @@ import type {PhotoAsset,PhotoLibraryModel} from '@/types/crefans-photo-library';
 import {PHOTO_LIBRARY_REFERENCE_MAX,photoAssetKind,photoAssetLabel} from '@/lib/crefans/photo-library';
 import {AiPhotoCrop,AiPhotoRatioPresets} from './AiPhotoCrop';
 import type {AiPhotoRatio} from '@/lib/crefans/ai-photo-crop';
-import type {AiPhotoCropInput,ShareReport,AiPhotoFunnelStep} from '@/types/crefans-studio-management';
+import type {AiPhotoCropInput,ShareReport,AiPhotoFunnelStep,AiPhotoBlockReason} from '@/types/crefans-studio-management';
 import {ShopPage} from './ShopPage';
 import type {ShopModel} from '@/types/crefans-shop';
 import {useEffect,useId,useRef,useState} from 'react';
@@ -45,7 +45,7 @@ import {GuestWatermarkOffer,GuestWatermarkOption} from './GuestWatermark';
 const PUBLISH_OFFER_DELAY_MS=2000;
 // 2026-11-21 user decision: guests earn 0.5 credit for 30 hearts, at most 3 a day (server guest-policy).
 const GUEST_HEART_NOTE='하트 30개를 모으면 체험 이용권 0.5장을 드려요 (하루 최대 3장)';
-type Props={/** 2026-11-23 user decision: signed-out trial — the photo the visitor just uploaded; it becomes the edit target once it is in images. */preferSourceId?:string;/** 2026-11-22: signed-out trial — opening the Coupang costume link pays 3 credits once a day; true when paid now. */shopReward?:{claim:()=>Promise<boolean>};shareReward?:{refresh:()=>Promise<void>;/** 2026-11-20: pays the share reward for this result; true when it was paid now. */claim:(mediaId:string)=>Promise<boolean>};publishReward?:{credits:number;onWrite:()=>void};/** Signed-out trial: local game only; no balance or reward conversion. */noHearts?:boolean;/** 2026-11-19: share-button report and funnel steps, supplied by the page model. */onShareReport?:(report:ShareReport)=>void;onTrack?:(step:AiPhotoFunnelStep,props:{mode:string;kind?:string})=>void;library?:PhotoLibraryModel;onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;/** 2026-11-21: review instead of the game on a repeat generation. */onReview?:AiReviewModel;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
+type Props={/** 2026-11-23 user decision: signed-out trial — the photo the visitor just uploaded; it becomes the edit target once it is in images. */preferSourceId?:string;/** 2026-11-22: signed-out trial — opening the Coupang costume link pays 3 credits once a day; true when paid now. */shopReward?:{claim:()=>Promise<boolean>};shareReward?:{refresh:()=>Promise<void>;/** 2026-11-20: pays the share reward for this result; true when it was paid now. */claim:(mediaId:string)=>Promise<boolean>};publishReward?:{credits:number;onWrite:()=>void};/** Signed-out trial: local game only; no balance or reward conversion. */noHearts?:boolean;/** 2026-11-19: share-button report and funnel steps, supplied by the page model. */onShareReport?:(report:ShareReport)=>void;onTrack?:(step:AiPhotoFunnelStep,props:{mode:string;kind?:string;reason?:AiPhotoBlockReason})=>void;library?:PhotoLibraryModel;onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;/** 2026-11-21: review instead of the game on a repeat generation. */onReview?:AiReviewModel;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
  onUseTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;
  onEdit:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;/** 2026-11-20: upload a place photo to use as the background ('내 사진'). */onUploadBackground?:(file:File)=>Promise<ApiResult<StudioMedia>>;onAdd:(images:StudioMedia[],context?:AiPhotoCaptionContext,replaceSourceIds?:string[])=>void};
 
@@ -215,28 +215,31 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
  useEffect(()=>{if(!preferSourceId||preferredApplied.current===preferSourceId||!images.some(item=>item.id===preferSourceId))return;preferredApplied.current=preferSourceId;changeSource(preferSourceId);},[preferSourceId,images]);
  async function generate(retryImproved=false){
   if(busy)return;
-  if(!source){setError('편집할 사진을 먼저 올려 주세요.');return;}
-  if(shortage>0){if(publishReward){publishOfferShown.current=true;setPublishOffer(true);return;}
+  // 2026-11-26 이탈 분석 수정안 A: a 만들기 stopped before any request left no event, so these drop-offs were invisible in the
+  // funnel. Each stop reports one fixed reason code (never the prompt or any text).
+  const blocked=(reason:AiPhotoBlockReason)=>onTrack?.('ai_generation_blocked',{mode:cosplayOpen?'cosplay':'general',reason});
+  if(!source){blocked('no_source');setError('편집할 사진을 먼저 올려 주세요.');return;}
+  if(shortage>0){blocked('credits');if(publishReward){publishOfferShown.current=true;setPublishOffer(true);return;}
    if(remaining<=0&&tickets<=0){refillShown.current=true;setRefillNotice(true);return;}
    if(shop){setShopOpen(true);void shop.refresh();return;}
    if(noHearts){setSignupOffer(true);setError(remaining>0?'선택한 방식에 필요한 이용권이 부족해요. 느낌만 빠르게로 바꾸거나 회원가입 후 계속 만들 수 있어요.':'체험 이용권을 모두 썼어요. 회원가입하면 매일 무료로 계속 만들 수 있어요.');return;}
    setError(remaining>0?'선택한 생성 방식에 필요한 이용권이 부족해요. 다른 방식을 선택해 주세요.':tickets>0?'오늘 만들 수 있는 횟수를 모두 썼어요. 리셋권을 사용하면 다시 만들 수 있어요.':'오늘 만들 수 있는 횟수를 모두 썼어요. 매일 오전 9시에 다시 이용할 수 있어요.');return;}
-  if(!prompt.trim()){setError('프리셋을 고르거나 커스텀 프롬프트를 적어 주세요.');return;}
-  if(prompt.length>AI_PHOTO_PROMPT_MAX){setError('선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.');return;}
+  if(!prompt.trim()){blocked('no_prompt');setError('프리셋을 고르거나 커스텀 프롬프트를 적어 주세요.');return;}
+  if(prompt.length>AI_PHOTO_PROMPT_MAX){blocked('too_long');setError('선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.');return;}
   const requestKind=editKinds[0]||(targetGender!=='original'?'pose':aspectRatio!=='original'?'camera':kind);
-  const problem=aiPhotoProblem({prompt,consent:true,kind:hasOutfit?'outfit':requestKind,requireMask:requiresMask,hasMask:strokes.length>0,remaining});if(problem){setError(problem);return;}
+  const problem=aiPhotoProblem({prompt,consent:true,kind:hasOutfit?'outfit':requestKind,requireMask:requiresMask,hasMask:strokes.length>0,remaining});if(problem){blocked(remaining<=0?'credits':hasOutfit&&requiresMask&&!strokes.length?'mask':'invalid');setError(problem);return;}
   // Remembered for the guest trial caption: names of what was chosen plus the visitor's own request text (no prompt internals).
   captionContext.current={labels:aiPhotoSelectionLabels(selectedPresets,libraryAssets,targetGender),prompt:customPrompt.trim()};
   let game:typeof heartGame=null,reviewing=false;
   // 2026-11-21 user request: after a first successful photo, the waiting game becomes a review (server decides who and how often).
   if(onReview){try{const st=await onReview.status();reviewing=!!(st.success&&st.data?.eligible);setReviewDraft(defaultReviewDraft);setReview(reviewing?{reward:st.data?.reward}:null);}catch{setReview(null);}}
   // 2026-11-21: signed-out visitors also play the server-verified game (30 hearts → 0.5 credit, 3 a day).
-  if(onHeartGame&&!reviewing){setBusy(true);try{const r=await onHeartGame({action:'start'});if(!r.success||!r.data.id||!r.data.kinds){setError(r.errorMessage||'하트 게임을 시작하지 못했어요.');return;}game={id:r.data.id,kinds:r.data.kinds};setHeartGame(game);heartQueue.current=Promise.resolve();gameEvent.current=0;}catch{setError('하트 게임을 시작하지 못했어요.');return;}finally{setBusy(false);}}
+  if(onHeartGame&&!reviewing){setBusy(true);try{const r=await onHeartGame({action:'start'});if(!r.success||!r.data.id||!r.data.kinds){blocked('heart_game');setError(r.errorMessage||'하트 게임을 시작하지 못했어요.');return;}game={id:r.data.id,kinds:r.data.kinds};setHeartGame(game);heartQueue.current=Promise.resolve();gameEvent.current=0;}catch{blocked('heart_game');setError('하트 게임을 시작하지 못했어요.');return;}finally{setBusy(false);}}
   setResumed(false);setDoneLayer(0);setRewardNote('');heartScoreRef.current=0;setHeartScore(0);setBusy(true);setError('');setStage('results');
   let madeOk=false;
   try{
    const mask=requiresMask?await buildAiMask(source.url,strokes):undefined;
-   if(requiresMask&&!mask){setError('칠한 영역을 처리하지 못했어요. 다시 칠해 주세요.');setStage('edit');return;}
+   if(requiresMask&&!mask){blocked('mask_build');setError('칠한 영역을 처리하지 못했어요. 다시 칠해 주세요.');setStage('edit');return;}
    const ownBackgroundId=ownBackground&&selectedPresets.some(item=>item.kind==='background'&&item.prompt===AI_PHOTO_OWN_BACKGROUND_PROMPT)?ownBackground.id:undefined;
    const result=await onEdit({generationMethod:method.value,...(ownBackgroundId?{backgroundMediaId:ownBackgroundId}:{}),...(retryImproved?{retryImproved:true}:{}),backgroundId:aiPhotoBackgroundId(selectedPresets.find(item=>item.kind==='background')?.prompt),presetKeys:selectedPresets.filter(item=>item.kind!=='outfit'&&!(item.kind==='background'&&(aiPhotoBackgroundId(item.prompt)||item.prompt===AI_PHOTO_OWN_BACKGROUND_PROMPT))).map(item=>({kind:item.kind,key:aiPhotoPresetTitle(item.kind,item.prompt,targetGender)})).filter(item=>item.key),aspectRatio,...(libraryAssets.length?{libraryIds:libraryAssets.map(item=>item.id)}:{}),...(game?{heartGameId:game.id}:{}),source,mode:cosplayOpen?'cosplay':'general',kind:editKinds.length>1?'combined':requestKind,...(editKinds.length>1?{editKinds}:{}),prompt:prompt.trim(),style,...(costume?{costumeIds:aiPhotoCostumeRequest(selectedPresets).costumeIds}:{}),...(targetGender!=='original'?{targetGender}:{}),...(mask?{mask}:{}),consent:true});
    if(!result.success){if(publishReward&&result.errorCode==='GUEST_AI_LIMIT'){publishOfferShown.current=true;setPublishOffer(true);}else if((result.errorCode==='DAILY_LIMIT'||result.errorCode==='GUEST_AI_LIMIT')&&tickets<=0){refillShown.current=true;setRefillNotice(true);}else if(result.errorCode==='DAILY_LIMIT'&&shop){setShopOpen(true);void shop.refresh();}else{{/* 2026-11-23 이탈 분석: the network (GUEST_IP_LIMIT) and all-guest daily (GUEST_DAILY_CLOSED) limits also say "sign up to continue". */if(noHearts&&(result.errorCode==='GUEST_AI_LIMIT'||result.errorCode==='GUEST_IP_LIMIT'||result.errorCode==='GUEST_DAILY_CLOSED'))setSignupOffer(true);setRetryable(result.errorCode==='OUTPUT_MATERIAL_BLOCKED'||result.errorCode==='PROVIDER_OUTPUT_BLOCKED');setInputBlocked(result.errorCode==='PROVIDER_INPUT_BLOCKED'?'returned':result.errorCode==='INPUT_BLOCKED_LIMIT'?'used':result.errorCode==='UNSAFE_INPUT'?'unsafe':'');setError(result.errorMessage);}}setStage(results.length?'results':'edit');return;}
