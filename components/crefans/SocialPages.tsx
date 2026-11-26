@@ -272,7 +272,7 @@ export function FeedPage({model}:{model:ServiceViewModel}){
   }
   const posts=model.feedCategory||category==='전체'?data.posts:data.posts.filter(post=>data.creators.some(creator=>creator.id===post.creatorId&&creator.tags.includes(category)));
   return <div className={`${s.feed} ${!posts.length&&category==='전체'?s.emptyFeed:''}`}>
-    {model.mode==='live'&&!room&&<GuestPostNotice showSensitiveCategory={!!settings}/>}
+    {model.mode==='live'&&!room&&<GuestPostNotice/>}
     <div className={s.feedToolbar}>
       <CreatorSearch href={`${basePath}/explore`}/>
       <ChipRow label="관심 카테고리" className={s.feedCategories}>
