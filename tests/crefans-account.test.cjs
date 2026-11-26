@@ -114,6 +114,7 @@ async function signupEmail(tree,email,code='123456'){
   await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
   assert.equal(calls.length,0);
   await act(async()=>button('인증 코드 받기').props.onClick());assert.deepEqual(codes,['injected@example.test']);
+  assert.equal(tree.root.findAllByType('input')[0],field(tree,'인증 코드'));
   change(field(tree,'인증 코드'),'111111');await act(async()=>button('확인').props.onClick());assert.match(text(tree),/코드 불일치/);
   change(field(tree,'인증 코드'),'000000');await act(async()=>button('확인').props.onClick());assert.match(text(tree),/인증 완료/);
   advanceSignup(tree);
@@ -432,6 +433,7 @@ test('2026-11-16 phone at signup: when the server asks, signup stays disabled un
  change(field(tree,'이메일'),'phone@example.invalid');
  assert.equal(button('인증하기'),undefined,'phone check appears after email verification');
  await act(async()=>button('인증 코드 받기').props.onClick());change(field(tree,'인증 코드'),'123456');await act(async()=>button('확인').props.onClick());
+ assert.deepEqual(tree.root.findAllByType('input').map(input=>input.props.type).slice(0,2),['tel','email']);
  assert.equal(submit().props.disabled,true,'email alone is not enough');change(field(tree,'휴대폰 번호'),'010-1234-5678');assert.equal(button('인증하기').props.disabled,false);
  await act(async()=>{button('인증하기').props.onClick();await new Promise(r=>setTimeout(r,5));});assert.match(text(tree),/1666-3538/);assert.match(text(tree),/123456/);assert.match(text(tree),/문자 메시지 · SMS/,'message preview before opening the app');
  const go=button('인증하러 가기');if(go)act(()=>go.props.onClick());
