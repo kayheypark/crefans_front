@@ -79,7 +79,7 @@ export type StudioManagementModel={
     reportShare?:(report:ShareReport)=>void;
     trackAiPhoto?:(step:AiPhotoFunnelStep,props:{mode:string;kind?:string;reason?:AiPhotoBlockReason})=>void;
     /** 2026-11-24: the trial's 'AI로 내용 작성' for signed-in members (POST /studio/content/caption). */
-    writeCaption?:(input:{items:string[];prompt:string;title?:string;body?:string})=>Promise<ApiResult<{title:string;body:string;source:'ai'|'template'}>>;
+    writeCaption?:(input:{category?:string;items:string[];prompt:string;title?:string;body?:string})=>Promise<ApiResult<{title:string;body:string;source:'ai'|'template'}>>;
   };
 };
 

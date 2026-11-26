@@ -426,7 +426,7 @@ test('member editor: AI caption button after an AI photo, no nudge, confirmation
  const probe=fixtureHook(),captions=[];
  const writeCaption=async input=>{captions.push(input);return {success:true,data:{title:'AI 제목',body:'AI 본문',source:'ai'}};};
  const model={...probe.model,contents:[],actions:{...probe.model.actions,aiEditPhoto:async()=>({success:true,data:{images:[]}}),writeCaption}};
- const tree=mount(ContentEditorPage,model);
+ let tree;act(()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/studio',memberMode:true}));});
  const title=()=>tree.root.findByProps({label:'제목'}).props.value,body=()=>tree.root.findByProps({label:'본문'}).props.value;
  try{
   assert.equal(button(tree,'AI로 내용 작성'),undefined,'no button before an AI photo');
@@ -614,13 +614,16 @@ test('guest trial: publishing without a decided AI photo is refused with guidanc
  }finally{act(()=>tree.unmount());probe.close();}
 });
 
-// 2026-11-23 user request: a member's body field is two lines tall on mobile like the trial's; creators keep the tall field.
-test('member editor body uses the two-line mobile style; the creator editor does not',()=>{
- const fs=require('node:fs'),css=fs.readFileSync('components/crefans/studio/management.module.css','utf8'),page=fs.readFileSync('components/crefans/studio/ManagementPages.tsx','utf8');
- assert.match(css,/@media\(max-width:767px\)\{\.page \.captionFields textarea,\.page textarea\.memberBody\{height:calc\(3em \+ 26px\)/);
- // (this file mocks management.module.css without a default export, so the class is checked in the source)
- assert.match(page,/<TextAreaField label="본문" value=\{body\} rows=\{12\} maxLength=\{10000\} className=\{memberMode\?s\.memberBody:undefined\}/);
- assert.equal((page.match(/s\.memberBody/g)||[]).length,1,'only the member body field');
+test('studio editor offers AI writing before upload and starts with two body lines',async()=>{
+ const probe=fixtureHook(),calls=[];
+ const model={...probe.model,contents:[],actions:{...probe.model.actions,writeCaption:async input=>{calls.push(input);return {success:true,data:{title:'오늘의 기록',body:'오늘도 반가워요.',source:'ai'}};}}};
+ const tree=mount(ContentEditorPage,model);
+ try{
+  assert.equal(tree.root.findByProps({label:'본문'}).props.rows,2);
+  await act(async()=>button(tree,'AI로 내용 작성').props.onClick());
+  assert.equal(calls[0].category,'일상');
+  assert.equal(tree.root.findByProps({label:'본문'}).props.value,'오늘도 반가워요.');
+ }finally{act(()=>tree.unmount());probe.close();}
 });
 
 // 2026-11-23 user request (C 테스트, dev 실측: 가입 후 게시글 작성이 빈 화면): the trial draft linked at sign-up continues in the member's

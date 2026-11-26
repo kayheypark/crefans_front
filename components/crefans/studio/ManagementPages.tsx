@@ -288,7 +288,7 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
   const askCaption=()=>{if((!captionMode||captionReady)&&(title.trim()||body.trim()))setCaptionConfirm(true);else void writeCaption();};
   async function writeCaption(polish=false){
     if(!caption||captionBusy)return;setError('');setCaptionBusy(true);
-    try{const result=await caption({items:Array.from(captionItems.current),prompt:captionPrompt.current,...(polish?{title,body}:{})});
+    try{const result=await caption({items:Array.from(captionItems.current),prompt:captionPrompt.current,...(!memberMode&&!aiMade&&!polish?{category:category||'일상'}:{}),...(polish?{title,body}:{})});
       if(!result.success){setError(result.errorMessage||'제목과 내용을 만들지 못했어요. 다시 시도해 주세요.');return;}
       setTitle(result.data.title);setBody(result.data.body);setCaptionReady(true);}
     catch{setError('제목과 내용을 만들지 못했어요. 다시 시도해 주세요.');}finally{setCaptionBusy(false);}
@@ -327,10 +327,10 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
       </section>:null}
       </>:<>
       {/* 2026-11-23 user request: PostHog replay records the member's post title/body as typed (lib/analytics/posthog.ts REPLAY_POST_TEXT_ATTR). */}
-      {aiMade&&caption&&<div className={s.captionBar}><Action variant="secondary" type="button" disabled={captionBusy||task.busy} onClick={askCaption}>{captionBusy?'쓰는 중…':'AI로 내용 작성'}</Action></div>}
-      <Field label="제목" value={title} maxLength={120} {...{[REPLAY_POST_TEXT_ATTR]:''}} onChange={e=>setTitle(e.target.value)} placeholder="제목을 입력하세요"/>
+      {(!memberMode||aiMade)&&caption&&<div className={s.captionBar}><Action variant="secondary" type="button" disabled={captionBusy||task.busy} onClick={askCaption}>{captionBusy?'쓰는 중…':'AI로 내용 작성'}</Action></div>}
+      <Field label="제목" value={title} maxLength={120} disabled={captionBusy} {...{[REPLAY_POST_TEXT_ATTR]:''}} onChange={e=>setTitle(e.target.value)} placeholder="제목을 입력하세요"/>
       {/* 2026-11-23 user request: a member's body field is two lines tall on mobile, like the trial's (management.module.css .memberBody). */}
-      <TextAreaField label="본문" value={body} rows={12} maxLength={10000} className={memberMode?s.memberBody:undefined} {...{[REPLAY_POST_TEXT_ATTR]:''}} onChange={e=>setBody(e.target.value)} placeholder="내용을 입력하세요"/>
+      <TextAreaField label="본문" value={body} rows={memberMode?12:2} maxLength={10000} className={memberMode?s.memberBody:s.studioBody} disabled={captionBusy} {...{[REPLAY_POST_TEXT_ATTR]:''}} onChange={e=>setBody(e.target.value)} placeholder="내용을 입력하세요"/>
       <MediaUpload label="파일 업로드" items={media} max={mediaUploadMaxItems} onFilesSelect={files=>void upload(files).then(pickUploaded)} onRemove={removeMedia} onReorder={(from,to)=>setMedia(previous=>moveItem(previous,from,to))} onPreview={index=>{const at=viewable.indexOf(media[index]);if(at>=0){setViewIndex(at);setViewLast(at);}}} accept={mediaUploadAccept} disabled={task.busy} uploading={uploading} error={mediaError} hint="JPG·PNG·WebP 사진 한 장 50MB까지(자동으로 줄여서 올려요) · MP4·WebM·MOV 300MB 이하"
        beforeAdd={library&&<Action type="button" variant="secondary" className={s.libraryImport} disabled={task.busy||uploading||mediaRoom<=0} onClick={()=>setLibrarySelection([])}><Icon name="folder" width={20} height={20}/>보관함에서 사진·동영상 가져오기</Action>}/>
       {library&&librarySelection&&<AiPhotoLibrary open model={library} onClose={()=>setLibrarySelection(null)} attachment={{selected:librarySelection,excluded:new Set(media.map(item=>item.id)),limit:mediaRoom,onConfirm:importLibrary,onUpdate:updateLibrarySelection,onToggle:item=>setLibrarySelection(previous=>previous?.some(entry=>entry.id===item.id)?previous.filter(entry=>entry.id!==item.id):previous&&previous.length<mediaRoom?[...previous,item]:previous)}}/>}
