@@ -165,8 +165,11 @@
 
 .genderPicker{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px;color:#525866}.genderPicker>div{display:flex;gap:4px}.genderPicker button{border:1px solid #e5e7eb;background:#fff;color:inherit;border-radius:8px;padding:7px 10px;font:inherit;cursor:pointer}.genderPicker button[aria-pressed=true]{border-color:#9b7cf8;background:#f4f0ff;color:#6545ba}
 
-.tabs{overflow-x:auto;scrollbar-width:thin}.tabs button{flex:1 0 auto;min-width:54px;padding-inline:6px}
+.tabs{padding-top:20px;overflow-x:auto;scrollbar-width:thin}.tabs button{flex:1 0 auto;min-width:54px;padding-inline:6px}
 /* 2026-11-17: category labels stay on one line (메이크업·신체 보정 wrapped on iPhone); the tab row scrolls sideways instead. */
+.skinNew{position:absolute;bottom:calc(100% + 2px);left:50%;translate:-50% 0;padding:2px 6px;border-radius:8px;background:var(--cf-color-accent);color:#fff;font-size:10px;font-weight:700;line-height:1;pointer-events:none;animation:costumeHintFloat 2.4s ease-in-out 2}
+.skinNew::after{content:"";position:absolute;top:100%;left:50%;margin-left:-3px;border:3px solid transparent;border-top-color:var(--cf-color-accent)}
+@media(prefers-reduced-motion:reduce){.skinNew{animation:none}}
 .tabs button>span{white-space:nowrap}.preset>span:not(.presetCheck){display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
 
 .bodyAdjustments{display:grid;gap:22px;padding:14px;border:1px solid var(--cf-color-border);border-radius:12px}.bodyAdjustments label{display:grid;gap:9px;font-size:13px}.bodyAdjustments label>span{display:flex;justify-content:space-between;gap:8px}.bodyAdjustments output{color:var(--cf-color-textMuted)}.bodyAdjustments input{width:100%;height:28px;margin:0;accent-color:var(--cf-color-accent)}
