@@ -2,9 +2,17 @@ import type {Metadata} from 'next';
 import {serviceEvents} from '@/lib/content/events';
 import {SITE_DESCRIPTION,SITE_NAME,SITE_TITLE,SITE_URL,absoluteUrl,clip,publicApi,shareMetadata} from './site';
 
-type Profile={id:string;name:string;handle?:string;bio?:string;about?:string;image?:string;cover?:string;isCreator?:boolean;searchable?:boolean;tags?:string[]};
-type PostDetail={post:{id:string;title?:string;body?:string;image?:string;canAccess?:boolean;time?:string};creator:Profile};
-export type ServiceSeo={metadata:Metadata;jsonLd:object[]};
+type Profile={id:string;name:string;isGuest?:boolean;handle?:string;bio?:string;about?:string;image?:string;cover?:string;isCreator?:boolean;searchable?:boolean;tags?:string[]};
+type PostDetail={post:SeoPost;creator:Profile};
+export type SeoPost={id:string;title?:string;body?:string;image?:string;category?:string|null;canAccess?:boolean;time?:string;searchIndexable?:boolean;media?:{type:string;url:string;processing?:boolean;sensitivePhoto?:boolean}[]};
+/** Readable post shown before the client app loads (server HTML for search engines); only anonymously open posts. */
+export type SeoPostView={title:string;body:string;author:string;time?:string;category?:string|null;images:string[]};
+export type ServiceSeo={metadata:Metadata;jsonLd:object[];post?:SeoPostView};
+// 2026-11-26 user decision: public posts by creators, members and AI-trial guests may be indexed when the server allows it
+// (searchIndexable: public, not sensitive, author allows search) and the post has a photo and at least 10 letters of text,
+// so near-empty posts (e.g. a title of one word) do not thin out the site in search.
+export const POST_INDEX_MIN_TEXT=10;
+export const postIndexable=(post:SeoPost)=>post.canAccess===true&&post.searchIndexable===true&&!!post.image&&`${post.title||''}${clip(post.body||'',2000)}`.replace(/\s/g,'').length>=POST_INDEX_MIN_TEXT;
 
 const legal:Record<string,string>={terms:'이용약관',privacy:'개인정보처리방침',policy:'운영정책'};
 const suffix=(text:string)=>`${text} | ${SITE_NAME}`;
@@ -45,7 +53,11 @@ export async function serviceSeo(screen:string,id:string|undefined,fallbackTitle
    // Anonymous access decides: locked, adult or hidden posts expose only the creator, never their text or media.
    if(!open)return page(suffix(`${creator.name}님의 멤버십 게시물`),clip(`멤버십 구독자에게 공개된 게시물입니다. ${creator.bio||''}`),{image:creator.cover||creator.image||null,index:false});
    const title=suffix(clip(post.title||`${creator.name}님의 게시물`,60));
-   return page(title,clip(post.body||creator.bio||`${creator.name}님의 크레팬스 게시물입니다.`),{image:post.image||creator.cover||creator.image||null,type:'article',index:indexable(creator)},[{'@context':'https://schema.org','@type':'SocialMediaPosting',headline:clip(post.title||`${creator.name}님의 게시물`,110),url:absoluteUrl(path),...(post.time?{datePublished:post.time}:{}),author:{'@type':'Person',name:creator.name,url:absoluteUrl(`/service/creator/${encodeURIComponent(creator.id)}`)},...(post.image?{image:absoluteUrl(post.image)}:{})}]);
+   const images=(post.media||[]).filter(m=>m.type==='image'&&!m.processing&&!m.sensitivePhoto).map(m=>m.url);
+   const view:SeoPostView={title:post.title||`${creator.name}님의 게시물`,body:clip(post.body||'',5000),author:creator.name,time:post.time,category:post.category,images:images.length?images:post.image?[post.image]:[]};
+   // Guest profiles are never indexed, so a guest author is named without a profile link.
+   const author=creator.isGuest?{'@type':'Person',name:creator.name}:{'@type':'Person',name:creator.name,url:absoluteUrl(`/service/creator/${encodeURIComponent(creator.id)}`)};
+   return{...page(title,clip(post.body||creator.bio||`${creator.name}님의 크레팬스 게시물입니다.`),{image:post.image||creator.cover||creator.image||null,type:'article',index:postIndexable(post)},[{'@context':'https://schema.org','@type':'SocialMediaPosting',headline:clip(post.title||`${creator.name}님의 게시물`,110),url:absoluteUrl(path),...(post.time?{datePublished:post.time}:{}),author,...(view.images.length?{image:view.images.map(absoluteUrl)}:{}),...(view.body?{articleBody:view.body}:{})}]),post:view};
   }
  }
  return{metadata:{title:fallbackTitle,robots:{index:false,follow:false}},jsonLd:[]};

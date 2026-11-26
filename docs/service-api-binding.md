@@ -50,6 +50,8 @@
 
 `useServiceModel`은 bootstrap/common과 경로별 직접 조회를 결합한다. 홈 카테고리 선택은 `feedCategory`로 주입하고(첫 진입 기본값 `코스프레`, 2026-11-26) `/posts?category=분야` 및 cursor 추가 조회에 동일하게 전송한다. 필터 변경 시 이전 커서를 초기화하고 과거 응답을 무시한다. 조회 실패 시 bootstrap의 다른 분야 게시물로 대체하지 않는다. 크리에이터 프로필의 creatorId 조회는 카테고리 선택의 영향을 받지 않는다. `useDirectoryModel`은 서버 검색·카테고리·커서·늦은 응답 무시를 처리한다. 댓글 최초 10개/추가 10개, 답글은 클릭 시 별도 조회한다. 피드 페이지 추가 조회 후 좋아요·저장·읽음 처리로 목록이 초기화되지 않도록 확인된 상태만 갱신한다. 개인정보·계정 변경 등에는 실제 모델을 다시 조회한다.
 
+검색 노출(2026-11-26): 게시물 상세 SEO는 익명 조회(`canAccess`)·서버 `searchIndexable`·사진 1장 이상·제목+본문 공백 제외 10자 이상일 때만 index이며(`lib/seo/service-metadata.ts` `postIndexable`), 같은 기준의 게시물을 공개 피드 커서로 최대 50쪽 읽어 사진과 함께 `app/sitemap.ts`에 넣는다. 열람 가능한 게시물은 앱이 데이터를 받기 전 서버 HTML에 제목·작성자·사진·본문(`PostSeoFallback`)을 그리고, 앱 로딩이 끝나면 실제 상세 화면으로 바뀐다.
+
 `useStudioModel`은 overview/finance/community와 날짜별 reports를 표시 모델 계약에 맞춘다. 미등록 계정은 크리에이터 시작하기 화면으로 유도한다. 업로드는 FormData API에 연결하고 표시용 object URL을 실제 저장 주소로 오인하지 않는다. 전역 댓글 설정·가입 당시 멤버십 버전·계좌 확인·금액/계좌에 묶인 출금 인증을 서버에 맡긴다.
 
 스튜디오 댓글 답글은 `StudioCommentReply`를 목업·서비스·디자인 시스템에서 공유한다. `CommunityReply.author`와 `fromCreator`로 작성자 사진·이름·본인 여부를 표시한다. `useStudioModel.updateReply/deleteReply`는 `/studio/comments/:id/replies/:replyId`의 PUT/DELETE에 연결하고 성공 시 목록을 다시 조회한다. 실패 시 변경 내용을 성공으로 표시하지 않으며 편집 초안을 유지한다. `/preview`는 선택한 목업 크리에이터의 활동명·사진과 메모리 상태를 사용한다. 2026-10-28 추가, 운영 미배포.
