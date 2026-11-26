@@ -29,7 +29,7 @@ export function useServiceModel(){
  const query=useSearchParams(),referral=query.get('ref');useEffect(()=>rememberReferral(referral),[referral]);useEffect(()=>{rememberEntrySource();},[]);const pathname=usePathname(),[cursor,setCursor]=useState<string|null>(null),[moreLoading,setMoreLoading]=useState(false),[publicProfile,setPublicProfile]=useState<any>(null),[state,setState]=useState<any>(empty),[common,setCommon]=useState<any>(null),[loading,setLoading]=useState(true),[error,setError]=useState(''),[comments,setComments]=useState<any>({}),[commentPages,setCommentPages]=useState<Record<string,{offset:number|null;loading:boolean}>>({}),proofs=useRef<{email:string;identity:string;signupEmail?:string;phone?:string;phoneNumber?:string}>({email:'',identity:''});
  const [loadedPath,setLoadedPath]=useState('');
  const [actionNotice,setActionNotice]=useState<{message:string;loginRequired:boolean}|null>(null);
- const [feedCategory,setFeedCategory]=useState('전체');
+ const [feedCategory,setFeedCategory]=useState('코스프레');
  useEffect(()=>{if(pathname!=='/service/feed')setFeedCategory(current=>current==='NSFW관'?'전체':current);},[pathname]);
  const activeFeedCategory=pathname==='/service/feed'?feedCategory:'전체';
  const feedLoadKey=pathname+'|'+activeFeedCategory;
