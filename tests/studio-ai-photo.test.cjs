@@ -255,12 +255,12 @@ test('mask icon tools: all brush sizes paint correctly, undo removes one stroke,
  await act(async()=>r.update(el(AiPhotoMask,{src:photo.url,alt:'원본',strokes:[],onChange(){},disabled:true})));assert.ok(r.root.findAllByType('button').every(b=>b.props.disabled));
 });
 
-test('costume categories: ten populated groups, eight general styles, and unique short prompts',()=>{
+test('costume categories: ten populated groups, nine general styles, and unique short prompts',()=>{
  const {aiPhotoCostumes,aiPhotoCostumeCategories}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
  assert.equal(aiPhotoCostumeCategories[aiPhotoCostumeCategories.findIndex(c=>c.value==='nikke')+1].value,'chainsaw-man');
- assert.equal(aiPhotoCostumeCategories.length,10);assert.deepEqual(aiPhotoCostumeCategories.map(c=>aiPhotoCostumes.filter(x=>x.category===c.value).length),[8,116,16,103,21,54,5,31,16,4]);
- assert.deepEqual(aiPhotoCostumes.filter(c=>c.category==='general').map(c=>c.id),['773106','80974e','ffb58f','666147','b4bf5d','e614f6','190513','ab36e8']);
- assert.equal(new Set(aiPhotoCostumes.map(c=>c.prompt)).size,374);
+ assert.equal(aiPhotoCostumeCategories.length,10);assert.deepEqual(aiPhotoCostumeCategories.map(c=>aiPhotoCostumes.filter(x=>x.category===c.value).length),[9,116,16,103,21,54,5,31,16,4]);
+ assert.deepEqual(aiPhotoCostumes.filter(c=>c.category==='general').map(c=>c.id),['773106','80974e','ffb58f','666147','b4bf5d','e614f6','190513','ab36e8','ca7e53']);
+ assert.equal(new Set(aiPhotoCostumes.map(c=>c.prompt)).size,375);
  for(const c of aiPhotoCostumes){assert.ok(aiPhotoCostumeCategories.some(g=>g.value===c.category));assert.ok(c.prompt.length<=450)/* 2026-11-17: stocking material wording (user-approved, e.g. 4a0c8f) needs room; was 300 */;assert.equal(rules.aiPhotoProblem({...base,kind:'outfit',prompt:c.prompt,hasMask:true}),'');}
 });
 
@@ -415,7 +415,7 @@ test('reset ticket: button refills the count, is off when unused, hidden without
 
 test('complete cosplay look: catalog hair and accessories reach the request after leaving the wardrobe',async()=>{
  const {aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
- assert.equal(aiPhotoCostumes.length,374);
+ assert.equal(aiPhotoCostumes.length,375);
  for(const item of aiPhotoCostumes){assert.match(item.wig,/가발|후드|머리장식/);assert.ok(item.accessories);assert.ok(item.footwear);assert.match(item.image,/-v2\.webp$/);for(const part of [item.wig,item.headwear,item.accessories,item.footwear])assert.ok(item.prompt.includes(part),item.id+':'+part);}
  const {r,calls,click}=await open({},true);
  await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('general'));
@@ -502,15 +502,14 @@ test('default editor opens in cosplay with outfit tab and no automatic request',
 });
 
 
-test('default cosplay wardrobe keeps all eight general costumes on one nine-card page while swiping',async()=>{
- const {r,click,calls}=await open({},true);await click('리본 메이드');
- const cards=()=>r.root.findByProps({'aria-label':'코스프레 의상'}).findAllByType('button');assert.equal(cards().length,8);
- const pager=()=>r.root.find(n=>n.type==='div'&&n.props['aria-label']==='프리셋 페이지');
- const e=x=>({isPrimary:true,button:0,pointerId:1,clientX:x,clientY:0,currentTarget:{clientWidth:360,setPointerCapture(){}}});
- await act(async()=>pager().props.onPointerDown(e(250)));await act(async()=>pager().props.onPointerMove(e(80)));await act(async()=>pager().props.onPointerUp(e(80)));
- assert.equal(cards().length,8);assert.equal(cards()[7].props['aria-label'],'비치 투피스');assert.equal(cards()[0].props['aria-pressed'],true);assert.equal(calls.length,0);
- await click('다음 의상 페이지');assert.equal(cards().length,8);assert.equal(cards()[0].props['aria-pressed'],true);
- await click('이전 의상 페이지');assert.equal(cards().length,8);
+test('general wardrobe fits nine cards and sends the Dongtan knit reference when selected',async()=>{
+ const {r,click,calls}=await open({},true);
+ await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('general'));
+ const cards=r.root.findByProps({'aria-label':'코스프레 의상'}).findAllByType('button');
+ assert.equal(cards.length,9);
+ assert.equal(cards[8].props['aria-label'],'신도시 코스튬');
+ await click('신도시 코스튬');await click('만들기');
+ assert.deepEqual(calls[0].costumeIds,['ca7e53']);
 });
 
  test('makeup shows only authored previews for the selected gender and clears a hidden selection',async()=>{
@@ -598,7 +597,7 @@ test('search keeps selected poses, resets pages, clears on tabs and finds costum
 });
 
 
-test('catalog request IDs are unique stable six-character hashes',()=>{const {aiPhotoCostumes,aiPhotoCostumeRequest}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');assert.equal(new Set(aiPhotoCostumes.map(c=>c.id)).size,374);for(const item of aiPhotoCostumes){assert.match(item.id,/^[a-f0-9]{6}$/);assert.deepEqual(aiPhotoCostumeRequest([{kind:'outfit',prompt:rules.aiPhotoPresetText(item.prompt)}]).costumeIds,[item.id]);}});
+test('catalog request IDs are unique stable six-character hashes',()=>{const {aiPhotoCostumes,aiPhotoCostumeRequest}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');assert.equal(new Set(aiPhotoCostumes.map(c=>c.id)).size,375);for(const item of aiPhotoCostumes){assert.match(item.id,/^[a-f0-9]{6}$/);assert.deepEqual(aiPhotoCostumeRequest([{kind:'outfit',prompt:rules.aiPhotoPresetText(item.prompt)}]).costumeIds,[item.id]);}});
 
 test('clothing detail switch defaults off, sends no guide, and ignores retained strokes when off',async()=>{
  const {r,click,calls}=await open({},true);
