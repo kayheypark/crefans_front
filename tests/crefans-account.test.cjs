@@ -34,6 +34,19 @@ function field(tree,name){const label=tree.root.findAllByType('label').find(item
 const flat=node=>typeof node==='string'?node:(node.children||[]).map(flat).join('');
 function button(tree,label){return tree.root.findAllByType('button').find(item=>flat(item)===label);}
 
+function advanceSignup(tree){
+ assert.equal(button(tree,'다음').props.disabled,false);
+ act(()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
+}
+function signupProfile(tree,password,nickname){
+ change(field(tree,'비밀번호'),password);change(field(tree,'비밀번호 확인'),password);change(field(tree,'닉네임'),nickname);
+}
+async function signupEmail(tree,email,code='123456'){
+ change(field(tree,'이메일'),email);
+ await act(async()=>button(tree,'인증 코드 받기').props.onClick());
+ change(field(tree,'인증 코드'),code);await act(async()=>button(tree,'확인').props.onClick());
+}
+
  test('account view renders injected profile and delegates edits without mutating its data',async()=>{
   const data=model(),calls=[];
   data.accountActions.updateProfile=async input=>{calls.push(input);return success('서버에서 받은 완료 문구');};
@@ -97,16 +110,19 @@ function button(tree,label){return tree.root.findAllByType('button').find(item=>
   const tree=mount(pages.SignupPage,data);
   const button=name=>tree.root.findAllByType('button').find(node=>node.children.includes(name));
   const submitButton=()=>tree.root.findAllByType('button').find(node=>node.props.type==='submit');
-  change(field(tree,'이메일'),'injected@example.test');change(field(tree,'비밀번호'),'test-password');change(field(tree,'비밀번호 확인'),'test-passwor');change(field(tree,'닉네임'),'새 이름');
-  const checks=tree.root.findAllByType('input').filter(input=>input.props.type==='checkbox');
-  act(()=>{checks[1].props.onChange({target:{checked:true}});checks[2].props.onChange({target:{checked:true}});});// checks[0] is 전체 동의 (2026-10-31); 1·2 are terms and privacy
-  assert.match(text(tree),/서로 일치하지 않습니다/);change(field(tree,'비밀번호 확인'),'test-password');
-  assert.equal(submitButton().props.disabled,true);
+  change(field(tree,'이메일'),'injected@example.test');  assert.equal(submitButton().props.disabled,true);
   await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
   assert.equal(calls.length,0);
   await act(async()=>button('인증 코드 받기').props.onClick());assert.deepEqual(codes,['injected@example.test']);
   change(field(tree,'인증 코드'),'111111');await act(async()=>button('확인').props.onClick());assert.match(text(tree),/코드 불일치/);
   change(field(tree,'인증 코드'),'000000');await act(async()=>button('확인').props.onClick());assert.match(text(tree),/인증 완료/);
+  advanceSignup(tree);
+  signupProfile(tree,'test-password','새 이름');
+  change(field(tree,'비밀번호 확인'),'test-passwor');assert.match(text(tree),/서로 일치하지 않습니다/);change(field(tree,'비밀번호 확인'),'test-password');
+  advanceSignup(tree);
+  act(()=>button('이전').props.onClick());assert.equal(field(tree,'닉네임').props.value,'새 이름');advanceSignup(tree);
+  const checks=tree.root.findAllByType('input').filter(input=>input.props.type==='checkbox');
+  act(()=>{checks[1].props.onChange({target:{checked:true}});checks[2].props.onChange({target:{checked:true}});});
   assert.equal(submitButton().props.disabled,true);
   act(()=>button('PASS 본인인증').props.onClick());assert.equal(tree.root.findAll(node=>node.props['data-dialog']==='PASS 본인인증').length,1);
   await act(async()=>button('PASS 앱으로 인증하기').props.onClick());assert.equal(tree.root.findAll(node=>node.props['data-dialog']==='PASS 본인인증').length,0);
@@ -243,11 +259,12 @@ test('settings categories filter their own items and keep account actions in acc
   act(()=>restored.unmount());
 });
 
- test('live signup shows published documents without enabling signup before processing is ready',()=>{
+ test('live signup shows published documents without enabling signup before processing is ready',async()=>{
   const data=model();data.account.agreements={...loadTypeScript('components/preview/service/legal-fixtures.ts').previewAgreements,published:true,documentsPublished:true,signupReady:false,blockingMessage:'가입 준비 안내'};data.account.guidance={...data.account.guidance,signup:'2주 베타 안내'};
+  data.accountActions.requestSignupCode=async()=>success('코드 전송');data.accountActions.verifySignupCode=async()=>success('인증 완료');
   const tree=mount(pages.SignupPage,data);
   assert.doesNotMatch(text(tree),/가입 준비 안내|2주 베타 안내|만 19세 이상만 가입할 수 있습니다/,'signup hides beta/preparation notices and the age hint');
-  assert.equal(button(tree,'인증 코드 받기').props.disabled,true);assert.equal(button(tree,'PASS 본인인증').props.disabled,true);
+  assert.equal(button(tree,'인증 코드 받기').props.disabled,true);await signupEmail(tree,'new@example.invalid');advanceSignup(tree);signupProfile(tree,'test-password','가입');advanceSignup(tree);assert.equal(button(tree,'PASS 본인인증').props.disabled,true);
   act(()=>tree.root.findByProps({'aria-label':'이용약관 보기'}).props.onClick());
   assert.match(text(tree),/다음 결제 해지를 예약해도/);assert.doesNotMatch(text(tree),/주입된 약관/);
   act(()=>button(tree,'확인').props.onClick());act(()=>tree.root.findByProps({'aria-label':'개인정보 수집 및 이용 안내 보기'}).props.onClick());
@@ -261,9 +278,8 @@ test('deferred identity signup hides PASS and requires email plus age acknowledg
  const data=model(),calls=[];data.account.signupRequirements={identityRequired:false,inviteOnly:false};data.account.agreements=loadTypeScript('components/preview/service/legal-fixtures.ts').previewAgreements;
  data.accountActions.requestSignupCode=async()=>({success:true,data:{message:'코드 전송'},errorMessage:null,errorCode:null});data.accountActions.verifySignupCode=async()=>({success:true,data:{message:'인증 완료'},errorMessage:null,errorCode:null});data.accountActions.signup=async value=>{calls.push(value);return {success:true,data:{message:'가입 완료'},errorMessage:null,errorCode:null};};
  const tree=mount(pages.SignupPage,data),button=name=>tree.root.findAllByType('button').find(node=>node.children.includes(name)),submit=()=>tree.root.findAllByType('button').find(node=>node.props.type==='submit');
- assert.doesNotMatch(text(tree),/PASS/);change(field(tree,'이메일'),'beta@example.invalid');change(field(tree,'비밀번호'),'Beta-test-123!');change(field(tree,'비밀번호 확인'),'Beta-test-123!');change(field(tree,'닉네임'),'베타');
- const checks=tree.root.findAllByType('input').filter(n=>n.props.type==='checkbox');act(()=>{checks[1].props.onChange({target:{checked:true}});checks[2].props.onChange({target:{checked:true}});});
- assert.equal(submit().props.disabled,true);await act(async()=>button('인증 코드 받기').props.onClick());change(field(tree,'인증 코드'),'123456');await act(async()=>button('확인').props.onClick());assert.equal(submit().props.disabled,true);
+ assert.doesNotMatch(text(tree),/PASS/);await signupEmail(tree,'beta@example.invalid');advanceSignup(tree);signupProfile(tree,'Beta-test-123!','베타');advanceSignup(tree);
+ const checks=tree.root.findAllByType('input').filter(n=>n.props.type==='checkbox');assert.equal(submit().props.disabled,true);
  act(()=>checks[0].props.onChange({target:{checked:true}}));assert.equal(submit().props.disabled,false);await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal(calls.length,1);assert.equal(calls[0].identityVerified,false);assert.equal(calls[0].ageAcknowledged,true);assert.equal(calls[0].emailVerified,true);act(()=>tree.unmount());
 });
 
@@ -390,8 +406,7 @@ test('a referral signup asks for the masked-email disclosure and sends it; a pla
  const setup=()=>{const data=model(),calls=[];data.account.signupRequirements={identityRequired:false,inviteOnly:false};data.account.agreements=loadTypeScript('components/preview/service/legal-fixtures.ts').previewAgreements;
   data.accountActions.requestSignupCode=async()=>success('코드 전송');data.accountActions.verifySignupCode=async()=>success('인증 완료');data.accountActions.signup=async value=>{calls.push(value);return success('가입 완료');};return{data,calls};};
  const disclosure=tree=>tree.root.findAll(node=>typeof node.props.label==='string'&&node.props.label.includes('개인정보 제공 동의')&&typeof node.type!=='string');
- const fill=async tree=>{const button=name=>tree.root.findAllByType('button').find(node=>node.children.includes(name));change(field(tree,'이메일'),'ref@example.invalid');change(field(tree,'비밀번호'),'Beta-test-123!');change(field(tree,'비밀번호 확인'),'Beta-test-123!');change(field(tree,'닉네임'),'초대');
-  await act(async()=>button('인증 코드 받기').props.onClick());change(field(tree,'인증 코드'),'123456');await act(async()=>button('확인').props.onClick());
+ const fill=async tree=>{const button=name=>tree.root.findAllByType('button').find(node=>node.children.includes(name));await signupEmail(tree,'ref@example.invalid');advanceSignup(tree);signupProfile(tree,'Beta-test-123!','초대');advanceSignup(tree);
   for(const label of['만 19세 이상입니다 (필수)','이용약관 동의 (필수)','개인정보 처리방침 확인 (필수)'])act(()=>tree.root.findAll(node=>node.props.label===label&&typeof node.type!=='string')[0].props.onChange(true));};
  const submit=tree=>tree.root.findAllByType('button').find(node=>node.props.type==='submit');
  const plain=setup(),plainTree=mount(pages.SignupPage,plain.data);assert.equal(disclosure(plainTree).length,0);await fill(plainTree);assert.equal(submit(plainTree).props.disabled,false);
@@ -399,8 +414,8 @@ test('a referral signup asks for the masked-email disclosure and sends it; a pla
  global.sessionStorage={getItem:key=>key==='crefans-referral-code'?code:null,setItem(){},removeItem(){}};
  try{
   const referred=setup(),tree=mount(pages.SignupPage,referred.data);await act(async()=>{});
-  assert.ok(disclosure(tree).length>0,'referral signup shows the disclosure agreement');
-  for(const item of['제공받는 자','목적','항목','보유·이용 기간','거부'])assert.match(text(tree),new RegExp(item),item);await fill(tree);
+  await fill(tree);assert.ok(disclosure(tree).length>0,'referral signup shows the disclosure agreement');
+  for(const item of['제공받는 자','목적','항목','보유·이용 기간','거부'])assert.match(text(tree),new RegExp(item),item);
   assert.equal(submit(tree).props.disabled,true,'cannot sign up through a referral link without agreeing');
   act(()=>disclosure(tree)[0].props.onChange(true));assert.equal(submit(tree).props.disabled,false);
   await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal(referred.calls[0].referralDisclosure,true);act(()=>tree.unmount());
@@ -414,14 +429,15 @@ test('2026-11-16 phone at signup: when the server asks, signup stays disabled un
  const phoneCalls=[];data.accountActions.signupPhone={start:async phone=>{phoneCalls.push(['start',phone]);return ok({code:'123456',receiver:'1666-3538',smsUri:'sms:16663538?&body=123456',expiresAt:'2026-11-16T12:00:00Z'});},confirm:async phone=>{phoneCalls.push(['confirm',phone]);return ok({verified:true});}};
  const tree=mount(pages.SignupPage,data),button=name=>tree.root.findAllByType('button').find(node=>node.children.includes(name)),submit=()=>tree.root.findAllByType('button').find(node=>node.props.type==='submit');
  assert.doesNotMatch(text(tree),/이메일 인증 후 진행해 주세요/);
- change(field(tree,'이메일'),'phone@example.invalid');change(field(tree,'비밀번호'),'Beta-test-123!');change(field(tree,'비밀번호 확인'),'Beta-test-123!');change(field(tree,'닉네임'),'폰');
- const checks=tree.root.findAllByType('input').filter(n=>n.props.type==='checkbox');act(()=>{for(const i of [0,1,2])checks[i].props.onChange({target:{checked:true}});});
- change(field(tree,'휴대폰 번호'),'010-1234-5678');assert.equal(button('인증하기').props.disabled,true,'phone check waits for the email code');
+ change(field(tree,'이메일'),'phone@example.invalid');
+ assert.equal(button('인증하기'),undefined,'phone check appears after email verification');
  await act(async()=>button('인증 코드 받기').props.onClick());change(field(tree,'인증 코드'),'123456');await act(async()=>button('확인').props.onClick());
- assert.equal(submit().props.disabled,true,'email alone is not enough');assert.equal(button('인증하기').props.disabled,false);
+ assert.equal(submit().props.disabled,true,'email alone is not enough');change(field(tree,'휴대폰 번호'),'010-1234-5678');assert.equal(button('인증하기').props.disabled,false);
  await act(async()=>{button('인증하기').props.onClick();await new Promise(r=>setTimeout(r,5));});assert.match(text(tree),/1666-3538/);assert.match(text(tree),/123456/);assert.match(text(tree),/문자 메시지 · SMS/,'message preview before opening the app');
  const go=button('인증하러 가기');if(go)act(()=>go.props.onClick());
  await act(async()=>button('보냈어요').props.onClick());assert.deepEqual(phoneCalls,[['start','01012345678'],['confirm','01012345678']]);
+ advanceSignup(tree);signupProfile(tree,'Beta-test-123!','폰');advanceSignup(tree);
+ const checks=tree.root.findAllByType('input').filter(n=>n.props.type==='checkbox');act(()=>checks[0].props.onChange({target:{checked:true}}));
  assert.equal(submit().props.disabled,false);await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal(calls.length,1);act(()=>tree.unmount());
 });
 
@@ -429,8 +445,7 @@ test('2026-11-18 advertising-consent reward: one equal-choice reminder when left
  const setup=reward=>{const data=model(),calls=[];data.marketingReward=reward;data.account.signupRequirements={identityRequired:false,inviteOnly:false};data.account.agreements=loadTypeScript('components/preview/service/legal-fixtures.ts').previewAgreements;
   data.accountActions.requestSignupCode=async()=>success('코드 전송');data.accountActions.verifySignupCode=async()=>success('인증 완료');data.accountActions.signup=async value=>{calls.push(value);return calls.length===1&&data.failFirst?failure('잠시 후 다시 시도해주세요.'):success('가입 완료');};return{data,calls};};
  const button=(tree,name)=>tree.root.findAllByType('button').find(node=>node.children.includes(name));
- const fill=async tree=>{change(field(tree,'이메일'),'reward@example.invalid');change(field(tree,'비밀번호'),'Beta-test-123!');change(field(tree,'비밀번호 확인'),'Beta-test-123!');change(field(tree,'닉네임'),'혜택');
-  await act(async()=>button(tree,'인증 코드 받기').props.onClick());change(field(tree,'인증 코드'),'123456');await act(async()=>button(tree,'확인').props.onClick());
+ const fill=async tree=>{await signupEmail(tree,'reward@example.invalid');advanceSignup(tree);signupProfile(tree,'Beta-test-123!','혜택');advanceSignup(tree);
   for(const label of['만 19세 이상입니다 (필수)','이용약관 동의 (필수)','개인정보 처리방침 확인 (필수)'])act(()=>tree.root.findAll(node=>node.props.label===label&&typeof node.type!=='string')[0].props.onChange(true));};
  const submit=tree=>act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
  const dialog=tree=>tree.root.findAll(node=>node.props['data-dialog']==='프로모션 콩 10개를 바로 드려요');

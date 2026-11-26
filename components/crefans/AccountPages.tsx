@@ -87,6 +87,19 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
   const [passOpen,setPassOpen]=useState(false),[identityVerified,setIdentityVerified]=useState(false),[passPending,setPassPending]=useState(false),[passError,setPassError]=useState('');
   const errors={email:!emailIsValid(email)?'올바른 이메일 주소를 입력해주세요.':'',password:password.length<8?'비밀번호를 8자 이상 입력해주세요.':'',confirm:confirm!==password?'비밀번호가 서로 일치하지 않습니다.':'',nickname:!nickname.trim()?'닉네임을 입력해주세요.':''};
   const policiesReady=model.mode!=='live'||(account.agreements?.signupReady??account.agreements?.published)===true;
+  const [step,setStep]=useState(0);
+  const stepTitle=useRef<HTMLHeadingElement>(null);
+  const stepNames=['연락처 인증','계정 정보','약관 동의'];
+  const canAdvance=step===0?emailVerified&&(!phoneRequired||phoneVerified):!errors.password&&!errors.confirm&&!errors.nickname;
+  function goToStep(next:number){
+    setSubmitted(false);
+    setStep(next);
+  }
+  const lastStep=useRef(step);
+  useEffect(()=>{
+    if(lastStep.current!==step)stepTitle.current?.focus();
+    lastStep.current=step;
+  },[step]);
   const [inviteNotice,setInviteNotice]=useState('');
   const ready=policiesReady&&!Object.values(errors).some(Boolean)&&terms&&privacy&&emailVerified&&(!phoneRequired||phoneVerified)&&(identityRequired?identityVerified:ageAcknowledged)&&(!referred||referralDisclosure);
   function changeEmail(value:string){setEmail(value);setCodeSent(false);setCode('');setEmailVerified(false);setPhoneVerified(false);setEmailNotice('');setEmailError('');}
@@ -96,24 +109,34 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
   // 2026-11-18 user request: one reminder per signup flow when advertising consent is left unchecked and the server offers the
   // first-consent promotion beans (null while the bean feature is off, so nothing is promised then). Declining is an equal choice.
   const reward=model.marketingReward?.eligible?model.marketingReward:null,[rewardAsked,setRewardAsked]=useState(false),[rewardOpen,setRewardOpen]=useState(false);
-  function submit(event:FormEvent){event.preventDefault();setSubmitted(true);if(!ready)return;if(reward&&!marketing&&!rewardAsked){setRewardAsked(true);setRewardOpen(true);return;}finish(marketing);}
+  function submit(event:FormEvent){event.preventDefault();
+    if(step<2){if(canAdvance)goToStep(step+1);return;}
+    setSubmitted(true);if(!ready||task.busy)return;if(reward&&!marketing&&!rewardAsked){setRewardAsked(true);setRewardOpen(true);return;}finish(marketing);}
   function finish(marketing:boolean){setRewardOpen(false);void task.run(()=>accountActions.signup({email,password,nickname,terms,privacy,marketing,emailVerified,identityVerified,ageAcknowledged,...(referred?{referralDisclosure}:{}),...(account.agreements?{policyVersions:account.agreements.versions}:{})}),()=>{try{sessionStorage.setItem(SIGNUP_COMPLETE_KEY,email);}catch{}setSubmitted(false);setPassword('');setConfirm('');onComplete?.();});}
   // 전체 동의 (2026-10-31): checks or clears every item shown, required and optional; clearing any one item clears it too.
   const allAgreed=terms&&privacy&&marketing&&(identityRequired||ageAcknowledged)&&(!referred||referralDisclosure);
   function agreeAll(checked:boolean){setTerms(checked);setPrivacy(checked);setMarketing(checked);if(!identityRequired)setAgeAcknowledged(checked);if(referred)setReferralDisclosure(checked);}
-  return <section className={s.signup}><h1>회원가입</h1>
+  return <section className={s.signup}>
+      <div className={s.signupHeader}><h1>회원가입</h1><span aria-label={`전체 3단계 중 ${step+1}단계`}>{step+1} / 3</span></div>
+      <div className={s.stepBar} aria-hidden="true">{stepNames.map((name,index)=><i key={name} data-filled={index<=step}/>)}</div>
+      <h2 className={s.stepTitle} ref={stepTitle} tabIndex={-1}>{stepNames[step]}</h2>
       <form onSubmit={submit} noValidate className={s.form}>
-        <div className={s.verifyRow}><Field label="이메일" type="email" autoComplete="email" value={email} readOnly={emailVerified} onChange={e=>changeEmail(e.target.value)} placeholder="이메일을 입력하세요" error={submitted?errors.email:undefined}/>{emailVerified?null:<Action type="button" variant="secondary" disabled={verifying||!emailIsValid(email)} onClick={()=>void requestCode()}>{codeSent?'다시 받기':'인증 코드 받기'}</Action>}</div>
+        {step===0&&<>
+        <div className={s.verifyRow}><Field label="이메일" type="email" autoComplete="email" value={email} readOnly={emailVerified||verifying} onChange={e=>changeEmail(e.target.value)} placeholder="이메일을 입력하세요" error={submitted?errors.email:undefined}/>{emailVerified?null:<Action type="button" variant="secondary" disabled={verifying||!emailIsValid(email)} onClick={()=>void requestCode()}>{codeSent?'다시 받기':'인증 코드 받기'}</Action>}</div>
         {codeSent&&!emailVerified&&<div className={s.verifyRow}><Field label="인증 코드" inputMode="numeric" maxLength={6} value={code} onChange={e=>setCode(e.target.value)} placeholder="6자리 코드"/><Action type="button" variant="secondary" disabled={verifying||!code.trim()} onClick={()=>void verifyCode()}>확인</Action></div>}
         {emailNotice&&(emailVerified?<VerifiedNote>{emailNotice}</VerifiedNote>:<p className={s.hint} role="status">{emailNotice}</p>)}{emailError&&<p className={s.error} role="alert">{emailError}</p>}
         {/* 2026-11-16 user request: the number is typed right in the form; '인증하기' opens the message preview directly. */}
-        {phoneRequired&&<div className={s.verifyRow}><Field label="휴대폰 번호" type="tel" inputMode="numeric" autoComplete="tel" maxLength={13} value={phone} readOnly={phoneVerified} onChange={e=>setPhone(e.target.value)} placeholder="01012345678"/>{phoneVerified?null:<Action type="button" variant="secondary" disabled={!emailVerified||!phoneValid} onClick={()=>setPhoneOpen(true)}>인증하기</Action>}</div>}
+        {phoneRequired&&emailVerified&&<div className={s.verifyRow}><Field label="휴대폰 번호" type="tel" inputMode="numeric" autoComplete="tel" maxLength={13} value={phone} readOnly={phoneVerified} onChange={e=>setPhone(e.target.value)} placeholder="01012345678"/>{phoneVerified?null:<Action type="button" variant="secondary" disabled={!emailVerified||!phoneValid} onClick={()=>setPhoneOpen(true)}>인증하기</Action>}</div>}
         {phoneRequired&&(phoneVerified?<VerifiedNote>휴대폰 번호 인증이 완료되었습니다.</VerifiedNote>:emailVerified&&<p className={s.hint}>번호 하나에 계정 하나만 만들 수 있어요.</p>)}
         {phoneRequired&&submitted&&!phoneVerified&&<p className={s.error} role="alert">휴대폰 번호 확인이 필요해요.</p>}
+        </>}
+        {step===1&&<>
         <Field label="비밀번호" type="password" showPasswordToggle autoComplete="new-password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="비밀번호를 입력하세요" hint={errors.password?'8자 이상 입력해주세요.':undefined} error={submitted?errors.password:undefined}/>
         {!errors.password&&<VerifiedNote>사용할 수 있는 비밀번호입니다.</VerifiedNote>}
         <Field label="비밀번호 확인" type="password" showPasswordToggle autoComplete="new-password" value={confirm} onChange={e=>setConfirm(e.target.value)} placeholder="비밀번호를 다시 입력하세요" error={confirm&&confirm!==password?errors.confirm:undefined}/>
         <Field label="닉네임" autoComplete="nickname" maxLength={20} value={nickname} onChange={e=>setNickname(e.target.value)} placeholder="닉네임을 입력하세요" error={submitted?errors.nickname:undefined}/>
+        </>}
+        {step===2&&<>
         {identityRequired&&<div className={s.identityRow}><div><strong>본인인증</strong><span>{identityVerified?'PASS 본인인증 완료':'PASS 앱으로 본인인증을 진행합니다.'}</span></div>{identityVerified?<span className={s.verified}>인증 완료</span>:<Action type="button" variant="secondary" disabled={!policiesReady} onClick={()=>{setPassError('');setPassOpen(true);}}>PASS 본인인증</Action>}</div>}
         <div className={s.agreements}>
           <div className={s.agreeAll}><Checkbox label="전체 동의" description="필수 항목과 선택 항목(광고성 정보 수신)에 모두 동의합니다. 선택 항목은 동의하지 않아도 가입할 수 있어요." checked={allAgreed} onChange={agreeAll}/></div>
@@ -126,7 +149,11 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
           {submitted&&referred&&!referralDisclosure&&<p className={s.error} role="alert">초대 링크로 가입하려면 초대한 회원에게 표시되는 정보에 동의해주세요.</p>}
         </div>
         {task.error&&<p className={s.error} role="alert">{task.error}</p>}
-        <Action type="submit" disabled={task.busy||!ready}>{task.busy?'확인 중…':'동의하고 가입하기'}</Action>
+        </>}
+        <div className={s.stepActions}>
+        {step>0&&<Action type="button" variant="secondary" disabled={task.busy} onClick={()=>goToStep(step-1)}>이전</Action>}
+        {step<2?<Action type="submit" disabled={!canAdvance}>다음</Action>:<Action type="submit" disabled={task.busy||!ready}>{task.busy?'확인 중…':'동의하고 가입하기'}</Action>}
+        </div>
       </form>
     {phoneRequired&&accountActions.signupPhone&&<PhoneCheckDialog open={phoneOpen} onClose={()=>setPhoneOpen(false)} check={accountActions.signupPhone} onVerified={()=>setPhoneVerified(true)} initialPhone={phoneDigits} intro="번호 하나에 계정 하나만 만들 수 있어요. 번호를 입력하면 보낼 문자를 알려 드려요."/>}
     {identityRequired&&<Dialog open={passOpen} onClose={()=>{if(!passPending)setPassOpen(false);}} title="PASS 본인인증"><div className={s.dialogBody}><p>통신사 PASS 앱으로 연결해 본인인증을 진행합니다. 인증이 끝나면 이 화면으로 돌아옵니다.</p>{model.mode!=='live'&&<p className={s.hint}>목업에서는 아래 버튼을 누르면 인증이 완료된 것으로 처리됩니다.</p>}{passError&&<p className={s.error} role="alert">{passError}</p>}<DialogActions><Action variant="secondary" disabled={passPending} onClick={()=>setPassOpen(false)}>취소</Action><Action disabled={passPending} onClick={()=>void verifyPass()}>{passPending?'연결 중…':'PASS 앱으로 인증하기'}</Action></DialogActions></div></Dialog>}

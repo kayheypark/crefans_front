@@ -75,3 +75,14 @@
 
 /* 2026-11-18 signup advertising-consent reward dialog */
 .rewardArt{display:block;width:120px;height:120px;object-fit:contain}.rewardTerms{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:max(13px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textSecondary);line-height:1.6}.rewardDocument{font-size:max(12px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textSecondary)}.rewardDocument summary{cursor:pointer;color:var(--cf-color-textMuted)}.rewardDocument[open]{max-height:240px;overflow:auto}.rewardActions{align-items:stretch}.rewardActions>*{flex:1 1 0;white-space:nowrap;padding-inline:10px}
+
+.signupHeader{display:flex;align-items:center;justify-content:space-between}
+.signupHeader h1{margin:0}
+.signupHeader span{color:var(--cf-color-textMuted,#646b7a);font-variant-numeric:tabular-nums}
+.stepBar{display:flex;gap:5px;margin:12px 0 24px}
+.stepBar i{flex:1;height:4px;border-radius:4px;background:#e7eaf0}
+.stepBar i[data-filled=true]{background:#2962eb}
+.stepTitle{font-size:20px;margin:0 0 16px;line-height:1.4}
+.stepActions{display:flex;gap:8px;margin-top:8px}
+.stepActions button{flex:1}
+.stepActions button[type=submit]{flex:2}
