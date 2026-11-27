@@ -10,12 +10,12 @@ const shop={products:[{id:'s1',name:'AI 사진 10회권',description:'',benefit:
 const ads={products:[{id:'a1',name:'주목할 크리에이터 7일',description:'',terms:'',placement:'featured_creator',amount:11000,durationDays:7,onSale:true,visible:true,sortOrder:0,version:1}],orders:[],loading:false,error:'',purchaseReady:false,guidance:'',refresh:async()=>{},purchase:async()=>({success:false}),activate:async()=>({success:false})};
 const buttons=t=>t.root.findAll(n=>n.type==='button');const byText=(t,s)=>buttons(t).find(b=>words(b.props.children).trim()===s);
 
-test('chips 콩 충전 | AI 이용권 | 광고상품, and 구매 내역 as a button beside the title',()=>{
+test('chips AI 이용권 | 광고상품, and 구매 내역 as a button beside the title',()=>{
  let t;act(()=>{t=create(el(ShopPage,{model:shop,advertising:ads,basePath:'/service/studio'}));});
  try{
-  // 2026-11-16 revision: 구매 내역 moved to a pill button beside the title; 콩 충전 is the first chip of the row.
+  assert.doesNotMatch(words(t.toJSON()),/콩 충전/);
   const header=t.root.findByType('header');assert.equal(header.findAll(n=>n.type==='button'&&n.props.className==='historyButton').length,1,'구매 내역 sits in the title row');
-  const chips=t.root.find(n=>n.props?.className==='categories').findAllByType('button').map(b=>words(b.props.children).trim());assert.deepEqual(chips,['콩 충전','AI 이용권','광고상품']);
+  const chips=t.root.find(n=>n.props?.className==='categories').findAllByType('button').map(b=>words(b.props.children).trim());assert.deepEqual(chips,['AI 이용권','광고상품']);
   assert.ok(byText(t,'AI 이용권')&&byText(t,'광고상품')&&byText(t,'구매 내역'));
   assert.match(words(t.toJSON()),/AI 사진 10회권/);assert.doesNotMatch(words(t.toJSON()),/광고상품 보기/);
   act(()=>byText(t,'광고상품').props.onClick());
