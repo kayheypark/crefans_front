@@ -127,6 +127,7 @@ export const aiPhotoMultiSelectKinds:readonly AiPhotoKind[]=['makeup'];
 export function aiPhotoMakeupGender(example:string):'female'|'male'|undefined{return aiPhotoMakeups.find(item=>item.prompt===example)?.gender;}
 
 export function aiPhotoPresetIsNew(kind:AiPhotoKind,example:string){
+ if(kind==='skin')return aiPhotoPresets.skin.includes(example);
  return kind==='makeup'&&aiPhotoMakeups.some(item=>item.isNew&&item.prompt===example);
 }
 
