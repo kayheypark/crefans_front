@@ -6812,3 +6812,7 @@ ca7e53 카드 표시명과 검색명을 신도시 코스튬으로 변경. 일반
 2026-11-27 14:04 KST 공유 결과 확대 운영 프론트 배포 result-zoom-20261127 / 22422d1 exit 0. 운영 공개 공유 페이지 JS page-1686bb20810599e7.js HTTP 200 및 버튼 라벨·showModal·heroFrame 확인. 모바일 390×844 로컬 컴포넌트 열기·닫기·Escape·포커스 복귀 재검증 exit 0.
 
 2026-11-27 비로그인 피드·상세·갤러리의 댓글 입력에 로그인 안내, 클릭·키보드 및 답글 진입 시 기존 requireSignIn 모달 연결. 닫힌 댓글·멤버십 권한 처리 보존. tsc 및 기존 댓글 검사 3건 통과.
+
+## 2026-11-27 랜딩·편집기 피부 NEW 동기화
+- 기준 be50da2. 두 화면의 공통 AiPhotoCategoryIcon에서 NEW를 렌더링해 같은 말풍선 스타일과 애니메이션을 사용. 기존 편집기 인라인 조건 제거.
+- 로컬 node --test --test-name-pattern='shared NEW badge' tests/ai-photo-landing.test.cjs 종료 0 (피부 탭 하나에만 표시), tsc --noEmit --incremental false 진단 0. 랜딩 전체 테스트 중 별도 메인 이미지 교체 단언이 실패. 운영 배포 전.

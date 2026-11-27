@@ -6,7 +6,7 @@ const {create,act}=require('react-test-renderer');
 const {loadTypeScript}=require('./load-typescript.cjs');
 const styles=new Proxy({},{get:(_,key)=>String(key)});
 const handedOff=[];
-const page=loadTypeScript('components/service/AiPhotoLanding.tsx',{'@/lib/crefans/preset-access':{guestPresetAccess:async()=>true},'@/components/crefans/SignupOfferDialog':{SignupOfferDialog:()=>null},'./ai-photo-landing.module.css':{__esModule:true,default:styles},'@/components/crefans/studio/ai-photo.module.css':{__esModule:true,default:styles},'next/link':({href,children,...props})=>React.createElement('a',{href,...props},children),'@/components/crefans/Brand':{Brand:()=>React.createElement('span',null,'crefans')},'@/components/ui/Primitives':{Dialog:({open,title,onClose,children})=>open?React.createElement('section',{'data-dialog':title,onClose},children):null},'@/components/ui/DialogActions':{DialogActions:({children})=>React.createElement('div',null,children)},'@/features/service/useFunnelStep':{useFunnelStep:()=>{}},'@/lib/crefans/ai-photo-handoff':{saveAiPhotoHandoff:presets=>{handedOff.push(presets);}}});
+const page=loadTypeScript('components/service/AiPhotoLanding.tsx',{'@/lib/crefans/preset-access':{guestPresetAccess:async()=>true},'@/components/crefans/SignupOfferDialog':{SignupOfferDialog:()=>null},'./ai-photo-landing.module.css':{__esModule:true,default:styles},'@/components/crefans/studio/ai-photo.module.css':{__esModule:true,default:styles},'next/link':({href,children,...props})=>React.createElement('a',{href,...props},children),'@/components/crefans/Brand':{Brand:()=>React.createElement('span',null,'crefans')},'@/components/ui/Primitives':{Dialog:({open,title,onClose,children})=>open?React.createElement('section',{'data-dialog':title,onClose},children):null},'@/components/ui/DialogActions':{DialogActions:({children})=>React.createElement('div',null,children)},'@/features/service/useFunnelStep':{useFunnelStep:()=>{}},'@/lib/crefans/ai-photo-handoff':{readAiPhotoHandoff:()=>[],saveAiPhotoHandoff:presets=>{handedOff.push(presets);}}});
 const text=node=>JSON.stringify(node.toJSON());
 test('hero results come from real presets, the preset browser reuses the editor cards, and the removed sections stay gone',async()=>{
  const fs=require('fs'),sharp=require('sharp');
@@ -110,4 +110,13 @@ test("the landing targets '무료 AI 코스프레 생성' in title, description,
  try{const h1=tree.root.findByType('h1');assert.equal(h1.findByType('span').props.children,phrase);}finally{await act(async()=>tree.unmount());}
  assert.match(fs.readFileSync('app/sitemap.ts','utf8'),/landing-ai-image-generation'\),changeFrequency:'weekly',priority:0\.9,lastModified:new Date\('2026-11-20/);
  assert.ok(fs.readFileSync('public/llms.txt','utf8').includes(phrase));
+});
+
+test('landing skin category shows the shared NEW badge once',()=>{
+ let tree;act(()=>{tree=create(React.createElement(page.default));});
+ try{
+  const newTabs=tree.root.findAll(node=>node.type==='button'&&node.props.role==='tab'&&node.findAllByType('span').some(span=>span.props.children==='NEW'));
+  assert.equal(newTabs.length,1);
+  assert.ok(newTabs[0].findAllByType('span').some(span=>span.props.children==='피부'));
+ }finally{act(()=>tree.unmount());}
 });
