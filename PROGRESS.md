@@ -6816,3 +6816,4 @@ ca7e53 카드 표시명과 검색명을 신도시 코스튬으로 변경. 일반
 ## 2026-11-27 랜딩·편집기 피부 NEW 동기화
 - 기준 be50da2. 두 화면의 공통 AiPhotoCategoryIcon에서 NEW를 렌더링해 같은 말풍선 스타일과 애니메이션을 사용. 기존 편집기 인라인 조건 제거.
 - 로컬 node --test --test-name-pattern='shared NEW badge' tests/ai-photo-landing.test.cjs 종료 0 (피부 탭 하나에만 표시), tsc --noEmit --incremental false 진단 0. 랜딩 전체 테스트 중 별도 메인 이미지 교체 단언이 실패. 운영 배포 전.
+- 운영 배포 완료 2026-11-27 15:54 KST. devbox-release.sh front skin-new-sync-20261127 종료 0, prod 6d9dea3. node /tmp/cf-skin-badge-live.cjs 종료 0. 실제 운영 랜딩 Chrome 390px·1280px 각각 HTTP 200, 피부 배지 유일성·탭 영역 내 표시·선택 상태 및 대표 이미지 교체 확인.
