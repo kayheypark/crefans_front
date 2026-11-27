@@ -6817,3 +6817,7 @@ ca7e53 카드 표시명과 검색명을 신도시 코스튬으로 변경. 일반
 - 기준 be50da2. 두 화면의 공통 AiPhotoCategoryIcon에서 NEW를 렌더링해 같은 말풍선 스타일과 애니메이션을 사용. 기존 편집기 인라인 조건 제거.
 - 로컬 node --test --test-name-pattern='shared NEW badge' tests/ai-photo-landing.test.cjs 종료 0 (피부 탭 하나에만 표시), tsc --noEmit --incremental false 진단 0. 랜딩 전체 테스트 중 별도 메인 이미지 교체 단언이 실패. 운영 배포 전.
 - 운영 배포 완료 2026-11-27 15:54 KST. devbox-release.sh front skin-new-sync-20261127 종료 0, prod 6d9dea3. node /tmp/cf-skin-badge-live.cjs 종료 0. 실제 운영 랜딩 Chrome 390px·1280px 각각 HTTP 200, 피부 배지 유일성·탭 영역 내 표시·선택 상태 및 대표 이미지 교체 확인.
+
+## 2026-11-27 홈 피드 더 보기
+- 현재 목록 다음 페이지가 있을 때 기존 쿠팡 광고 고지·위젯을 버튼 직전에 재사용. 2개 게시물로 끝나는 페이지는 중간 슬롯과 하단 슬롯이 연달아 중복되지 않도록 함. 완료·빈 화면의 페이지 처리 유지.
+- 기준 43001c3. tsc --noEmit --incremental false 및 feed-data/feed-cosplay-banner 6건 통과. 로컬 Chrome 390px CSS 단독 검사에서 버튼=본문 374px, 높이 44px, 마지막 게시물→배너 20px, 배너→버튼 16px. 운영 배포 및 실광고 송출 확인 전.

@@ -280,6 +280,9 @@ button.contact:not(:disabled):not([data-unread=true]):hover{background:color-mix
 .guestEditForm{display:grid;gap:14px}
 
 .coupangBanner{margin:16px auto;box-sizing:border-box;width:calc(100% - 32px);max-width:680px;min-height:168px}
+.feedMore{display:grid;gap:16px;padding-block:20px 8px}
+.feedMore>.coupangBanner{width:100%;margin:0}
+.feedMore>button{width:100%;min-height:44px}
 .coupangBanner small{display:block;margin-bottom:8px;color:#626671;font-size:12px;line-height:1.5}
 .coupangBanner iframe{display:block;width:100%;border:0}
 
