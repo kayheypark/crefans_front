@@ -29,6 +29,7 @@ import Icon from '../Icon';
 import type {ApiResult} from '@/types/crefans';
 import type {AiHeartInput,AiHeartResult,AiPhotoEditInput,AiPhotoEditResult,AiPhotoKind,AiPhotoTicketResult,AiReviewInput,AiReviewModel,AiReviewReward,StudioMedia} from '@/types/crefans-studio-management';
 import {SignupOfferDialog} from '../SignupOfferDialog';
+import {AiResultViewer,PhotoZoomButton} from './AiResultViewer';
 import {CostumeShopCard} from './CostumeShopCard';
 import Image from 'next/image';
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
@@ -56,7 +57,7 @@ type Props={/** 2026-11-23 user decision: signed-out trial — the photo the vis
 
 const buildPrompt=(presets:AiPhotoPromptPart[],custom:string,gender:'original'|'female'|'male')=>buildAiPhotoPrompt(aiPhotoCostumeRequest(presets).presets,custom,gender);
 
-function ZoomIcon(){return <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg>;}
+
 
 // Temporarily hidden at user request; keep the mask editor for later reactivation.
 const OUTFIT_DETAIL_ENABLED=false;
@@ -309,7 +310,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
       <img src={item.preview||item.url} alt=""/>{item.aiGenerated&&<span className={s.ai}>AI</span>}</button>)}</div>}
      {source&&(OUTFIT_DETAIL_ENABLED&&(kind==='outfit'||hasOutfit)&&detailedOutfit?<><AiPhotoMask overlay={outfitSwitch} src={source.url} alt={source.aiGenerated?'편집할 이미지':'원본 사진'} strokes={strokes} onChange={next=>{setStrokes(next);setError('');}} disabled={busy}/></>:<div className={s.previewFrame}>
       {/* eslint-disable-next-line @next/next/no-img-element -- creator's own uploaded photo */}
-      <img className={s.preview} src={source.url} alt={source.aiGenerated?'편집할 이미지':'원본 사진'}/><button ref={editRef} type="button" className={s.zoom} aria-label="원본 사진 크게 보기" onClick={()=>setSourceViewer(true)}><ZoomIcon/></button>
+      <img className={s.preview} src={source.url} alt={source.aiGenerated?'편집할 이미지':'원본 사진'}/><PhotoZoomButton ref={editRef} label="원본 사진 크게 보기" onClick={()=>setSourceViewer(true)}/>
       {outfitSwitch}
      </div>)}
    </div>}
@@ -356,7 +357,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
       <><div className={s.grid}>{results.map((item,index)=><div key={item.id} className={s.resultItem}><div className={s.resultFrame}><button type="button" className={s.result} aria-pressed={selected.includes(item.id)} aria-label={`결과 ${index+1}`} onClick={()=>toggle(item.id)}>
        {/* eslint-disable-next-line @next/next/no-img-element -- generated draft image */}
        <img src={item.url} alt=""/><span className={s.ai}>{/* eslint-disable-next-line @next/next/no-img-element -- existing decorative brand icon */}<img src="/brand/featured-creators-v1.png" alt="" aria-hidden="true" width={14} height={14} style={{width:14,height:14,flexShrink:0}}/>AI 생성</span><span className={s.selection} aria-hidden="true">{selected.includes(item.id)?'✓':''}</span></button>
-       <button type="button" className={s.zoom} aria-label={`결과 ${index+1} 크게 보기`} title="크게 보기" onClick={()=>setViewer(index)}><ZoomIcon/></button><div className={s.resultTools}>{onCrop&&<button type="button" onClick={()=>setCropItem(item)} aria-label={`결과 ${index+1} 자르기`}><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M6 3v13a2 2 0 0 0 2 2h13M3 6h13a2 2 0 0 1 2 2v13"/></svg>자르기</button>}</div></div></div>)}</div>
+       <PhotoZoomButton label={`결과 ${index+1} 크게 보기`} onClick={()=>setViewer(index)}/><div className={s.resultTools}>{onCrop&&<button type="button" onClick={()=>setCropItem(item)} aria-label={`결과 ${index+1} 자르기`}><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M6 3v13a2 2 0 0 0 2 2h13M3 6h13a2 2 0 0 1 2 2v13"/></svg>자르기</button>}</div></div></div>)}</div>
       {review&&<AiPhotoReview done={review.done} reward={review.reward} draft={reviewDraft} onDraft={setReviewDraft} onSubmit={sendReview}/>}{(!review||(review.done&&!noHearts))&&<div className={s.heartResult}>{noHearts?<><strong>이번 게임에서 하트 {resultHearts}개를 모았어요</strong>{onHeartGame?<p role="status">{rewardNote||GUEST_HEART_NOTE}</p>:<p>체험 게임의 하트는 적립되거나 이용권으로 바뀌지 않아요.</p>}</>:<><strong aria-label={`누적 하트 ${onHeartGame?heartBalance:resultHearts}개 / 100개`}><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-9-5.5-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-9 12-9 12Z"/></svg><span>{onHeartGame?heartBalance:resultHearts}/100</span></strong><p>100개가 모이면 이용권 10개를 받아요</p>{rewardNote&&<p role="status">{rewardNote}</p>}</>}</div>}</>}
     </div>}
     {stage==='results'&&!waiting&&<><div className={s.resultShareArea}>
@@ -486,22 +487,6 @@ export async function toPng(blob:Blob){
  return await new Promise<Blob>((resolve,reject)=>canvas.toBlob(png=>png?resolve(png):reject(new Error('png')),'image/png'));
 }
 
-function AiResultViewer({items,index,selected,onIndex,onToggle,onClose,onShare,original=false}:{onShare?:(item:StudioMedia)=>void;items:StudioMedia[];index:number;selected:string[];onIndex:(index:number)=>void;onToggle?:(id:string)=>void;onClose:()=>void;original?:boolean}){
- const closeRef=useRef<HTMLButtonElement>(null),start=useRef<number|null>(null),pointers=useRef(new Set<number>()),item=items[index],picked=selected.includes(item.id);
- useEffect(()=>{closeRef.current?.focus({preventScroll:true});},[]);
- const go=(next:number)=>{if(next>=0&&next<items.length)onIndex(next);};
- return <div className={s.viewer} role="group" aria-label={original?'원본 사진 크게 보기':`결과 ${index+1} 크게 보기`} onKeyDown={event=>{if(event.key==='Escape'){event.preventDefault();event.stopPropagation();onClose();}else if(event.key==='ArrowLeft')go(index-1);else if(event.key==='ArrowRight')go(index+1);}}
-  onPointerDown={event=>{pointers.current.add(event.pointerId);start.current=pointers.current.size===1&&(typeof window==='undefined'||(window.visualViewport?.scale||1)<=1)?event.clientX:null;}} onPointerCancel={event=>{pointers.current.delete(event.pointerId);start.current=null;}} onPointerUp={event=>{pointers.current.delete(event.pointerId);const from=start.current;start.current=null;if(from===null||pointers.current.size)return;const dx=event.clientX-from;if(Math.abs(dx)>50)go(index+(dx<0?1:-1));}}>
-  <div className={s.viewerBar}><span>{original?'원본 사진':`결과 ${index+1} / ${items.length}`}</span><div className={s.viewerTools}>{onShare&&<button type="button" className={s.viewerClose} onClick={()=>onShare(item)}>공유</button>}<button ref={closeRef} type="button" className={s.viewerClose} onClick={onClose}>닫기</button></div></div>
-  <div className={s.viewerStage}>
-   {index>0&&<button type="button" className={`${s.viewerNav} ${s.viewerPrev}`} aria-label="이전 결과" onClick={()=>go(index-1)}>‹</button>}
-   {/* eslint-disable-next-line @next/next/no-img-element -- generated draft image at full size */}
-   <span className={s.viewerFrame}><img src={item.url} alt={original?'원본 사진':`결과 ${index+1} (AI 생성 사진)`} draggable={false}/>{(!original||item.aiGenerated)&&<span className={s.ai}>{/* eslint-disable-next-line @next/next/no-img-element -- existing decorative brand icon */}<img src="/brand/featured-creators-v1.png" alt="" aria-hidden="true" width={14} height={14} style={{width:14,height:14,flexShrink:0}}/>AI 생성</span>}</span>
-   {index<items.length-1&&<button type="button" className={`${s.viewerNav} ${s.viewerNext}`} aria-label="다음 결과" onClick={()=>go(index+1)}>›</button>}
-  </div>
-  {onToggle&&<div className={s.viewerActions}><Action type="button" variant={picked?'secondary':'primary'} aria-pressed={picked} onClick={()=>onToggle(item.id)}>{picked?'선택됨 ✓':'이 사진 선택'}</Action></div>}
- </div>;
-}
 
 /** 2026-11-21 user request: signed-out visitors read the member benefit during the ~30 s wait. Not tappable: leaving now would lose the photo being made, and fingers are busy with the heart game. */
 function SignupWaitBanner(){

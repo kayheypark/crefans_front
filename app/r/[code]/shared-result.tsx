@@ -1,10 +1,11 @@
 'use client';
-import {useEffect,useState,type CSSProperties} from 'react';
+import {useEffect,useRef,useState,type CSSProperties} from 'react';
 import {designVariables} from '@/lib/design/tokens';
 import {platformRequest} from '@/lib/api/platform';
 import {saveAiPhotoHandoff} from '@/lib/crefans/ai-photo-handoff';
 import {reportFunnelStep,rememberEntrySource} from '@/lib/api/funnel';
 import type {sharedCatalog} from '@/lib/crefans/shared-result';
+import {AiResultViewer,PhotoZoomButton} from '@/components/crefans/studio/AiResultViewer';
 import {CostumeShopCard} from '@/components/crefans/studio/CostumeShopCard';
 import {CoupangFeedBanner} from '@/components/crefans/CoupangFeedBanner';
 import {Dialog} from '@/components/ui/Primitives';
@@ -14,6 +15,8 @@ import s from './shared-result.module.css';
 import editor from '@/components/crefans/studio/ai-photo.module.css';
 
 export default function SharedResult({image,presets,campaign,hasSessionCookie}:{hasSessionCookie:boolean;image:string;presets:ReturnType<typeof sharedCatalog>;campaign:string}){
+ const zoomDialog=useRef<HTMLDialogElement>(null);
+ const [zoomOpen,setZoomOpen]=useState(false);
  const [remaining,setRemaining]=useState<number|null>(null);
  useEffect(()=>{
   let active=true;
@@ -44,7 +47,13 @@ export default function SharedResult({image,presets,campaign,hasSessionCookie}:{
   reportFunnelStep('shared_result_create');
  }
  return <main className={s.page} style={designVariables as CSSProperties}><header><a href="/service/feed" aria-label="크레팬스 홈"><img src="/brand/crefans-logo.svg" alt="크레팬스"/></a></header>
- <img className={s.hero} src={image} alt="공유된 AI 사진 편집 결과"/>
+ <div className={s.heroFrame}>
+  <img className={s.hero} src={image} alt="공유된 AI 사진 편집 결과"/>
+  <PhotoZoomButton label="결과 사진 크게 보기" onClick={()=>{zoomDialog.current?.showModal();setZoomOpen(true);}}/>
+ </div>
+ <dialog ref={zoomDialog} aria-label="결과 사진 크게 보기" onClose={()=>setZoomOpen(false)}>
+  {zoomOpen&&<AiResultViewer items={[{id:image,type:'image',url:image,aiGenerated:true}]} index={0} selected={[]} onIndex={()=>{}} onClose={()=>zoomDialog.current?.close()}/>}
+ </dialog>
  <aside className={s.invite}><div><h1>AI 코스프레, <em>0원</em>으로 생성</h1><p>내 사진이 없어도 샘플 사진으로<br/>바로 시작할 수 있어요.</p><a className={landingStyles.primary} href={landing} onClick={startTrial}>0원으로 체험하기</a></div>
  <div className={s.looks} aria-hidden="true">{['gothic','idol'].map(name=><img key={name} src={'/illustrations/landing/ai-photo/thumb-'+name+'-v1.webp'} alt=""/>)}</div></aside>
  {!!presets.length&&<section><h2>사용한 프리셋 <small>{picked.length}개 선택</small></h2><div className={s.row}>{presets.map(item=><button key={item.image} type="button" aria-haspopup="dialog" aria-label={item.title+' 자세히 보기'} data-selected={picked.includes(item.image)} onClick={()=>setDetail(item)}>

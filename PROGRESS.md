@@ -6802,3 +6802,9 @@ ca7e53 카드 표시명과 검색명을 신도시 코스튬으로 변경. 일반
 2026-11-27 결과 의상 카드 디자인 공유, 의상 미연결 시 피드 쿠팡 배너.
 
 2026-11-27 운영 기준 가입 3단계에서 약관 전체 즉시 표시. 전체 동의, 이용약관, 개인정보, 해당 필수 확인, 광고 수신 선택 순서. node --test --test-name-pattern="signup|advertising-consent|referral" tests/crefans-account.test.cjs 8/8(선택 미체크 가입 검증 포함). 운영 미배포.
+
+2026-11-27 12:44 KST 760e290 운영 배포 완료. devbox-release.sh front signup-agree-order-20261127 exit 0. node /tmp/cf-agreement-live-final.cjs exit 0. 운영 회원가입 Chrome 390×844에서 동의 5개 순서·초기 미선택·하단 가입 버튼까지 표시·선택 미동의 시 필수만으로 버튼 활성 확인. 인증 응답 대역, 가입 POST 없음. 캡처 /Users/ethan/Pictures/crefans-signup-agreements-live.
+
+2026-11-27 13:17 KST 99d681a preset-captions-20261127 운영 배포 종료 0. node /tmp/cf-preset-captions-live-1127.cjs 종료 0. 운영 랜딩 및 콘솔 프리셋 모바일 Chrome 390px: 캡션 bottom 0px, 흰 글자, 검정 그라데이션 확인. 콘솔 me 응답만 QA 권한 대역.
+
+2026-11-27 공유 결과 이미지 오른쪽 위에 AI 편집과 같은 확대 버튼·전체화면 뷰어 연결. 기준 99d681a. tsc --noEmit --incremental false 및 node /tmp/cf-share-zoom-liveqa.cjs 검증: 390×844, 상단·우측 10px, 44px 버튼, 같은 결과 이미지·닫기·Escape·포커스 복귀 통과(로컬 컴포넌트, 외부 데이터 대역). 운영 배포 전.
