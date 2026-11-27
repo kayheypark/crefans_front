@@ -112,11 +112,10 @@ test("the landing targets '무료 AI 코스프레 생성' in title, description,
  assert.ok(fs.readFileSync('public/llms.txt','utf8').includes(phrase));
 });
 
-test('landing skin category shows the shared NEW badge once',()=>{
+test('landing outfit and skin categories show the shared NEW badges',()=>{
  let tree;act(()=>{tree=create(React.createElement(page.default));});
  try{
   const newTabs=tree.root.findAll(node=>node.type==='button'&&node.props.role==='tab'&&node.findAllByType('span').some(span=>span.props.children==='NEW'));
-  assert.equal(newTabs.length,1);
-  assert.ok(newTabs[0].findAllByType('span').some(span=>span.props.children==='피부'));
+  assert.deepEqual(newTabs.map(tab=>tab.findAllByType('span').at(-1).props.children).sort(),['옷','피부']);
  }finally{act(()=>tree.unmount());}
 });

@@ -11,7 +11,7 @@ import type {ShopModel} from '@/types/crefans-shop';
 import {useEffect,useId,useRef,useState} from 'react';
 import {fetchImageBlob} from '@/lib/browser/media-file';
 import {takeAiPhotoHandoff} from '@/lib/crefans/ai-photo-handoff';
-import {aiPhotoCostumes,aiPhotoCostumeCategories,aiPhotoCostumeRequest,franchiseCostumeNotice,isFranchiseCostume,type AiPhotoCostumeCategory,AI_PHOTO_COSTUME_HINT} from '@/lib/crefans/ai-photo-costumes';
+import {costumePickerOptions,aiPhotoCostumes,aiPhotoCostumeCategories,aiPhotoCostumeRequest,franchiseCostumeNotice,isFranchiseCostume,type AiPhotoCostumeCategory,AI_PHOTO_COSTUME_HINT} from '@/lib/crefans/ai-photo-costumes';
 import {aiPhotoSortByUsage} from '@/lib/crefans/ai-photo-popularity';
 import {aiPhotoOutfitByPrompt,type AiPhotoOutfitPart} from '@/lib/crefans/ai-photo-outfits';
 import {SelectField} from '@/components/ui/SelectField';
@@ -327,7 +327,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
      {kind!=='body'&&!(kind==='background'&&ownBackgroundTab)&&<div className={s.presetSearch}><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input type="search" aria-label="프리셋 검색" placeholder={cosplay?'의상 이름·작품 검색':`${aiPhotoKinds.find(item=>item.value===kind)!.label} 프리셋 검색`} value={presetQuery} onChange={event=>searchPresets(event.target.value)} disabled={busy}/>{presetQuery&&<button type="button" aria-label="검색어 지우기" disabled={busy} onClick={()=>searchPresets('')}>×</button>}</div>}
      {kind==='outfit'&&cosplayOpen?<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.wardrobe}>
       <p className={s.costumeHint}>{AI_PHOTO_COSTUME_HINT}</p>
-      <div className={s.costumeCategoryBar}><SelectField className={s.costumeCategoryPicker} label="의상 카테고리" hideLabel value={costumeCategory} onChange={value=>{setCostumeCategory(value as AiPhotoCostumeCategory);searchPresets('');}} options={aiPhotoCostumeCategories.map(category=>({value:category.value,label:category.label,image:category.image}))} disabled={busy}/><span>{presetQuery.trim()?'전체 의상 검색':costumeCategoryInfo.group} · {costumes.length}종</span></div>
+      <div className={s.costumeCategoryBar}><SelectField className={s.costumeCategoryPicker} label="의상 카테고리" hideLabel value={costumeCategory} onChange={value=>{setCostumeCategory(value as AiPhotoCostumeCategory);searchPresets('');}} options={costumePickerOptions} disabled={busy}/><span>{presetQuery.trim()?'전체 의상 검색':costumeCategoryInfo.group} · {costumes.length}종</span></div>
       <AiPhotoWardrobe key={`${costumeCategory}-${presetQuery}-${revealed}`} items={costumes} selectedPrompts={selectedPresets.filter(item=>item.kind==='outfit').map(item=>item.prompt)} disabled={busy} onPick={pickPreset}/>
       {franchisePicked&&<p className={s.costumeNote} role="note" data-franchise-notice="true">{franchiseCostumeNotice}</p>}
      </div>:<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.presets}>

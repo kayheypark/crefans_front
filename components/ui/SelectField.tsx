@@ -8,7 +8,7 @@ import type {CSSProperties, KeyboardEvent} from 'react';
 import {designTokens} from '@/lib/design/tokens';
 import s from './select.module.css';
 
-export type SelectOption = {value:string;label:string;disabled?:boolean;image?:string|null};
+export type SelectOption = {value:string;label:string;badge?:string;disabled?:boolean;image?:string|null};
 type CommonProps = {
   options:SelectOption[];label:string;marquee?:boolean;searchable?:boolean;selectAll?:boolean;
   placeholder?:string;disabled?:boolean;readOnly?:boolean;error?:string;hint?:string;
@@ -144,6 +144,7 @@ export function SelectField(props:SelectFieldProps){
       onClick={()=>open?close():show()} onKeyDown={keyDown}>
       {!props.multiple&&<OptionalImage src={selectedOptions[0]?.image||undefined} alt="" className={s.optionImage}/>}
       <span className={`${s.value} ${!selectedOptions.length?s.placeholder:''}`}>{props.marquee?<MarqueeText text={selectedOptions.length?selectedOptions.map(option=>option.label).join(', '):placeholder}/>:selectedOptions.length?selectedOptions.map(option=>option.label).join(', '):placeholder}</span>
+      {!props.multiple&&selectedOptions[0]?.badge&&<small className={s.optionBadge}>{selectedOptions[0].badge}</small>}
       {props.multiple&&selectedOptions.length>1&&<span className={s.count} aria-hidden="true">{selectedOptions.length}</span>}
       <svg className={s.chevron} data-open={open} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
     </button>
@@ -158,6 +159,7 @@ export function SelectField(props:SelectFieldProps){
           {props.multiple&&<span className={s.check} aria-hidden="true" data-checked={selected.includes(option.value)}>{selected.includes(option.value)&&<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m5 12 4 4L19 6"/></svg>}</span>}
           <OptionalImage src={option.image||undefined} alt="" className={s.optionImage}/>
             <span>{props.marquee?<MarqueeText text={option.label}/>:option.label}</span>
+          {option.badge&&<small className={s.optionBadge}>{option.badge}</small>}
           {!props.multiple&&selected.includes(option.value)&&<svg className={s.selectedIcon} width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>}
         </div>)}
         {!visible.length&&<div className={s.empty} role="status">{query.trim()?'검색 결과가 없습니다.':'선택할 항목이 없습니다.'}</div>}

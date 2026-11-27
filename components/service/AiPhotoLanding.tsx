@@ -13,7 +13,7 @@ import {AiPresetPager} from '@/components/crefans/studio/AiPresetPager';
 import e from '@/components/crefans/studio/ai-photo.module.css';
 import {aiPhotoKinds,aiPhotoPresetText} from '@/lib/crefans/ai-photo';
 import {AI_PHOTO_KEEP_ORIGINAL,aiPhotoPresetIsNew,aiPhotoMakeupGender,aiPhotoPresetImage,aiPhotoPresetMatches,aiPhotoPresetPage,aiPhotoPresetTitle,aiPhotoPresets,type AiPhotoBackgroundCategory,type AiPhotoPosePosture} from '@/lib/crefans/ai-photo-presets';
-import {aiPhotoCostumeCategories,aiPhotoCostumes,type AiPhotoCostumeCategory,AI_PHOTO_COSTUME_HINT} from '@/lib/crefans/ai-photo-costumes';
+import {costumePickerOptions,aiPhotoCostumeCategories,aiPhotoCostumes,type AiPhotoCostumeCategory,AI_PHOTO_COSTUME_HINT} from '@/lib/crefans/ai-photo-costumes';
 import {aiPhotoSortByUsage} from '@/lib/crefans/ai-photo-popularity';
 import type {AiPhotoKind} from '@/types/crefans-studio-management';
 import {designVariables} from '@/lib/design/tokens';
@@ -130,7 +130,7 @@ export function LandingPresetBrowser({onPicked,onChoose}:{onPicked?:(picked:Reco
   <div className={e.presetSearch}><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input type="search" aria-label="프리셋 검색" placeholder={kind==='outfit'?'의상 이름·작품 검색':`${landingKinds.find(item=>item.value===kind)!.label} 프리셋 검색`} value={query} onChange={event=>search(event.target.value)}/>{query&&<button type="button" aria-label="검색어 지우기" onClick={()=>search('')}>×</button>}</div>
   {kind==='outfit'?<div role="tabpanel" aria-label="코스튬 프리셋" className={e.wardrobe}>
    <p className={e.costumeHint}>{AI_PHOTO_COSTUME_HINT}</p>
-   <div className={e.costumeCategoryBar}><SelectField className={e.costumeCategoryPicker} label="의상 카테고리" hideLabel value={costumeCategory} onChange={value=>{setCostumeCategory(value as AiPhotoCostumeCategory);search('');}} options={aiPhotoCostumeCategories.map(item=>({value:item.value,label:item.label,image:item.image}))}/><span>{query.trim()?'전체 의상 검색':category.group} · {costumes.length}종</span></div>
+   <div className={e.costumeCategoryBar}><SelectField className={e.costumeCategoryPicker} label="의상 카테고리" hideLabel value={costumeCategory} onChange={value=>{setCostumeCategory(value as AiPhotoCostumeCategory);search('');}} options={costumePickerOptions}/><span>{query.trim()?'전체 의상 검색':category.group} · {costumes.length}종</span></div>
    <AiPhotoWardrobe key={`${costumeCategory}-${query}`} items={costumes} selectedPrompts={picked.outfit||[]} disabled={false} onPick={async value=>{const text=aiPhotoPresetText(value);if(!(picked.outfit||[]).includes(text)&&!await allowed(value))return;const costume=costumes.find(item=>item.prompt===value);if(costume&&!(picked.outfit||[]).includes(text))onChoose?.({kind:'outfit',title:costume.name,image:costume.image});setPicked(previous=>({...previous,outfit:(previous.outfit||[]).includes(text)?[]:[text]}));}}/>
   </div>:<div role="tabpanel" aria-label={`${landingKinds.find(item=>item.value===kind)!.label} 프리셋`} className={e.presets}>
    <div className={e.presetHeading}><span>{query.trim()?`검색 결과 ${preset.total}개`:'프리셋'}</span><div className={e.presetNavigation}><button type="button" aria-label="이전 프리셋 페이지" disabled={preset.pages<=1} onClick={()=>setPage(preset.index-1)}>‹</button><span aria-live="polite">{preset.index+1} / {preset.pages}</span><button type="button" aria-label="다음 프리셋 페이지" disabled={preset.pages<=1} onClick={()=>setPage(preset.index+1)}>›</button></div></div>
