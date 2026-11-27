@@ -15,48 +15,24 @@ const flat=t=>words(t.toJSON()).replace(/\s+/g,'');
 const buttons=t=>t.root.findAll(n=>n.type==='button');const byText=(t,s)=>buttons(t).find(b=>words(b.props.children).trim()===s);
 const render=m=>{let t;act(()=>{t=create(el(ShopPage,{model:m,basePath:'/service/studio'}));});return t;};
 const opener=(t,name)=>buttons(t).find(b=>b.props['aria-label']===`${name} 상품 안내`);
-const openPlan=t=>act(()=>opener(t,plan.name).props.onClick());
-const agree=t=>act(()=>t.root.find(n=>n.type==='input'&&n.props.type==='checkbox').props.onChange({target:{checked:true}}));
-const applyButton=t=>byText(t,'월 3,000원 구독 신청');
-
 test('subscription plans sit in their own section; the 횟수형 list keeps only packs (kind missing → pack)',()=>{
  const t=render(model());
  try{
   const text=words(t.toJSON());
   assert.ok(text.indexOf('AI 이용권 횟수형')<text.indexOf('AI 이용권 구독형'));assert.match(text,/AI 이용권 구독형/);assert.match(text,/AI 이용권 횟수형/);assert.match(flat(t),/월3,000원/);assert.match(flat(t),/매달이용권30개/);assert.match(flat(t),/1개100원/);
-  assert.equal(buttons(t).filter(b=>/ 상품 안내$/.test(b.props['aria-label']||'')).length,2,'one row per product, like 광고상품');assert.ok(opener(t,pack.name));assert.ok(opener(t,plan.name));
+  assert.equal(buttons(t).filter(b=>/ 상품 안내$/.test(b.props['aria-label']||'')).length,1,'only packs are purchasable');assert.ok(opener(t,pack.name));assert.equal(opener(t,plan.name),undefined);assert.match(text,/이용불가/);
  }finally{act(()=>t.unmount());}
  const old=render(model({subscriptions:null}));
  try{const text=words(old.toJSON());assert.doesNotMatch(text,/구독형/,'older server: section hidden');assert.doesNotMatch(text,/월 30회 구독/);}finally{act(()=>old.unmount());}
 });
 
-test('apply stays disabled until the auto-billing terms are agreed; the window posts the card form',async()=>{
- const calls=[],w={action:'https://stdpay.inicis.com/payMain/pay',fields:{mid:'INIBillTst',oid:'abc'}};
- const t=render(model({subscribe:async p=>{calls.push(p.id);return ok({id:'s1',amount:3000,name:p.name,window:w});}}));
- try{
-  openPlan(t);const text=words(t.toJSON());
-  for(const term of[/매달 같은 날/,/이월되지 않아요/,/24시간 간격으로 3번/,/해지 예약할 수 있어요/,/남은 이용권 수에 1개 단가/])assert.match(text,term);
-  assert.equal(applyButton(t).props.disabled,true,'disabled before consent');
-  agree(t);assert.equal(applyButton(t).props.disabled,false);
-  await act(async()=>{await applyButton(t).props.onClick();});
-  assert.deepEqual(calls,['m1']);assert.deepEqual(submitted.at(-1),w);
+test('products sorted by actual price within each section, subscription actions unavailable',()=>{
+ const expensive={...pack,id:'p2',name:'큰 팩',amount:2000},cheapPlan={...plan,id:'m2',name:'작은 구독',amount:1500};
+ const t=render(model({products:[plan,expensive,cheapPlan,pack]}));
+ try{const names=t.root.findAllByType('h3').map(n=>words(n.props.children));
+  assert.deepEqual(names,[pack.name,expensive.name,cheapPlan.name,plan.name]);assert.equal(opener(t,cheapPlan.name),undefined);
  }finally{act(()=>t.unmount());}
 });
-
-test('available=false: button stays enabled, click shows the 점검 alert without calling the server; 503 shows the same alert',async()=>{
- const calls=[];
- let t=render(model({subscriptions:{available:false,items:[]},subscribe:async()=>{calls.push(1);return ok({window:null});}}));
- try{
-  assert.equal(opener(t,plan.name).props.disabled,false);assert.doesNotMatch(words(t.toJSON()),/준비 중|연동 전/);
-  openPlan(t);agree(t);assert.equal(applyButton(t).props.disabled,false);
-  await act(async()=>{await applyButton(t).props.onClick();});
-  assert.equal(calls.length,0,'no server call');assert.ok(t.root.findAll(n=>n.props?.['aria-label']==='점검 중입니다').length);
-  assert.match(words(t.toJSON()),/카드 결제 점검 중입니다/);
- }finally{act(()=>t.unmount());}
- t=render(model({subscribe:async()=>({success:false,data:null,errorCode:'BILLING_UNAVAILABLE',errorMessage:'구독 결제를 준비 중이에요.'})}));
- try{openPlan(t);agree(t);await act(async()=>{await applyButton(t).props.onClick();});assert.match(words(t.toJSON()),/카드 결제 점검 중입니다/);assert.doesNotMatch(words(t.toJSON()),/준비 중/);}finally{act(()=>t.unmount());}
-});
-
 test('my subscription card: status, card, period, next charge, remaining, cancel and confirmed refund',async()=>{
  const done=[],item={id:'sub1',productId:'m1',name:'월 30회 구독',amount:6270,quantity:30,unitPrice:209,status:'active',statusLabel:'구독 중',cardLabel:'신한카드 1234',currentPeriodStart:'2026-11-16T03:00:00.000Z',currentPeriodEnd:'2026-12-16T03:00:00.000Z',nextChargeAt:'2026-12-16T03:00:00.000Z',remaining:0.5,lastFailureCode:null};
  const t=render(model({subscriptions:{available:true,items:[item,{...item,id:'old',status:'ended',statusLabel:'구독 종료'}]},refundSubscription:async id=>{done.push(['refund',id]);return ok({...item,status:'refunded'});},cancelSubscription:async id=>{done.push(['cancel',id]);return ok(item);}}));

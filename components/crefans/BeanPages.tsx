@@ -53,6 +53,7 @@ export function TipButton({creatorId,name,postId,post,creator,disabled=false,pro
  // Loading rule: the balance stays (blank before the first response); a small spinner only after 1s.
  const balancePending=!!model&&(model.loading||(!model.wallet&&!model.error)),slowBalance=useDelayedLoading(open&&balancePending);
  const own=!!model?.ownCreatorIds.includes(creatorId),supporterCount=model?.postSupporterCounts?.[postId||'']??post?.supporterCount??0;
+ if(model?.tipsVisible===false)return null;
  const postIcon=<><Image className={s.postTipIcon} src="/brand/post-actions/support-coin-flat-v1.png" width={24} height={24} sizes="24px" alt="" aria-hidden="true" draggable={false}/><span>{supporterCount.toLocaleString()}</span></>;
  // 2026-11-18: posts with a game/anime costume photo take no tips (copyright); a quiet note replaces the button.
  if(postId&&post?.commercialRestricted&&model?.enabled!==false)return <span className={`${s.postTip} ${s.postTipRestricted}`} data-commercial-restricted="true" role="note" title={FRANCHISE_TIP_NOTICE} aria-label={FRANCHISE_TIP_NOTICE}>{postIcon}<small>후원 불가</small></span>;
