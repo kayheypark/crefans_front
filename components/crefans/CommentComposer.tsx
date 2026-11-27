@@ -1,8 +1,8 @@
 'use client';
-import {createContext,useCallback,useContext,useEffect,useId,useRef,useState,type FormEvent,type ReactNode,type RefObject} from 'react';
+import {createContext,useCallback,useContext,useEffect,useId,useRef,useState,type FormEvent,type KeyboardEvent,type ReactNode,type RefObject} from 'react';
 import {createPortal} from 'react-dom';
 import Icon from './Icon';
-import {useMentionInput} from './CommentMention';
+import {CommentContext,useMentionInput} from './CommentMention';
 import {TextAreaField} from '@/components/ui/Primitives';
 import {Action} from './ServiceUI';
 import s from './social.module.css';
@@ -50,15 +50,20 @@ export function CommentComposer({postId,title,value,error,pending,readOnly,onCha
     select(id);return()=>remove(id);
   },[id,postId,readOnly,select,remove]);
   const available=!!dock?.host&&!readOnly,active=available&&dock.active===id;
+  const {requestLogin}=useContext(CommentContext);
+  const loginHint='로그인이 필요합니다';
+  function openLoginWithKey(event:KeyboardEvent){
+    if(requestLogin&&(event.key==='Enter'||event.key===' ')){event.preventDefault();requestLogin();}
+  }
   return <>
-    <div className={available?s.desktopCommentComposer:undefined}><form onSubmit={onSubmit} className={s.commentForm}><div className={s.mentionField}><TextAreaField ref={desktopTag.ref} {...desktopTag.fieldProps} label="댓글 남기기" id={`post-comment-${id}`} value={value} onChange={event=>{if(!readOnly)desktopTag.change(event);}} placeholder="따뜻한 이야기를 남겨주세요" maxLength={1000} readOnly={readOnly} disabled={pending} error={error||undefined}/>{desktopTag.list}</div><Action type="submit" disabled={pending||readOnly||!value.trim()}>{pending?'등록 중...':'등록'}</Action></form></div>
-    {available&&<button type="button" className={s.commentWrite} onClick={()=>{select?.(id);requestAnimationFrame(()=>input.current?.focus());}}>댓글 쓰기</button>}
+    <div className={available?s.desktopCommentComposer:undefined}><form onSubmit={onSubmit} className={s.commentForm}><div className={s.mentionField}><TextAreaField ref={desktopTag.ref} {...desktopTag.fieldProps} label="댓글 남기기" id={`post-comment-${id}`} value={value} onChange={event=>{if(!readOnly&&!requestLogin)desktopTag.change(event);}} placeholder={requestLogin?loginHint:"따뜻한 이야기를 남겨주세요"} onClick={requestLogin??desktopTag.fieldProps.onClick} onKeyDown={requestLogin?openLoginWithKey:desktopTag.fieldProps.onKeyDown} maxLength={1000} readOnly={readOnly||!!requestLogin} disabled={pending} error={error||undefined}/>{desktopTag.list}</div><Action type="submit" disabled={pending||readOnly||!!requestLogin||!value.trim()}>{pending?'등록 중...':'등록'}</Action></form></div>
+    {available&&<button type="button" className={s.commentWrite} onClick={()=>{if(requestLogin){requestLogin();return;}select?.(id);requestAnimationFrame(()=>input.current?.focus());}}>댓글 쓰기</button>}
     {active&&createPortal(<form className={s.mobileCommentForm} data-closable={onClose?true:undefined} data-comment-post={postId} aria-label={`${title} 댓글 입력`} onSubmit={event=>{if(composing.current){event.preventDefault();return;}onSubmit(event);}}>
       {error&&<p id={`${id}-error`} className={s.error} role="alert">{error}</p>}
       <div className={`${s.commentInputRow} ${s.mentionField}`} data-above="true">
         {onClose&&<button type="button" className={s.commentClose} aria-label="댓글 닫기" aria-controls={`comments-${postId}`} onClick={()=>{input.current?.blur();onClose();}}><Icon name="close"/></button>}
-         <input ref={element=>{input.current=element;mobileTag.ref(element);}} {...mobileTag.fieldProps} type="text" aria-label="댓글 남기기" placeholder="댓글 남기기…" value={value} maxLength={1000} readOnly={pending} aria-invalid={!!error} aria-describedby={error?`${id}-error`:undefined} enterKeyHint="send" onChange={mobileTag.change} onCompositionStart={()=>{composing.current=true;}} onCompositionEnd={()=>{composing.current=false;}} onKeyDown={event=>{mobileTag.fieldProps.onKeyDown(event);if(event.defaultPrevented)return;if(event.key==='Enter'&&(composing.current||event.nativeEvent.isComposing||event.keyCode===229))event.preventDefault();}}/>
-        <button type="submit" aria-label={pending?'댓글 등록 중':'댓글 등록'} disabled={pending||!value.trim()}><Icon name="arrowUp"/></button>
+         <input ref={element=>{input.current=element;mobileTag.ref(element);}} {...mobileTag.fieldProps} type="text" aria-label="댓글 남기기" placeholder={requestLogin?loginHint:"댓글 남기기…"} onClick={requestLogin??mobileTag.fieldProps.onClick} value={value} maxLength={1000} readOnly={pending||!!requestLogin} aria-invalid={!!error} aria-describedby={error?`${id}-error`:undefined} enterKeyHint="send" onChange={mobileTag.change} onCompositionStart={()=>{composing.current=true;}} onCompositionEnd={()=>{composing.current=false;}} onKeyDown={event=>{if(requestLogin){openLoginWithKey(event);return;}mobileTag.fieldProps.onKeyDown(event);if(event.defaultPrevented)return;if(event.key==='Enter'&&(composing.current||event.nativeEvent.isComposing||event.keyCode===229))event.preventDefault();}}/>
+        <button type="submit" aria-label={pending?'댓글 등록 중':'댓글 등록'} disabled={pending||!!requestLogin||!value.trim()}><Icon name="arrowUp"/></button>
         {mobileTag.list}
       </div>
     </form>,dock.host!)}

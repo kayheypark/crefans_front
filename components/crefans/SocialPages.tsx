@@ -55,8 +55,8 @@ import {MembershipThumb} from './MembershipThumb';
 import {getSubscriptionPlan} from '@/lib/crefans/membership-plans';
 import s from './social.module.css';
 
-export type PostCardModel=Pick<ServiceViewModel,'basePath'|'canAccess'|'liked'|'saved'|'toggleLike'|'toggleSave'|'likeCounts'|'commentCounts'>&Partial<Pick<ServiceViewModel,'ownCreatorIds'|'viewerId'|'guestAuthorId'|'editGuestPost'|'reportPost'|'reportComment'|'mentionCandidates'>>&{data:Pick<ServiceData,'creators'|'plans'|'creatorPlans'>&Partial<Pick<ServiceData,'categories'|'categoryIcons'>>};
-type CommentsModel=Pick<PostDetailModel,'commentsByPost'|'addComment'|'loadReplies'|'commentPaging'>&Pick<PostDetailModel,'editComment'|'deleteComment'|'likeComment'>&Partial<Pick<ServiceViewModel,'basePath'|'reportComment'|'mentionCandidates'>>&{loadComments?:(postId:string)=>Promise<void>};
+export type PostCardModel=Pick<ServiceViewModel,'basePath'|'canAccess'|'liked'|'saved'|'toggleLike'|'toggleSave'|'likeCounts'|'commentCounts'>&Partial<Pick<ServiceViewModel,'signedIn'|'requireSignIn'|'ownCreatorIds'|'viewerId'|'guestAuthorId'|'editGuestPost'|'reportPost'|'reportComment'|'mentionCandidates'>>&{data:Pick<ServiceData,'creators'|'plans'|'creatorPlans'>&Partial<Pick<ServiceData,'categories'|'categoryIcons'>>};
+type CommentsModel=Pick<PostDetailModel,'commentsByPost'|'addComment'|'loadReplies'|'commentPaging'>&Pick<PostDetailModel,'editComment'|'deleteComment'|'likeComment'>&Partial<Pick<ServiceViewModel,'signedIn'|'requireSignIn'|'basePath'|'reportComment'|'mentionCandidates'>>&{loadComments?:(postId:string)=>Promise<void>};
 type CommentActions={onEdit?:(commentId:string,body:string)=>Promise<SocialActionResult>;onDelete?:(commentId:string)=>Promise<SocialActionResult>};
 export type PostDetailModel=PostCardModel&Pick<ServiceViewModel,'commentsByPost'|'addComment'|'loadReplies'|'loadComments'|'commentPaging'|'editComment'|'deleteComment'|'likeComment'>&{data:PostCardModel['data']&Pick<ServiceData,'posts'>};
 
@@ -190,7 +190,7 @@ export function PostCard({post,model,context,preview=false}:{post:Post;model:Pos
   const viewerPresent=usePresence(viewerOpen,designTokens.motion.fast);
   const locked=!(post.canAccess??canAccess(post.creatorId,post.requiredRank,post.requiredPlanId)),count=model.commentCounts[post.id]??post.comments;
   const openInDetail=preview&&locked&&canAccess(post.creatorId,post.requiredRank,post.requiredPlanId);
-  const inline=!openInDetail&&model.commentsByPost&&model.addComment&&model.loadReplies?{commentsByPost:model.commentsByPost,addComment:model.addComment,loadReplies:model.loadReplies,loadComments:model.loadComments,commentPaging:model.commentPaging,editComment:model.editComment,deleteComment:model.deleteComment,likeComment:model.likeComment,basePath:model.basePath,reportComment:model.reportComment,mentionCandidates:model.mentionCandidates}:null;
+  const inline=!openInDetail&&model.commentsByPost&&model.addComment&&model.loadReplies?{signedIn:model.signedIn,requireSignIn:model.requireSignIn,commentsByPost:model.commentsByPost,addComment:model.addComment,loadReplies:model.loadReplies,loadComments:model.loadComments,commentPaging:model.commentPaging,editComment:model.editComment,deleteComment:model.deleteComment,likeComment:model.likeComment,basePath:model.basePath,reportComment:model.reportComment,mentionCandidates:model.mentionCandidates}:null;
   return <article ref={exposure} className={s.post}><PostHeading post={post} model={model}/>{openInDetail?<div className={s.lockedMedia}><Icon name="lock" width={30} height={30}/><strong>구독 중인 멤버십 게시물</strong><p>검색 결과에서는 내용이 보이지 않아요.</p><Link className={s.subscribe} href={`${basePath}/post/${post.id}`}>게시물 보기</Link></div>:<PostMedia post={post} locked={locked} model={model} onOpen={index=>{setViewer(index);setViewerOpen(true);}}/>}{viewerPresent&&<PostOverlay post={post} model={model} inline={inline} initialIndex={viewer} context={context} open={viewerOpen} onClose={()=>setViewerOpen(false)}/>}<Link className={s.postCopy} href={`${basePath}/post/${post.id}`}><h2><PostTitle post={post} icons={model.data.categoryIcons}/></h2><p>{locked?'멤버십으로 이어지는 조금 더 가까운 이야기.':post.body}</p></Link><PostActions post={post} model={model} comments={count} onComments={inline?()=>setCommentsOpen(open=>!open):undefined} commentsOpen={commentsOpen}/>{inline&&commentsOpen&&<div className={s.inlineComments}><CommentsSection post={post} model={inline} count={count} locked={locked} onClose={()=>setCommentsOpen(false)}/></div>}</article>;
 }
 
@@ -316,8 +316,9 @@ function CommentItem({comment,postId,loadReplies,readOnly,onEdit,onDelete,onRepl
   // 답글 달기: the input opens under this comment; answering a reply stays in this thread (the API keeps one depth) and starts with "@이름 ".
   // A deleted parent takes no new replies (INVALID_PARENT), so its replies get no button either.
   const canReply=!!onReply&&!readOnly&&!comment.deleted;
+  const {requestLogin}=useContext(CommentContext);
   const replyMention=useMentionInput(replyDraft,setReplyDraft);
-  const startReply=(name:string,toReply:boolean)=>{setReplying({name,toReply});setReplyDraft(toReply?`@${name} `:'');setReplyError('');};
+  const startReply=(name:string,toReply:boolean)=>{if(requestLogin){requestLogin();return;}setReplying({name,toReply});setReplyDraft(toReply?`@${name} `:'');setReplyError('');};
   const closeReply=()=>{setReplying(null);setReplyDraft('');setReplyError('');};
   async function sendReply(event:FormEvent){
     event.preventDefault();const body=replyDraft.trim();if(replyBusy||!onReply)return;if(!body){setReplyError('답글 내용을 입력해 주세요.');return;}
@@ -381,8 +382,9 @@ export function CommentsSection({post,model,count,locked,readOnly=false,collapse
   const comments=commentsByPost[id]||[],paging=model.commentPaging?.[id];
   // Loading rule: before the first comments response (or while an empty list reloads) nothing for 1s, then a spinner; '댓글이 없습니다' only after the response.
   const commentsPending=!!model.loadComments&&!collapsed&&!locked&&!readOnly&&(!paging||paging.loading),slowComments=useDelayedLoading(commentsPending);
+  const requestLogin=!readOnly&&model.signedIn===false?model.requireSignIn:undefined;
   async function submit(event:FormEvent){
-    event.preventDefault();if(submitting||readOnly)return;if(!draft.trim()){setError('댓글 내용을 입력해 주세요.');return;}if(locked)return;
+    event.preventDefault();if(submitting||readOnly)return;if(requestLogin){requestLogin();return;}if(!draft.trim()){setError('댓글 내용을 입력해 주세요.');return;}if(locked)return;
     setSubmitting(true);setError('');
     try{const result=await addComment(id,draft.trim());if(result.success)setDraft('');else setError(result.errorMessage);}catch{setError('댓글을 등록하지 못했어요. 다시 시도해 주세요.');}finally{setSubmitting(false);}
   }
@@ -391,7 +393,7 @@ export function CommentsSection({post,model,count,locked,readOnly=false,collapse
   if(post.commentsEnabled===false&&trial&&!officialWriter){const shown=comments.filter(comment=>comment.official&&!comment.deleted);return <section className={s.comments} id={`comments-${id}`}><h2>댓글 <span>{count}</span></h2>{shown.map(comment=><CommentItem comment={comment} postId={id} loadReplies={loadReplies} readOnly key={comment.id}/>)}{shown.length===0&&(commentsPending?(slowComments&&<LoadingSpinner/>):<Empty title="댓글이 없습니다"/>)}</section>;}
   if(post.commentsEnabled===false&&!officialWriter)return <section className={s.comments} id={`comments-${id}`}><h2>댓글</h2>{comments.filter(comment=>comment.official&&!comment.deleted).map(comment=><CommentItem comment={comment} postId={id} loadReplies={loadReplies} readOnly key={comment.id}/>)}<div className={s.commentLocked}><Icon name="lock" width={19} height={19}/>크리에이터가 이 게시물의 댓글을 닫아두었어요.</div></section>;
   // The official account on a trial post: composer and its own delete/edit, but no replies or likes (server keeps them closed).
-  const context={onLike:model.likeComment&&!officialWriter?((commentId:string,enabled:boolean)=>model.likeComment!(id,commentId,enabled)):undefined,basePath:model.basePath,mentionCandidates:model.mentionCandidates&&!readOnly?()=>model.mentionCandidates!(id):undefined,onReport:model.reportComment};
+  const context={requestLogin,onLike:model.likeComment&&!officialWriter?((commentId:string,enabled:boolean)=>model.likeComment!(id,commentId,enabled)):undefined,basePath:model.basePath,mentionCandidates:model.mentionCandidates&&!readOnly?()=>model.mentionCandidates!(id):undefined,onReport:model.reportComment};
   return <CommentContext.Provider value={context}><section className={s.comments} id={`comments-${id}`}><h2>댓글 <span>{count}</span></h2>{locked?<div className={s.commentLocked}><Icon name="lock" width={19} height={19}/>멤버십 가입 후 댓글을 볼 수 있어요.</div>:<>{comments.slice(0,visible).map(comment=><CommentItem comment={comment} postId={id} loadReplies={loadReplies} readOnly={readOnly} key={comment.id} {...actions} onReply={officialWriter?undefined:body=>addComment(id,body,comment.id)}/>)}{(comments.length>visible||paging?.hasMore)&&<button type="button" className={s.moreComments} disabled={readOnly||paging?.loading} onClick={()=>{if(paging?.hasMore&&comments.length<=visible)void paging.loadMore();setVisible(previous=>previous+COMMENT_PAGE);}}>{`댓글 ${paging?COMMENT_PAGE:Math.min(COMMENT_PAGE,comments.length-visible)}개 더 보기 `}<DelayedInlineSpinner loading={!!paging?.loading}/>{!paging&&<span>{`· ${comments.length-visible}개 남음`}</span>}</button>}{comments.length===0&&(commentsPending?(slowComments&&<LoadingSpinner/>):<Empty title="댓글이 없습니다"/>)}<CommentComposer postId={id} title={post.title} value={draft} error={error} pending={submitting} readOnly={readOnly} onChange={value=>{setDraft(value);setError('');}} onSubmit={submit} onClose={onClose}/></>}</section></CommentContext.Provider>;
 }
 

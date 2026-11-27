@@ -6808,3 +6808,7 @@ ca7e53 카드 표시명과 검색명을 신도시 코스튬으로 변경. 일반
 2026-11-27 13:17 KST 99d681a preset-captions-20261127 운영 배포 종료 0. node /tmp/cf-preset-captions-live-1127.cjs 종료 0. 운영 랜딩 및 콘솔 프리셋 모바일 Chrome 390px: 캡션 bottom 0px, 흰 글자, 검정 그라데이션 확인. 콘솔 me 응답만 QA 권한 대역.
 
 2026-11-27 공유 결과 이미지 오른쪽 위에 AI 편집과 같은 확대 버튼·전체화면 뷰어 연결. 기준 99d681a. tsc --noEmit --incremental false 및 node /tmp/cf-share-zoom-liveqa.cjs 검증: 390×844, 상단·우측 10px, 44px 버튼, 같은 결과 이미지·닫기·Escape·포커스 복귀 통과(로컬 컴포넌트, 외부 데이터 대역). 운영 배포 전.
+
+2026-11-27 14:04 KST 공유 결과 확대 운영 프론트 배포 result-zoom-20261127 / 22422d1 exit 0. 운영 공개 공유 페이지 JS page-1686bb20810599e7.js HTTP 200 및 버튼 라벨·showModal·heroFrame 확인. 모바일 390×844 로컬 컴포넌트 열기·닫기·Escape·포커스 복귀 재검증 exit 0.
+
+2026-11-27 비로그인 피드·상세·갤러리의 댓글 입력에 로그인 안내, 클릭·키보드 및 답글 진입 시 기존 requireSignIn 모달 연결. 닫힌 댓글·멤버십 권한 처리 보존. tsc 및 기존 댓글 검사 3건 통과.
