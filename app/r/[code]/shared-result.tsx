@@ -11,6 +11,7 @@ import {Dialog} from '@/components/ui/Primitives';
 import {DialogActions} from '@/components/ui/DialogActions';
 import landingStyles from '@/components/service/ai-photo-landing.module.css';
 import s from './shared-result.module.css';
+import editor from '@/components/crefans/studio/ai-photo.module.css';
 
 export default function SharedResult({image,presets,campaign,hasSessionCookie}:{hasSessionCookie:boolean;image:string;presets:ReturnType<typeof sharedCatalog>;campaign:string}){
  const [remaining,setRemaining]=useState<number|null>(null);
@@ -47,7 +48,7 @@ export default function SharedResult({image,presets,campaign,hasSessionCookie}:{
  <aside className={s.invite}><div><h1>AI 코스프레, <em>0원</em>으로 생성</h1><p>내 사진이 없어도 샘플 사진으로<br/>바로 시작할 수 있어요.</p><a className={landingStyles.primary} href={landing} onClick={startTrial}>0원으로 체험하기</a></div>
  <div className={s.looks} aria-hidden="true">{['gothic','idol'].map(name=><img key={name} src={'/illustrations/landing/ai-photo/thumb-'+name+'-v1.webp'} alt=""/>)}</div></aside>
  {!!presets.length&&<section><h2>사용한 프리셋 <small>{picked.length}개 선택</small></h2><div className={s.row}>{presets.map(item=><button key={item.image} type="button" aria-haspopup="dialog" aria-label={item.title+' 자세히 보기'} data-selected={picked.includes(item.image)} onClick={()=>setDetail(item)}>
- <img src={item.image} alt=""/><small>{item.label}</small><b>{item.title}</b></button>)}</div></section>}
+ <img src={item.image} alt=""/><span className={editor.presetCaption}><small>{item.label}</small><b>{item.title}</b></span></button>)}</div></section>}
  <Dialog open={!!detail} onClose={()=>setDetail(null)} title={detail?.title||''}>
   {detail&&<>
    <div className={landingStyles.presetDetail}><img src={detail.image} alt="" width={200} height={200} data-illustrated={['expression','pose','camera','lens'].includes(detail.kind)||undefined}/><span>{detail.label}</span><p className={s.description}>{detail.description||detail.prompt}</p></div>

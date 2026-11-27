@@ -118,7 +118,7 @@
 .presets{display:flex;flex-direction:column;gap:8px;min-width:0}
 .presetHeading{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;line-height:1.5;color:var(--cf-color-textMuted)}
 .presetHeading>span:last-child{white-space:nowrap;font-variant-numeric:tabular-nums}
-.photoPresetGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.preset{position:relative;display:flex;flex-direction:column;gap:7px;min-width:0;width:100%;padding:0 0 9px;border:1px solid var(--cf-color-border);border-radius:10px;background:var(--cf-color-surface);color:var(--cf-color-text);text-align:left;font:inherit;font-size:12px;line-height:1.5;cursor:pointer;overflow:hidden;overflow-wrap:anywhere}.preset>img{display:block;width:100%;aspect-ratio:1;object-fit:cover}.preset>span:not(.presetCheck){padding:0 8px}.preset .presetCheck{position:absolute;right:6px;top:6px;background:var(--cf-color-surface)}
+.photoPresetGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.preset{position:relative;display:flex;flex-direction:column;gap:0;min-width:0;width:100%;padding:0;border:1px solid var(--cf-color-border);border-radius:10px;background:var(--cf-color-surface);color:var(--cf-color-text);text-align:left;font:inherit;font-size:12px;line-height:1.5;cursor:pointer;overflow:hidden;overflow-wrap:anywhere}.preset>img{display:block;width:100%;aspect-ratio:1;object-fit:cover}.preset .presetCheck{position:absolute;right:6px;top:6px;background:var(--cf-color-surface)}
 .preset[aria-pressed=true]{border-color:var(--cf-color-accent);background:var(--cf-color-accentSoft)}
 .presetCheck{flex:none;width:19px;height:19px;border:1px solid var(--cf-color-border);border-radius:50%;display:grid;place-items:center;font-size:12px}
 .preset[aria-pressed=true] .presetCheck{background:var(--cf-color-accent);border-color:var(--cf-color-accent);color:var(--cf-color-surface)}
@@ -139,7 +139,7 @@
 .costumeCard[aria-pressed=true]{border-color:var(--cf-color-accent)}.costumeCard[aria-pressed=true]::after{content:"";position:absolute;inset:-1px;z-index:3;border:2px solid var(--cf-color-accent);border-radius:10px;pointer-events:none}
 .costumeImage{position:relative;display:block;overflow:hidden;border-radius:9px 9px 0 0;background:#fbf8f4;aspect-ratio:1}
 .costumeImage img{display:block;width:100%;height:100%;object-fit:cover}
-.costumeCard strong{padding:4px 8px 0;font-size:13px;line-height:1.5}
+
 .costumeGender{position:absolute;left:6px;top:6px;display:flex;gap:2px;pointer-events:none}
 .costumeGender>span{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;color:white;font-size:12px;font-weight:700;line-height:1;box-shadow:0 1px 2px rgb(0 0 0/.2)}
 .costumeGender svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
@@ -353,7 +353,7 @@
 .costumeCard{padding:0;overflow:hidden;border-radius:12px}
 .costumeCard[aria-pressed=true]::after{border-radius:12px}
 .costumeImage{border-radius:0}
-.costumeCard strong{position:absolute;inset:auto 0 0;z-index:2;padding:24px 6px 8px;background:linear-gradient(transparent,rgba(15,23,42,.78));color:#fff;font-size:13px;font-weight:700;line-height:1.3;text-align:center;overflow-wrap:anywhere;text-shadow:0 1px 2px #0008;pointer-events:none}
+.preset .presetCaption,.presetCaption{position:absolute;inset:auto 0 0;z-index:2;padding:24px 6px 8px;background:linear-gradient(transparent,rgba(0,0,0,.78) 65%,rgba(0,0,0,.91));color:#fff;font-size:13px;font-weight:700;line-height:1.3;text-align:center;overflow-wrap:anywhere;text-shadow:0 1px 2px #0008;pointer-events:none}
 .costumePopular{bottom:40px}
 /* 2026-11-19 user request: swipe hint as an overlay on the cards — dimmed layer, a whole hand (padded viewBox) and white text;
    the hand swipes twice, then the overlay fades out. Taps go through (pointer-events:none). */
@@ -547,3 +547,5 @@ dialog.changeUploadDialog{padding:22px 20px 20px;width:min(420px,calc(100vw - 32
 .promptBrand [data-field]>textarea{border:1px solid #d5d5e2;background:var(--cf-color-surface)}
 
 .presetNewBadge{position:absolute;top:32px;left:6px;padding:1px 5px;border-radius:5px;background:#bd185e;color:white;font-size:10px;font-weight:700;line-height:16px;pointer-events:none}
+
+.presetCaption small,.presetCaption b{display:block;color:inherit;font-size:inherit}.presetCaption small{font-size:11px;font-weight:500}

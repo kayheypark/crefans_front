@@ -42,9 +42,8 @@
 .used{display:grid;gap:8px;max-width:440px;width:100%;margin:0 auto}
 .used>p{margin:0;font-size:12px;font-weight:700;color:var(--cf-color-textMuted,#6b7280)}
 .usedCards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0;padding:0;list-style:none}
-.usedCard{display:grid;gap:2px;padding:0 0 8px;border:1px solid var(--cf-color-border,#e5e8ef);border-radius:10px;background:var(--cf-color-surface,#fff);overflow:hidden;font-size:12px;line-height:1.4}
-.usedCard img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:#f3f4f6}.usedCard img[data-illustrated]{object-fit:contain}
-.usedCard span{padding:4px 8px 0;color:var(--cf-color-textMuted,#6b7280);font-size:11px}.usedCard strong{padding:0 8px;overflow-wrap:anywhere}
+.usedCard{position:relative;display:block;padding:0;border:1px solid var(--cf-color-border,#e5e8ef);border-radius:10px;background:var(--cf-color-surface,#fff);overflow:hidden;font-size:12px;line-height:1.4}
+.usedCard img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;background:#f3f4f6}.usedCard img[data-illustrated]{object-fit:contain}
 .sectionLead{margin:8px 0 16px;font-size:14px;line-height:1.6;color:var(--cf-color-textSecondary,#4b5263);word-break:keep-all}
 .browser{--ai-photo-preset-height:clamp(112px,18dvh,144px);max-width:640px;margin-bottom:20px}
 /* 2026-11-17: service links and operator details at the bottom (PG review), laid out like the service landing footer. */
