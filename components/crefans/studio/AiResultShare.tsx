@@ -4,7 +4,7 @@ import {Dialog} from '@/components/ui/Primitives';
 import type {StudioMedia,ShareReport} from '@/types/crefans-studio-management';
 import s from './ai-photo.module.css';
 
-export function AiResultShare({item,eligible,prepare,onReport,onClose}:{item:StudioMedia;eligible:boolean;prepare:(item:StudioMedia)=>Promise<File>;onReport:(report:ShareReport)=>void;onClose:()=>void}){
+export function AiResultShare({item,eligible,createLink,prepare,onReport,onClose}:{item:StudioMedia;eligible:boolean;createLink?:()=>Promise<string>;prepare:(item:StudioMedia)=>Promise<File>;onReport:(report:ShareReport)=>void;onClose:()=>void}){
  const [file,setFile]=useState<File>();
  const [link,setLink]=useState('');
  const [notice,setNotice]=useState('');
@@ -12,6 +12,7 @@ export function AiResultShare({item,eligible,prepare,onReport,onClose}:{item:Stu
  const rewardId=useId(),termsId=useId();
  useEffect(()=>{
   let alive=true;
+  if(createLink){void createLink().then(url=>{if(alive)setLink(url);},error=>{if(alive)setNotice(error.message);});return()=>{alive=false;};}
   void prepare(item).then(png=>{if(alive)setFile(png);},()=>{if(alive)setNotice('사진을 불러오지 못했어요. 링크는 복사할 수 있어요.');});
   // 2026-11-20: the link carries no code (the reward is paid at the share); /s redirects to the landing with share tags.
   setLink(new URL('/s',window.location.origin).href);
@@ -26,17 +27,18 @@ export function AiResultShare({item,eligible,prepare,onReport,onClose}:{item:Stu
  }
 
  async function send(){
-  if(!file||!link||busy)return;
-  const data={files:[file],title:'크레팬스 AI 사진',text:`AI로 만든 코스프레 사진이에요. 나도 해 보기 → ${link}`};
-  const native=typeof navigator.share==='function'&&navigator.canShare?.(data);
+  if((!createLink&&!file)||!link||busy)return;
+  const data=createLink?{url:link}:{files:[file!],title:'크레팬스 AI 사진',text:`AI로 만든 코스프레 사진이에요. 나도 해 보기 → ${link}`};
+  const native=typeof navigator.share==='function'&&(createLink?!navigator.canShare||navigator.canShare(data):navigator.canShare?.(data));
+  if(createLink&&!native){await copy();return;}
   const method=native?'native':'download';
   setBusy(true);
   try{
    if(native){await navigator.share(data);}
    else{
-    const url=URL.createObjectURL(file);
+    const url=URL.createObjectURL(file!);
     const anchor=document.createElement('a');
-    anchor.href=url;anchor.download=file.name;
+    anchor.href=url;anchor.download=file!.name;
     document.body.append(anchor);anchor.click();anchor.remove();
     setTimeout(()=>URL.revokeObjectURL(url),60000);
     setNotice('사진을 저장했어요. 함께 보낼 체험 링크를 복사해 주세요.');
@@ -53,11 +55,11 @@ export function AiResultShare({item,eligible,prepare,onReport,onClose}:{item:Stu
   <div className={s.resultShareCard}>
    {/* eslint-disable-next-line @next/next/no-img-element -- private result preview, loaded with the viewer's session */}
    <img src={item.url} alt="공유할 AI 결과 사진"/>
-   <div><strong>AI로 만든 코스프레 사진</strong><small>선택한 결과 사진 1장과 체험 링크</small></div>
+   <div><strong>AI로 만든 코스프레 사진</strong><small>{createLink?'링크를 받은 사람이 이 결과 사진을 볼 수 있어요.':'선택한 결과 사진 1장과 체험 링크'}</small></div>
   </div>
   <div className={s.resultShareActions}>
    {eligible&&<span id={rewardId} className={s.resultShareBubble}>공유하고 이용권 3장 받기</span>}
-   <button type="button" className={s.resultSharePrimary} disabled={!file||!link||busy} aria-describedby={eligible?`${rewardId} ${termsId}`:undefined} onClick={()=>void send()}>{busy?'공유하는 중…':'사진과 링크 공유'}</button>
+   <button type="button" className={s.resultSharePrimary} disabled={(!createLink&&!file)||!link||busy} aria-describedby={eligible?`${rewardId} ${termsId}`:undefined} onClick={()=>void send()}>{busy?'공유하는 중…':(createLink?'결과 링크 공유':'사진과 링크 공유')}</button>
    <button type="button" className={s.resultShareCopy} disabled={!link} onClick={()=>void copy()}>링크 복사</button>
   </div>
   {eligible&&<p className={s.resultShareTerms} id={termsId}>사진과 링크를 공유하거나 링크를 복사하면 이용권 3장을 바로 받을 수 있어요(하루 한 번).</p>}

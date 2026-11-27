@@ -17,7 +17,7 @@ import {aiPhotoCostumeCategories,aiPhotoCostumes,type AiPhotoCostumeCategory,AI_
 import {aiPhotoSortByUsage} from '@/lib/crefans/ai-photo-popularity';
 import type {AiPhotoKind} from '@/types/crefans-studio-management';
 import {designVariables} from '@/lib/design/tokens';
-import {saveAiPhotoHandoff} from '@/lib/crefans/ai-photo-handoff';
+import {readAiPhotoHandoff,saveAiPhotoHandoff} from '@/lib/crefans/ai-photo-handoff';
 import s from './ai-photo-landing.module.css';
 import {useFunnelStep} from '@/features/service/useFunnelStep';
 import {trackLandingCta} from '@/features/service/useLandingCta';
@@ -90,7 +90,20 @@ export type LandingChosen={kind:AiPhotoKind;title:string;image:string};
 export function LandingPresetBrowser({onPicked,onChoose}:{onPicked?:(picked:Record<string,string[]>)=>void;/** A card was newly selected (not unselected). */onChoose?:(card:LandingChosen)=>void}={}){
  const [kind,setKind]=useState<AiPhotoKind>('outfit'),[page,setPage]=useState(0),[query,setQuery]=useState(''),[costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>('nikke');
  const [posture,setPosture]=useState<AiPhotoPosePosture>('standing'),[backgroundCategory,setBackgroundCategory]=useState<AiPhotoBackgroundCategory>('indoor'),[picked,setPickedState]=useState<Record<string,string[]>>({});
- const setPicked=(update:(previous:Record<string,string[]>)=>Record<string,string[]>)=>setPickedState(previous=>{const next=update(previous);onPicked?.(next);return next;});
+ useEffect(()=>{
+  const restored:Record<string,string[]>={};
+  for(const item of readAiPhotoHandoff()){
+   if(!landingKinds.some(tab=>tab.value===item.kind))continue;
+   const value=aiPhotoPresets[item.kind]?.find(example=>aiPhotoPresetText(example)===item.prompt)||item.prompt;
+   (restored[item.kind]??=[]).push(item.kind==='outfit'?item.prompt:value);
+  }
+  const first=Object.keys(restored)[0] as AiPhotoKind|undefined;
+  if(first){setPickedState(restored);onPicked?.(restored);setKind(first);
+   const costume=aiPhotoCostumes.find(item=>aiPhotoPresetText(item.prompt)===restored.outfit?.[0]);
+   if(costume)setCostumeCategory(costume.category);
+  }
+ },[onPicked]);
+ const setPicked=(update:(previous:Record<string,string[]>)=>Record<string,string[]>)=>{const next=update(picked);setPickedState(next);onPicked?.(next);};
  const category=aiPhotoCostumeCategories.find(item=>item.value===costumeCategory)!;
  const costumes=aiPhotoSortByUsage('outfit',aiPhotoCostumes.filter(item=>query.trim()?aiPhotoPresetMatches(query,item.name,item.detail,aiPhotoCostumeCategories.find(c=>c.value===item.category)!.label):item.category===costumeCategory),costume=>costume.id);
  const preset=aiPhotoPresetPage(kind,page,'original',query,kind==='pose'?posture:undefined,kind==='background'?backgroundCategory:undefined);
@@ -135,7 +148,7 @@ export default function AiPhotoLanding(){
  const handoff=()=>saveAiPhotoHandoff(Object.entries(landingPicked).flatMap(([kind,values])=>values.filter(value=>value!==AI_PHOTO_KEEP_ORIGINAL).map(value=>({kind:kind as AiPhotoKind,prompt:aiPhotoPresetText(value)}))));
  const current=landingLooks.find(item=>item.id===look)||landingLooks[0];
  return <main className={s.page} style={designVariables as CSSProperties}>
-  <header className={s.header}><Brand href="/service/feed"/><Link className={s.headerLink} href={TRY} onClick={()=>trackLandingCta('header')}>0원 체험</Link></header>
+  <header className={s.header}><Brand href="/service/feed"/><Link className={s.headerLink} href={TRY} onClick={()=>{trackLandingCta('header');handoff();}}>0원 체험</Link></header>
 
   <section className={s.hero} aria-labelledby="ai-photo-title">
    <div className={s.heroCopy}>
@@ -143,7 +156,7 @@ export default function AiPhotoLanding(){
     {/* 2026-11-23 user decision: match the Instagram ad copy "셀카·의상 없어도 OK" above the fold. */}
     <p className={s.selfieNote}>셀카 한 장이면 돼요 · 의상 없어도 OK</p>
     <p className={s.lead}>원하는 <strong>코스튬과 메이크업, 포즈와 배경</strong>을 고르면 AI가 사진을 새로 만들어요. <strong>원본 사진은 그대로</strong> 두고, 마음에 드는 결과만 골라 게시해요.</p>
-    <div className={s.actions}><Link className={s.primary} href={TRY} onClick={()=>trackLandingCta('hero')}>로그인 없이 0원 체험</Link><a className={s.secondary} href="#ai-photo-kinds">프리셋 둘러보기</a></div>
+    <div className={s.actions}><Link className={s.primary} href={TRY} onClick={()=>{trackLandingCta('hero');handoff();}}>로그인 없이 0원 체험</Link><a className={s.secondary} href="#ai-photo-kinds">프리셋 둘러보기</a></div>
     <p className={s.small}>로그인 없이 <strong>매일 체험 이용권 3장</strong>을 쓰고, 게시하거나 공유하면 3장씩 더 받아요.</p>
    </div>
    <div className={s.heroDemo}>
@@ -180,7 +193,7 @@ export default function AiPhotoLanding(){
    </ul>
   </section>
 
-  <section className={s.final}><h2>오늘은 어떤 캐릭터가 될까요?</h2><Link className={s.primary} href={TRY} onClick={()=>trackLandingCta('final')}>로그인 없이 0원 체험</Link><p className={s.small}>이 페이지의 인물은 가상 인물이며, 결과 사진은 AI로 생성했어요.</p></section>
+  <section className={s.final}><h2>오늘은 어떤 캐릭터가 될까요?</h2><Link className={s.primary} href={TRY} onClick={()=>{trackLandingCta('final');handoff();}}>로그인 없이 0원 체험</Link><p className={s.small}>이 페이지의 인물은 가상 인물이며, 결과 사진은 AI로 생성했어요.</p></section>
   {/* 2026-11-17: PG review needs the operator details at the bottom of the home page; same footer as the service landing. */}
   <div className={s.siteFooter}><ServiceFooter basePath="/service" always business/></div>
  </main>;

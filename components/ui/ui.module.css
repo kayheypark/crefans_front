@@ -27,7 +27,7 @@
 .iconButton:not(:disabled):not([aria-disabled=true]):hover { background:color-mix(in srgb,currentColor 12%,transparent); }
 .iconButton:disabled,.chip:disabled { color:var(--cf-color-disabledText); cursor:not-allowed; }
 .dialog { background:var(--cf-color-surface); color:var(--cf-color-text); font-family:var(--cf-typography-fontFamily); width:min(480px,calc(100vw - 32px)); border:0; border-radius:var(--cf-radius-modal); padding:24px; box-sizing:border-box; box-shadow:var(--cf-shadow-popover); max-height:85dvh; overflow:auto; margin:auto; }
-.dialog::backdrop { background:var(--cf-color-overlay); }
+.dialog::backdrop { background:var(--cf-color-overlay,rgba(32,35,51,.45)); }
 .dialog[open][data-state=open] { animation:dialogIn var(--cf-motion-normal) var(--cf-motion-easing) both; }
 .dialog[open][data-state=closing] { animation:dialogOut var(--cf-motion-fast) ease-in both; pointer-events:none; }
 .dialog[open][data-state=open]::backdrop { animation:backdropIn var(--cf-motion-normal) ease-out both; }

@@ -41,3 +41,22 @@ test('the guest model pays the share reward through share-done and refreshes the
  assert.equal(await guest.shareDone('m1'),true);
  assert.deepEqual(sent,[['/guest/ai-photo/share-done',{mediaId:'m1'}],['/guest/session',undefined]]);assert.equal(state.shareRewardClaimed,true);
 });
+
+test('result link mode shares the selected result URL and never falls back to the landing on failure',async()=>{
+ const {AiResultShare}=loadTypeScript('components/crefans/studio/AiResultShare.tsx',{'./ai-photo.module.css':{__esModule:true,default:styles},'@/components/ui/Primitives':{Dialog:({children})=>React.createElement('section',null,children)}});
+ const url='https://example.test/r/'+'a'.repeat(32),copied=[],reports=[];
+ Object.defineProperty(global,'navigator',{value:{clipboard:{writeText:async text=>copied.push(text)}},configurable:true});
+ const props={item:{id:'result',url:'/private'},eligible:false,prepare:()=>{throw Error('link sharing must not fetch a file');},onReport:r=>reports.push(r),onClose(){}};
+ let tree;
+ try{
+  await act(async()=>{tree=create(React.createElement(AiResultShare,{...props,createLink:async()=>url}));});
+  const share=()=>tree.root.findAllByType('button').find(b=>b.props.children==='결과 링크 공유');
+  await act(async()=>share().props.onClick());
+  assert.deepEqual(copied,[url]);assert.equal(reports[0].method,'copy');
+  const shared=[];navigator.share=async payload=>shared.push(payload);
+  await act(async()=>share().props.onClick());assert.deepEqual(shared,[{url}]);
+  await act(async()=>tree.unmount());
+  await act(async()=>{tree=create(React.createElement(AiResultShare,{...props,createLink:async()=>{throw Error('공유할 수 없는 결과예요.');}}));});
+  assert.equal(share().props.disabled,true);assert.match(JSON.stringify(tree.toJSON()),/공유할 수 없는 결과/);
+ }finally{if(tree)await act(async()=>tree.unmount());delete global.navigator;}
+});

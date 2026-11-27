@@ -1,7 +1,7 @@
 // 2026-11-18 user decision ("방법 1 서버 집계"): report that this tab reached a funnel view step. The server keeps only a
 // per-day count per step — nothing about the visitor. Each step is sent at most once per tab session (sessionStorage), so the
 // numbers are approximate: a new tab, a blocked storage or another device counts again.
-export type FunnelViewStep='landing_view'|'guest_consent_view'|'signup_view';
+export type FunnelViewStep='shared_result_view'|'shared_result_create'|'landing_view'|'guest_consent_view'|'signup_view';
 const FLAG='crefans-funnel:';
 // 2026-11-18 user decision (랜딩 방문 텔레그램 알림): the landing view also names where the visit came from — only the external
 // referrer's host name (never the full URL, path or query) and the utm_source value. The server validates and may drop both.
@@ -19,9 +19,9 @@ function landingSource(){
 const ENTRY='crefans-entry-source';
 // 2026-11-23 user decision (가입 시 첫 유입 utm 저장): the same entry also goes with the signup, with the time of that first page.
 export type EntrySource=ReturnType<typeof landingSource>&{landingPath?:string;firstSeenAt?:string};
-export function rememberEntrySource():EntrySource{
+export function rememberEntrySource(entry?:Partial<EntrySource>):EntrySource{
  try{const saved=window.sessionStorage.getItem(ENTRY);if(saved)return JSON.parse(saved) as EntrySource;}catch{}
- const source:EntrySource={...landingSource(),landingPath:window.location.pathname.slice(0,120),firstSeenAt:new Date().toISOString()};
+ const source:EntrySource={...landingSource(),landingPath:window.location.pathname.slice(0,120),firstSeenAt:new Date().toISOString(),...entry};
  try{window.sessionStorage.setItem(ENTRY,JSON.stringify(source));}catch{}
  return source;
 }

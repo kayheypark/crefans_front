@@ -16,6 +16,9 @@ import {aiPhotoSortByUsage} from '@/lib/crefans/ai-photo-popularity';
 import {aiPhotoOutfitByPrompt,type AiPhotoOutfitPart} from '@/lib/crefans/ai-photo-outfits';
 import {SelectField} from '@/components/ui/SelectField';
 import {AiPresetPager} from './AiPresetPager';
+import {sharePresetImages} from '@/lib/crefans/shared-result';
+import {rememberEntrySource} from '@/lib/api/funnel';
+import {platformRequest} from '@/lib/api/platform';
 import {AiResultShare} from './AiResultShare';
 import {AiPhotoWaiting} from './AiPhotoWaiting';
 import {CoupangFeedBanner} from '../CoupangFeedBanner';
@@ -404,7 +407,12 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
   {sourceViewer&&source&&<AiResultViewer items={[source]} index={0} selected={[]} onIndex={()=>{}} onClose={closeViewer} original/>}
  </Dialog>
  {library&&<AiPhotoLibrary open={open&&libraryOpen} model={library} selected={libraryAssets} onSelect={selectLibrary} onEditSource={pickLibrarySource} onChanged={id=>setLibraryAssets(items=>items.filter(item=>item.id!==id))} onClose={()=>setLibraryOpen(false)}/>}
- {open&&shareItem&&<AiResultShare key={shareItem.id} item={shareItem} eligible={!!shareReward} prepare={photoFile} onClose={()=>setShareItem(null)} onReport={report=>{
+ {open&&shareItem&&<AiResultShare key={shareItem.id} createLink={noHearts?async()=>{
+  const presets=sharePresetImages(resultPresets.current.get(shareItem.id)||[]);
+  const response=await platformRequest<{code:string}>('/media/result-shares',{mediaId:shareItem.id,presets,campaign:rememberEntrySource().utmCampaign});
+  if(!response.success)throw Error(response.errorMessage||'공유 링크를 만들지 못했어요.');
+  return new URL('/r/'+response.data.code,window.location.origin).href;
+ }:undefined} item={shareItem} eligible={!!shareReward} prepare={photoFile} onClose={()=>setShareItem(null)} onReport={report=>{
   onShareReport?.(report);
   if(report.outcome==='done'){onTrack?.('ai_result_shared',{mode:cosplayOpen?'cosplay':'general'});
    // 2026-11-20 user decision: sharing (share sheet finished) or copying the link pays the reward at once; saving the photo does not.
