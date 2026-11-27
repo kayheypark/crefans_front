@@ -6800,3 +6800,5 @@ ca7e53 카드 표시명과 검색명을 신도시 코스튬으로 변경. 일반
 2026-11-27 11:04 KST 운영 front prompt-example-20261127 / 5451b5f 배포 exit 0. node /tmp/cf-prompt-placeholder-live.cjs exit 0: 운영 390px Chrome, 세션·업로드 대역, 빈 textarea placeholder 전체 문구 일치.
 
 2026-11-27 결과 의상 카드 디자인 공유, 의상 미연결 시 피드 쿠팡 배너.
+
+2026-11-27 운영 기준 가입 3단계에서 약관 전체 즉시 표시. 전체 동의, 이용약관, 개인정보, 해당 필수 확인, 광고 수신 선택 순서. node --test --test-name-pattern="signup|advertising-consent|referral" tests/crefans-account.test.cjs 8/8(선택 미체크 가입 검증 포함). 운영 미배포.

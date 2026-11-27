@@ -114,9 +114,6 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
     setSubmitted(true);if(!ready||task.busy)return;if(reward&&!marketing&&!rewardAsked){setRewardAsked(true);setRewardOpen(true);return;}finish(marketing);}
   function finish(marketing:boolean){setRewardOpen(false);void task.run(()=>accountActions.signup({email,password,nickname,terms,privacy,marketing,emailVerified,identityVerified,ageAcknowledged,...(referred?{referralDisclosure}:{}),...(account.agreements?{policyVersions:account.agreements.versions}:{})}),()=>{try{sessionStorage.setItem(SIGNUP_COMPLETE_KEY,email);}catch{}setSubmitted(false);setPassword('');setConfirm('');onComplete?.();});}
   // 전체 동의 (2026-10-31): checks or clears every item shown, required and optional; clearing any one item clears it too.
-  const showIdentity=terms&&privacy;
-  const identityComplete=showIdentity&&(identityRequired?identityVerified:ageAcknowledged);
-  const showMarketing=identityComplete&&(!referred||referralDisclosure);
   const allAgreed=terms&&privacy&&marketing&&(identityRequired||ageAcknowledged)&&(!referred||referralDisclosure);
   function agreeAll(checked:boolean){setTerms(checked);setPrivacy(checked);setMarketing(checked);if(!identityRequired)setAgeAcknowledged(checked);if(referred)setReferralDisclosure(checked);}
   return <section className={s.signup}>
@@ -141,13 +138,13 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
         </>}
         {step===2&&<>
         <div className={s.agreements}>
-          {showMarketing&&<div><Checkbox label="광고성 정보 수신 동의 (선택)" description={reward?`동의 시 프로모션 콩 ${reward.beans}개`:undefined} checked={marketing} onChange={setMarketing}/>{account.agreements&&<button type="button" aria-label="광고성 정보 수신 동의 내용 보기" onClick={()=>setPolicy('marketing')}><Chevron/></button>}</div>}
-          {identityComplete&&referred&&<div><Checkbox label={REFERRAL_DISCLOSURE_LABEL} description={REFERRAL_DISCLOSURE_NOTICE} checked={referralDisclosure} onChange={setReferralDisclosure}/></div>}
-        {showIdentity&&identityRequired&&<div className={s.identityRow}><div><strong>본인인증</strong><span>{identityVerified?'PASS 본인인증 완료':'PASS 앱으로 본인인증을 진행합니다.'}</span></div>{identityVerified?<span className={s.verified}>인증 완료</span>:<Action type="button" variant="secondary" disabled={!policiesReady} onClick={()=>{setPassError('');setPassOpen(true);}}>PASS 본인인증</Action>}</div>}
-          {showIdentity&&!identityRequired&&<div><Checkbox label="만 19세 이상입니다 (필수)" checked={ageAcknowledged} onChange={setAgeAcknowledged}/></div>}
-          {terms&&<div><Checkbox label="개인정보 처리방침 확인 (필수)" checked={privacy} onChange={setPrivacy}/><button type="button" aria-label="개인정보 수집 및 이용 안내 보기" onClick={()=>setPolicy('privacy')}><Chevron/></button></div>}
+          <div className={s.agreeAll}><Checkbox label="전체 동의" description="필수 항목과 선택 항목(광고성 정보 수신)에 모두 동의합니다. 선택 항목은 동의하지 않아도 가입할 수 있어요." checked={allAgreed} onChange={agreeAll}/></div>
           <div><Checkbox label="이용약관 동의 (필수)" checked={terms} onChange={setTerms}/><button type="button" aria-label="이용약관 보기" onClick={()=>setPolicy('terms')}><Chevron/></button></div>
-          {showMarketing&&<div className={s.agreeAll}><Checkbox label="전체 동의" description="필수 항목과 선택 항목(광고성 정보 수신)에 모두 동의합니다. 선택 항목은 동의하지 않아도 가입할 수 있어요." checked={allAgreed} onChange={agreeAll}/></div>}
+          <div><Checkbox label="개인정보 처리방침 확인 (필수)" checked={privacy} onChange={setPrivacy}/><button type="button" aria-label="개인정보 수집 및 이용 안내 보기" onClick={()=>setPolicy('privacy')}><Chevron/></button></div>
+          {identityRequired&&<div className={s.identityRow}><div><strong>본인인증</strong><span>{identityVerified?'PASS 본인인증 완료':'PASS 앱으로 본인인증을 진행합니다.'}</span></div>{identityVerified?<span className={s.verified}>인증 완료</span>:<Action type="button" variant="secondary" disabled={!policiesReady} onClick={()=>{setPassError('');setPassOpen(true);}}>PASS 본인인증</Action>}</div>}
+          {!identityRequired&&<div><Checkbox label="만 19세 이상입니다 (필수)" checked={ageAcknowledged} onChange={setAgeAcknowledged}/></div>}
+          {referred&&<div><Checkbox label={REFERRAL_DISCLOSURE_LABEL} description={REFERRAL_DISCLOSURE_NOTICE} checked={referralDisclosure} onChange={setReferralDisclosure}/></div>}
+          <div><Checkbox label="광고성 정보 수신 동의 (선택)" description={reward?`동의 시 프로모션 콩 ${reward.beans}개`:undefined} checked={marketing} onChange={setMarketing}/>{account.agreements&&<button type="button" aria-label="광고성 정보 수신 동의 내용 보기" onClick={()=>setPolicy('marketing')}><Chevron/></button>}</div>
           {submitted&&(!terms||!privacy)&&<p className={s.error} role="alert">이용약관에 동의하고 개인정보 처리방침을 확인해주세요.</p>}
           {submitted&&referred&&!referralDisclosure&&<p className={s.error} role="alert">초대 링크로 가입하려면 초대한 회원에게 표시되는 정보에 동의해주세요.</p>}
         </div>

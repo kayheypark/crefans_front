@@ -36,8 +36,9 @@ function button(tree,label){return tree.root.findAllByType('button').find(item=>
 
 function acceptNextAgreement(tree,label){
  const boxes=tree.root.findAll(node=>typeof node.type!=='string'&&typeof node.props.checked==='boolean'&&node.props.label);
- assert.equal(boxes[0].props.label,label);
- act(()=>boxes[0].props.onChange(true));
+ const box=boxes.find(node=>node.props.label===label);
+ assert.ok(box,label);
+ act(()=>box.props.onChange(true));
 }
 function acceptTermsAndPrivacy(tree){
  acceptNextAgreement(tree,'이용약관 동의 (필수)');
@@ -137,7 +138,7 @@ async function signupEmail(tree,email,code='123456'){
   change(field(tree,'비밀번호 확인'),'test-passwor');assert.match(text(tree),/서로 일치하지 않습니다/);change(field(tree,'비밀번호 확인'),'test-password');
   advanceSignup(tree);
   act(()=>button('이전').props.onClick());assert.equal(field(tree,'닉네임').props.value,'새 이름');advanceSignup(tree);
-  assert.equal(tree.root.findAllByType('input').length,1);
+  assert.equal(tree.root.findAllByType('input').length,4);
   acceptTermsAndPrivacy(tree);
   assert.equal(submitButton().props.disabled,true);
   act(()=>button('PASS 본인인증').props.onClick());assert.equal(tree.root.findAll(node=>node.props['data-dialog']==='PASS 본인인증').length,1);
@@ -280,7 +281,7 @@ test('settings categories filter their own items and keep account actions in acc
   data.accountActions.requestSignupCode=async()=>success('코드 전송');data.accountActions.verifySignupCode=async()=>success('인증 완료');
   const tree=mount(pages.SignupPage,data);
   assert.doesNotMatch(text(tree),/가입 준비 안내|2주 베타 안내|만 19세 이상만 가입할 수 있습니다/,'signup hides beta/preparation notices and the age hint');
-  assert.equal(button(tree,'인증 코드 받기').props.disabled,true);await signupEmail(tree,'new@example.invalid');advanceSignup(tree);signupProfile(tree,'test-password','가입');advanceSignup(tree);assert.equal(button(tree,'PASS 본인인증'),undefined);
+  assert.equal(button(tree,'인증 코드 받기').props.disabled,true);await signupEmail(tree,'new@example.invalid');advanceSignup(tree);signupProfile(tree,'test-password','가입');advanceSignup(tree);assert.equal(button(tree,'PASS 본인인증').props.disabled,true);
   act(()=>tree.root.findByProps({'aria-label':'이용약관 보기'}).props.onClick());
   assert.match(text(tree),/다음 결제 해지를 예약해도/);assert.doesNotMatch(text(tree),/주입된 약관/);
   act(()=>button(tree,'확인').props.onClick());acceptNextAgreement(tree,'이용약관 동의 (필수)');act(()=>tree.root.findByProps({'aria-label':'개인정보 수집 및 이용 안내 보기'}).props.onClick());
@@ -295,8 +296,13 @@ test('deferred identity signup hides PASS and requires email plus age acknowledg
  data.accountActions.requestSignupCode=async()=>({success:true,data:{message:'코드 전송'},errorMessage:null,errorCode:null});data.accountActions.verifySignupCode=async()=>({success:true,data:{message:'인증 완료'},errorMessage:null,errorCode:null});data.accountActions.signup=async value=>{calls.push(value);return {success:true,data:{message:'가입 완료'},errorMessage:null,errorCode:null};};
  const tree=mount(pages.SignupPage,data),button=name=>tree.root.findAllByType('button').find(node=>node.children.includes(name)),submit=()=>tree.root.findAllByType('button').find(node=>node.props.type==='submit');
  assert.doesNotMatch(text(tree),/PASS/);await signupEmail(tree,'beta@example.invalid');advanceSignup(tree);signupProfile(tree,'Beta-test-123!','베타');advanceSignup(tree);
- acceptTermsAndPrivacy(tree);const checks=tree.root.findAllByType('input').filter(n=>n.props.type==='checkbox');assert.equal(submit().props.disabled,true);
- act(()=>checks[0].props.onChange({target:{checked:true}}));assert.equal(submit().props.disabled,false);await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal(calls.length,1);assert.equal(calls[0].identityVerified,false);assert.equal(calls[0].ageAcknowledged,true);assert.equal(calls[0].emailVerified,true);act(()=>tree.unmount());
+ const labels=tree.root.findAllByType('input').filter(node=>node.props.type==='checkbox').map(node=>{
+  let parent=node.parent;while(!parent.props.label)parent=parent.parent;
+  return parent.props.label;
+ });
+ assert.deepEqual(labels,['전체 동의','이용약관 동의 (필수)','개인정보 처리방침 확인 (필수)','만 19세 이상입니다 (필수)','광고성 정보 수신 동의 (선택)']);
+ acceptTermsAndPrivacy(tree);assert.equal(submit().props.disabled,true);
+ acceptNextAgreement(tree,'만 19세 이상입니다 (필수)');assert.equal(submit().props.disabled,false);await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal(calls.length,1);assert.equal(calls[0].identityVerified,false);assert.equal(calls[0].ageAcknowledged,true);assert.equal(calls[0].marketing,false);assert.equal(calls[0].emailVerified,true);act(()=>tree.unmount());
 });
 
 test('my profile uses one shared cover wallet entry on every device',()=>{
@@ -454,7 +460,7 @@ test('2026-11-16 phone at signup: when the server asks, signup stays disabled un
  const go=button('인증하러 가기');if(go)act(()=>go.props.onClick());
  await act(async()=>button('보냈어요').props.onClick());assert.deepEqual(phoneCalls,[['start','01012345678'],['confirm','01012345678']]);
  advanceSignup(tree);signupProfile(tree,'Beta-test-123!','폰');advanceSignup(tree);
- acceptTermsAndPrivacy(tree);const checks=tree.root.findAllByType('input').filter(n=>n.props.type==='checkbox');act(()=>checks[0].props.onChange({target:{checked:true}}));
+ acceptTermsAndPrivacy(tree);acceptNextAgreement(tree,'만 19세 이상입니다 (필수)');
  assert.equal(submit().props.disabled,false);await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal(calls.length,1);act(()=>tree.unmount());
 });
 
