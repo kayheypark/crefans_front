@@ -29,6 +29,7 @@ import Icon from '../Icon';
 import type {ApiResult} from '@/types/crefans';
 import type {AiHeartInput,AiHeartResult,AiPhotoEditInput,AiPhotoEditResult,AiPhotoKind,AiPhotoTicketResult,AiReviewInput,AiReviewModel,AiReviewReward,StudioMedia} from '@/types/crefans-studio-management';
 import {SignupOfferDialog} from '../SignupOfferDialog';
+import {CostumeShopCard} from './CostumeShopCard';
 import Image from 'next/image';
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
 import {DialogActions} from '@/components/ui/DialogActions';
@@ -43,7 +44,7 @@ import {PromptLayout,promptPrimary} from '../PromptLayout';
 import {AiPhotoMask,buildAiMask,type MaskStroke} from './AiPhotoMask';
 import s from './ai-photo.module.css';
 import {AiPhotoDone,AI_PHOTO_TAP_LOCK_MS} from './AiPhotoDone';
-import {costumeShopLink,COSTUME_SHOP_NOTICE} from '@/lib/crefans/costume-shop-links';
+import {costumeShopLink} from '@/lib/crefans/costume-shop-links';
 import {GuestWatermarkOffer,GuestWatermarkOption} from './GuestWatermark';
 
 const PUBLISH_OFFER_DELAY_MS=2000;
@@ -364,20 +365,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
       <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 15V3m-4 4 4-4 4 4M6 11H4v10h16V11h-2"/></svg>이 결과 공유하기
      </button>
     </div><div className={s.resultActions}><Action type="button" variant="secondary" disabled={!originalSource} onClick={()=>{if(originalSource){onTrack?.('ai_result_original',{mode:cosplayOpen?'cosplay':'general'});editResult(originalSource);}}}>원본으로</Action><Action type="button" variant="secondary" onClick={()=>{const item=results.find(result=>selected.includes(result.id));if(item){onTrack?.('ai_result_continue',{mode:cosplayOpen?'cosplay':'general'});editResult(item);}}} disabled={selected.length!==1}>계속 보정</Action><Action type="button" onClick={add} disabled={!selected.length}>사진 결정</Action></div>
-     {shopLink&&<div className={s.shopLink}>
-      {shopReward&&<div className={s.shopRewardBubble}><span className={s.resultShareBubble}>혹시 진짜로 입어볼 생각도 있어요? (3장)</span></div>}
-      <div className={s.shopCard} data-testid="costume-shop-card">
-       <span className={s.shopThumb}>
-        <Image className={s.shopThumbImage} src={shopLink.image} width={56} height={56} alt=""/>
-        <span className={s.shopThumbBadge} data-testid="costume-shop-badge"><Image src="/brand/coupang-app-icon-v1.jpg" width={25} height={25} alt="" unoptimized/></span>
-       </span>
-       <div className={s.shopLinkCopy}><span className={s.shopLinkTag}>{shopLink.affiliate?'제휴 링크':'의상 검색'}</span><strong>{shopLink.name}</strong></div>
-       <a className={s.shopLinkAction} href={shopLink.url} target="_blank" rel={shopLink.affiliate?'sponsored noopener noreferrer':'noopener noreferrer'} data-testid="costume-shop-link" onClick={()=>{onTrack?.('costume_shop_clicked',{mode:cosplayOpen?'cosplay':'general',kind:shopLink.category});if(shopReward)void shopReward.claim().then(paid=>{if(paid)setShopRewardOpen(true);});}} aria-label={`${shopLink.name} 쿠팡에서 ${shopLink.affiliate?'보기':'검색'}`} aria-describedby={shopLink.affiliate?`${panelId}-shop-notice`:undefined}>
-        쿠팡에서 {shopLink.affiliate?'보기':'검색'}<svg aria-hidden="true" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M13 4h7v7m0-7-9 9m7 0v7H4V6h7"/></svg>
-       </a>
-      </div>
-      {shopLink.affiliate&&<p id={`${panelId}-shop-notice`} className={s.shopLinkNotice}>{COSTUME_SHOP_NOTICE}</p>}
-     </div>}
+     {shopLink?<CostumeShopCard shopLink={shopLink} bubble={shopReward?"혹시 진짜로 입어볼 생각도 있어요? (3장)":undefined} onClick={()=>{onTrack?.('costume_shop_clicked',{mode:cosplayOpen?'cosplay':'general',kind:shopLink.category});if(shopReward)void shopReward.claim().then(paid=>{if(paid)setShopRewardOpen(true);});}}/>:<CoupangFeedBanner/>}
     </>}
     {(!waiting&&(stage==='edit'||remaining<=0)&&onUseTicket&&tickets>0)&&<div className={s.quota}>{<span className={s.ticket}>리셋권 {tickets}장{quota.resetTickets?.nextExpiresAt&&<small> · {new Date(quota.resetTickets.nextExpiresAt).toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'})} 만료</small>}<button type="button" onClick={()=>void useTicket()} disabled={ticketBusy||busy||(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit} title={(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit?'오늘 아직 사용한 횟수가 없어요':undefined}>{ticketBusy?'사용 중…':'1장 써서 횟수 채우기'}</button></span>}</div>}
     {ticketNote&&<p className={s.ticketNote} role="status">{ticketNote}</p>}

@@ -5,7 +5,8 @@ import {platformRequest} from '@/lib/api/platform';
 import {saveAiPhotoHandoff} from '@/lib/crefans/ai-photo-handoff';
 import {reportFunnelStep,rememberEntrySource} from '@/lib/api/funnel';
 import type {sharedCatalog} from '@/lib/crefans/shared-result';
-import {COSTUME_SHOP_NOTICE} from '@/lib/crefans/costume-shop-links';
+import {CostumeShopCard} from '@/components/crefans/studio/CostumeShopCard';
+import {CoupangFeedBanner} from '@/components/crefans/CoupangFeedBanner';
 import {Dialog} from '@/components/ui/Primitives';
 import {DialogActions} from '@/components/ui/DialogActions';
 import landingStyles from '@/components/service/ai-photo-landing.module.css';
@@ -56,13 +57,10 @@ export default function SharedResult({image,presets,campaign,hasSessionCookie}:{
    </DialogActions>
   </>}
  </Dialog>
- {presets.some(item=>item.shopUrl)&&<aside aria-label="쿠팡 파트너스 광고" className={s.shop}>
-  <small>광고 · 쿠팡 파트너스</small>
-  <h2>혹시 진짜로 입어볼 생각도 있어요?</h2>
-  {presets.map(item=>item.shopUrl&&<a key={item.image} href={item.shopUrl} target="_blank" rel="sponsored noopener noreferrer">
-   <img src={item.image} alt=""/><span><strong>{item.title}</strong><span>쿠팡에서 의상 보기</span></span>
-  </a>)}
-  <p>{COSTUME_SHOP_NOTICE}</p>
- </aside>}
+ {presets.some(item=>item.shopUrl)?<aside aria-label="쿠팡 파트너스 광고" className={s.shop}>
+  {presets.map(item=>item.shopUrl&&<CostumeShopCard key={item.image}
+   shopLink={{name:item.title,image:item.image,url:item.shopUrl,affiliate:true}}
+   bubble="혹시 진짜로 입어볼 생각도 있어요?"/>)}
+ </aside>:<CoupangFeedBanner/>}
  <footer><a href={landing} onClick={startTrial}>0원으로 만들기{remaining!==null&&<span className={s.balance}>남은 이용권 {remaining}장</span>}</a><button type="button" onClick={reshare}>결과 공유하기</button><small role="status">{notice}</small></footer></main>;
 }

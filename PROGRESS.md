@@ -6796,3 +6796,7 @@ ca7e53 카드 표시명과 검색명을 신도시 코스튬으로 변경. 일반
 2026-11-27 대시보드 게시글·프로필 후원 노출 설정(기본 숨김), 상점 단건·월정액 가격 오름차순과 신규 정기결제 이용불가 표시.
 
 2026-11-27 AI 사진 편집 커스텀 프롬프트 placeholder를 사용자 지정 예시 세 구절로 변경. AiPhotoDialog 입력 속성의 정확한 문구 일치 확인.
+
+2026-11-27 11:04 KST 운영 front prompt-example-20261127 / 5451b5f 배포 exit 0. node /tmp/cf-prompt-placeholder-live.cjs exit 0: 운영 390px Chrome, 세션·업로드 대역, 빈 textarea placeholder 전체 문구 일치.
+
+2026-11-27 결과 의상 카드 디자인 공유, 의상 미연결 시 피드 쿠팡 배너.

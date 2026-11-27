@@ -33,7 +33,10 @@ test('AI editor funnel steps: opened on each open, decided before adding, shared
 // 2026-11-22 user decision: the trial's Coupang costume link gets the share bubble component and pays 3 credits on click, once a day.
 test('trial Coupang link: bubble only while the reward is open, click claims it and shows the reward dialog',()=>{
  const ai=fs.readFileSync('components/crefans/studio/AiPhotoDialog.tsx','utf8'),page=fs.readFileSync('components/service/GuestTrialPage.tsx','utf8'),model=fs.readFileSync('features/service/useGuestTrialModel.ts','utf8');
- assert.match(ai,/\{shopReward&&<div className=\{s\.shopRewardBubble\}><span className=\{s\.resultShareBubble\}>혹시 진짜로 입어볼 생각도 있어요\? \(3장\)<\/span><\/div>\}/);
+ assert.ok(ai.includes('bubble={shopReward?"혹시 진짜로 입어볼 생각도 있어요? (3장)":undefined}'));
+ const shared=fs.readFileSync('app/r/[code]/shared-result.tsx','utf8');
+ for(const view of [ai,shared])assert.match(view,/<CostumeShopCard /);
+ assert.match(shared,/bubble="혹시 진짜로 입어볼 생각도 있어요\?"/);
  assert.match(ai,/if\(shopReward\)void shopReward\.claim\(\)\.then\(paid=>\{if\(paid\)setShopRewardOpen\(true\);\}\);/);
  assert.match(page,/shopReward:guest\.session\.shopRewardClaimed===false\?\{claim:guest\.shopClick\}:undefined/);
  assert.match(model,/const shopClick=async\(\)=>\{const r=await api<\{granted:boolean\}>\('\/guest\/ai-photo\/shop-click',\{\}\);if\(r\.success\)await refresh\(\);return r\.success&&r\.data\.granted;\};/);
