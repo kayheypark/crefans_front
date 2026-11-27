@@ -23,7 +23,7 @@ export type StudioContentStatus='draft'|'published'|'scheduled';
 /** `processing`: an iPhone .mov being converted to MP4 on the server; `failed`: conversion failed (not shown in the post).
  * `preview`: the creator's own local copy (object URL) used as the thumbnail until conversion ends. */
 export type StudioMedia={id:string;type:'image'|'video';url:string;processing?:boolean;failed?:boolean;preview?:string;thumbnailUrl?:string;/** Made by the studio AI photo editor; shown with an 'AI 생성' mark. */aiGenerated?:boolean;/** AI photo made with a game/anime costume (server metadata, 2026-11-18): the post stays fully public and takes no tips. */franchiseCostume?:boolean};
-export type AiPhotoKind='outfit'|'skin'|'makeup'|'expression'|'pose'|'background'|'camera'|'lens'|'body';
+export type AiPhotoKind='outfit'|'skin'|'contacts'|'makeup'|'expression'|'pose'|'background'|'camera'|'lens'|'body';
 /** 2026-11-22: 'face' comes only from a personal library reference (내 보관함 얼굴), never from a preset tab. */
 export type AiPhotoEditKind=AiPhotoKind|'face';
 export type AiPhotoStyle='photo'|'cosplay'|'daily';

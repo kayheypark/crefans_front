@@ -28,7 +28,8 @@ export const aiPhotoMakeups:readonly AiPhotoMakeup[]=[
  {prompt:"잡티와 홍조를 자연스럽게 가려 피부 톤을 고르게 정돈해줘.",title:"피부 톤 정돈",gender:'male',image:'makeup-male-02-v1'},
  {prompt:"눈썹을 깔끔하고 또렷하게 다듬어줘.",title:"눈썹 정리",gender:'male',image:'makeup-male-03-v1'},
  {prompt:"입술 색을 건강한 자연 톤으로 정돈하고 촉촉하게 해줘.",title:"입술 정돈",gender:'male',image:'makeup-male-04-v1'},
- {prompt:"원래 얼굴형과 피부 톤은 유지하고, 눈 앞머리와 눈두덩에 실버 펄을 얹어줘. 검은 아이라인은 눈꼬리 밖으로 길게 빼고 속눈썹은 가닥씩 살려줘. 눈 밑에서 광대 위까지 쿨핑크 블러셔를 넓게 펴고 입술은 촉촉한 로즈핑크 글로스로 마무리해줘.",title:"도우인 쿨핑크",gender:'female',image:'makeup-23-v2',isNew:true}
+ {prompt:"원래 얼굴형과 피부 톤은 유지하고, 눈 앞머리와 눈두덩에 실버 펄을 얹어줘. 검은 아이라인은 눈꼬리 밖으로 길게 빼고 속눈썹은 가닥씩 살려줘. 눈 밑에서 광대 위까지 쿨핑크 블러셔를 넓게 펴고 입술은 촉촉한 로즈핑크 글로스로 마무리해줘.",title:"도우인 쿨핑크",gender:'female',image:'makeup-23-v2'},
+ {prompt:'눈 앞머리에서 눈 밑 안쪽까지 가늘게 진주빛 펄을 얹고 검은 아이라인을 눈꼬리 바깥으로 길게 빼줘. 아래 속눈썹을 가닥씩 살리고 볼에는 연한 장밋빛, 입술에는 옅은 핑크 글로스를 더해줘. 눈 크기와 얼굴형은 유지해줘.',title:'펄 언더라인',gender:'female',image:'makeup-24-v1',isNew:true}
 ];
 
 // 편집 가능한 제안 문구. 탐색/선택만으로는 생성 요청을 보내지 않는다.
@@ -40,6 +41,7 @@ export const aiPhotoPresets:Record<AiPhotoKind,readonly string[]>={
 "lens": ["스마트폰 전면 카메라로 정면 셀카를 찍은 구도로 바꿔줘. 팔을 뻗어 촬영한 자연스러운 가까운 거리와 가벼운 광각 느낌을 표현하고 얼굴이 중심에 오게 해줘. 거울은 추가하지 마.", "거울 앞에서 휴대폰을 들고 찍은 거울 셀카로 바꿔줘. 휴대폰과 자연스러운 거울 반사가 보이게 하되 얼굴을 과도하게 가리지 말고 인물과 손이 중복되지 않게 해줘.", "다른 사람이 DSLR로 촬영한 자연스러운 인물 사진 느낌으로 바꿔줘. 눈높이의 자연스러운 원근감, 또렷한 인물과 적당한 배경 흐림을 표현해줘. 촬영 장비는 화면에 추가하지 마.", "다른 사람이 먼 거리에서 대형 망원렌즈로 촬영한 인물 사진 느낌으로 바꿔줘. 얼굴 비율은 자연스럽게 유지하고 망원 특유의 압축된 거리감과 크게 흐려진 배경을 표현해줘. 촬영 장비는 화면에 추가하지 마."],
 "body": ["가슴 크기를 조금 작게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "가슴 크기를 조금 크게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "힙 크기를 조금 작게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "힙 크기를 조금 크게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "전신의 키 비율을 조금 작아 보이게 자연스럽게 보정해줘.", "전신의 키 비율을 조금 커 보이게 자연스럽게 보정해줘."],
  "outfit": aiPhotoOutfits.map(item=>item.prompt),
+ "contacts":["양쪽 홍채에 은은한 블루 그레이 컬러렌즈를 적용해줘. 홍채 무늬와 동공, 흰자, 시선과 눈 크기는 원래대로 유지해줘."],
  "skin":[
   '피부 결은 살리면서 광대와 이마에 촉촉하고 부드러운 물광을 더해줘.',
   '보이는 피부에 투명한 바디 오일을 얇게 바른 듯 선명한 하이라이트를 더해줘.',
@@ -119,7 +121,7 @@ export function aiPhotoPosePosture(example:string):AiPhotoPosePosture{return sit
 
 // '원본 유지' 카드: 고르면 그 탭의 선택을 비운다. 아무것도 고르지 않은 상태와 같고 생성 요청에는 아무 문구도 넣지 않는다.
 export const AI_PHOTO_KEEP_ORIGINAL='__keep_original__';
-export const aiPhotoKeepOriginalKinds:readonly AiPhotoKind[]=['skin','makeup','expression','pose','background','camera','lens'];
+export const aiPhotoKeepOriginalKinds:readonly AiPhotoKind[]=['contacts','skin','makeup','expression','pose','background','camera','lens'];
 // 메이크업은 여러 개를 함께 고를 수 있다(2026-11-15). 다른 탭은 탭마다 하나.
 export const aiPhotoMultiSelectKinds:readonly AiPhotoKind[]=['makeup'];
 
@@ -127,7 +129,7 @@ export const aiPhotoMultiSelectKinds:readonly AiPhotoKind[]=['makeup'];
 export function aiPhotoMakeupGender(example:string):'female'|'male'|undefined{return aiPhotoMakeups.find(item=>item.prompt===example)?.gender;}
 
 export function aiPhotoPresetIsNew(kind:AiPhotoKind,example:string){
- if(kind==='skin')return aiPhotoPresets.skin.includes(example);
+ if(kind==='contacts')return aiPhotoPresets.contacts.includes(example);
  return kind==='makeup'&&aiPhotoMakeups.some(item=>item.isNew&&item.prompt===example);
 }
 
@@ -178,6 +180,7 @@ export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'origi
 // 카드의 짧은 이름과 실제 생성 요청을 분리한다. 순서는 각 프리셋과 같다.
 export const aiPhotoPresetTitles:Record<AiPhotoKind,readonly string[]>={
  "outfit":aiPhotoOutfits.map(item=>item.name),
+ "contacts":["블루 그레이"],
  "skin":["물광","오일","흰색페인트","검정페인트","은색페인트"],
  "makeup":aiPhotoMakeups.map(item=>item.title),
  "expression":["무표정", "환한 미소", "잔잔한 미소", "눈웃음", "편안한 표정", "놀란 표정", "윙크", "활짝 웃기", "차분한 표정", "반가운 표정", "수줍은 미소", "힘 뺀 미소", "장난스러운 미소", "도도한 시선", "자신감 있는 미소", "턱 살짝 들기"],
