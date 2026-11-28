@@ -9,6 +9,6 @@ test('catalog lists every costume with image, prompt and Partners link, and ever
  assert.equal(byKey.costume.items.length,aiPhotoCostumes.length);
  for(const g of groups)for(const it of g.items){assert.ok(it.title,`${g.key} ${it.id} title`);assert.ok(it.prompt,`${g.key} ${it.id} prompt`);assert.match(it.image,/^\/brand\/ai-photo\/.+\.(webp|png)$/,`${g.key} ${it.id}`);assert.ok(fs.existsSync('public'+it.image),`missing ${it.image}`);
   if(g.categories.length)assert.ok(g.categories.some(c=>c.value===it.category),`${g.key} ${it.id} category ${it.category}`);}
- assert.ok(byKey.costume.items.every(it=>/^https:\/\/link\.coupang\.com\/a\/\w{10}$/.test(it.shopUrl)));
+ assert.ok(byKey.costume.items.every(it=>it.id==='c09d74'?it.shopUrl===null:/^https:\/\/link\.coupang\.com\/a\/\w{10}$/.test(it.shopUrl)));
  assert.equal(new Set(groups.flatMap(g=>g.items.map(it=>g.key+it.id))).size,groups.reduce((n,g)=>n+g.items.length,0),'ids unique');
 });

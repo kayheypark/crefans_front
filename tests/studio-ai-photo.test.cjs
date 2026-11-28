@@ -47,7 +47,7 @@ async function open(props={},initialMode=false){
  // 2026-11-21: 만들기 asks "이 사진으로 만들까요?" first; existing tests accept it.
  const click=async name=>{await press(name);if(name==='만들기'){const ok=r.root.findAll(n=>n.type==='button'&&text(n)==='이 사진으로 만들기');if(ok.length)await act(async()=>ok[0].props.onClick());}};
  if(props.images?.length!==0)await click('여성');
- if(!initialMode&&props.images?.length!==0){await click('일반 모드');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='포즈').props.onClick());}
+ if(!initialMode&&props.images?.length!==0){await click('일반 모드');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n).endsWith('포즈')).props.onClick());}
  return {r,added,calls,click};
 }
 
@@ -104,7 +104,7 @@ test('dialog: no consent checkbox; explicit create confirms rights and sends one
 
 test('dialog: outfit needs painted area before calling the server',async()=>{
  const {r,calls,click}=await open();
- await act(async()=>{r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='옷').props.onClick();});
+ await act(async()=>{r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n).endsWith('옷')).props.onClick();});
  await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'교복 코스튬'}});});
  await click('옷 세부 지정');await click('만들기');assert.equal(calls.length,0);assert.match(text(r.toJSON()),/옷 부분을 사진 위에 칠해/);
 });
@@ -132,7 +132,7 @@ test('progress: the waiting game retains real elapsed and usual time without a f
   let finish;const onEdit=()=>new Promise(resolve=>{finish=resolve;});
   let r;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:10,limit:10,typicalSeconds:typical},room:9,onEdit,onAdd(){}}));});
   await act(async()=>r.root.find(n=>n.type==='button'&&text(n).includes('여성')).props.onClick());
-  await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='포즈').props.onClick());
+  await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n).endsWith('포즈')).props.onClick());
   await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'벚꽃 아래 앉은 포즈'}});});
 
   await act(async()=>{r.root.find(n=>n.type==='button'&&text(n).includes('만들기')).props.onClick();});await confirmSource(r);
@@ -216,7 +216,7 @@ test('cosplay wardrobe: selected outfits toggle independently and never overwrit
  const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});
  await act(async()=>field().props.onChange({target:{value:'내 추가 요청'}}));await click('코스어 모드');assert.equal(r.root.findAllByProps({className:'costumeCard'}).length,8);
  await click('다음 의상 페이지');await click('비치 투피스');assert.equal(field().props.value,'내 추가 요청');assert.equal(r.root.findByProps({'aria-label':'비치 투피스'}).props['aria-pressed'],true);await click('비치 투피스');assert.equal(r.root.findByProps({'aria-label':'비치 투피스'}).props['aria-pressed'],false);
- await click('이전 의상 페이지');await click('고딕 오프숄더');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='포즈').props.onClick());assert.equal(field().props.value,'내 추가 요청');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='옷').props.onClick());assert.equal(r.root.findByProps({'aria-label':'고딕 오프숄더'}).props['aria-pressed'],true);await click('일반 모드');assert.equal(field().props.value,'내 추가 요청');assert.equal(calls.length,0);
+ await click('이전 의상 페이지');await click('고딕 오프숄더');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n).endsWith('포즈')).props.onClick());assert.equal(field().props.value,'내 추가 요청');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n).endsWith('옷')).props.onClick());assert.equal(r.root.findByProps({'aria-label':'고딕 오프숄더'}).props['aria-pressed'],true);await click('일반 모드');assert.equal(field().props.value,'내 추가 요청');assert.equal(calls.length,0);
 });
 
 
@@ -255,12 +255,12 @@ test('mask icon tools: all brush sizes paint correctly, undo removes one stroke,
  await act(async()=>r.update(el(AiPhotoMask,{src:photo.url,alt:'원본',strokes:[],onChange(){},disabled:true})));assert.ok(r.root.findAllByType('button').every(b=>b.props.disabled));
 });
 
-test('costume categories: ten populated groups, nine general styles, and unique short prompts',()=>{
+test('costume categories: ten populated groups, ten general styles, and unique short prompts',()=>{
  const {aiPhotoCostumes,aiPhotoCostumeCategories}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
  assert.equal(aiPhotoCostumeCategories[aiPhotoCostumeCategories.findIndex(c=>c.value==='nikke')+1].value,'chainsaw-man');
- assert.equal(aiPhotoCostumeCategories.length,10);assert.deepEqual(aiPhotoCostumeCategories.map(c=>aiPhotoCostumes.filter(x=>x.category===c.value).length),[9,116,16,103,21,54,5,31,16,4]);
- assert.deepEqual(aiPhotoCostumes.filter(c=>c.category==='general').map(c=>c.id),['773106','80974e','ffb58f','666147','b4bf5d','e614f6','190513','ab36e8','ca7e53']);
- assert.equal(new Set(aiPhotoCostumes.map(c=>c.prompt)).size,375);
+ assert.equal(aiPhotoCostumeCategories.length,10);assert.deepEqual(aiPhotoCostumeCategories.map(c=>aiPhotoCostumes.filter(x=>x.category===c.value).length),[10,116,16,103,21,54,5,31,16,4]);
+ assert.deepEqual(aiPhotoCostumes.filter(c=>c.category==='general').map(c=>c.id),['773106','80974e','ffb58f','666147','b4bf5d','e614f6','190513','ab36e8','ca7e53','c09d74']);
+ assert.equal(new Set(aiPhotoCostumes.map(c=>c.prompt)).size,376);
  for(const c of aiPhotoCostumes){assert.ok(aiPhotoCostumeCategories.some(g=>g.value===c.category));assert.ok(c.prompt.length<=450)/* 2026-11-17: stocking material wording (user-approved, e.g. 4a0c8f) needs room; was 300 */;assert.equal(rules.aiPhotoProblem({...base,kind:'outfit',prompt:c.prompt,hasMask:true}),'');}
 });
 
@@ -310,7 +310,7 @@ test('category filters: all ten use cards without losing request or mask',async(
 test('hidden prompt: selections toggle across five categories, custom text stays independent and only active requests are submitted',async()=>{
  const {aiPhotoPresetPage,aiPhotoPresetTitle,AI_PHOTO_KEEP_ORIGINAL}=loadTypeScript('lib/crefans/ai-photo-presets.ts');const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});const snippets=[];
  for(const [kind,label] of [['outfit','옷'],['makeup','메이크업'],['expression','표정'],['pose','포즈'],['background','배경']]){
-  await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)===label).props.onClick());const example=aiPhotoPresetPage(kind,0).examples.filter(item=>item!==AI_PHOTO_KEEP_ORIGINAL)[0],name=aiPhotoPresetTitle(kind,example);snippets.push(example);await click(name);assert.equal(field().props.value,'');assert.equal(r.root.findByProps({'aria-label':name}).props['aria-pressed'],true);await click(name);assert.equal(r.root.findByProps({'aria-label':name}).props['aria-pressed'],false);await click(name);
+  await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n).endsWith(label)).props.onClick());const example=aiPhotoPresetPage(kind,0).examples.filter(item=>item!==AI_PHOTO_KEEP_ORIGINAL)[0],name=aiPhotoPresetTitle(kind,example);snippets.push(example);await click(name);assert.equal(field().props.value,'');assert.equal(r.root.findByProps({'aria-label':name}).props['aria-pressed'],true);await click(name);assert.equal(r.root.findByProps({'aria-label':name}).props['aria-pressed'],false);await click(name);
  }
  assert.equal(r.root.findAllByProps({'aria-label':'최종 프롬프트'}).length,0);assert.equal(r.root.findAllByType('textarea').length,1);for(const snippet of snippets)assert.ok(!JSON.stringify(r.toJSON()).includes(snippet),'accumulated preset text is not rendered');assert.equal(calls.length,0);
  await click('옷 세부 지정');await act(async()=>field().props.onChange({target:{value:'내가 추가로 원하는 모습'}}));await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange([{size:.06,points:[{x:.5,y:.6}]}]));await click('만들기');assert.equal(calls.length,1);assert.equal(calls[0].kind,'combined');assert.deepEqual(calls[0].editKinds,['outfit','makeup','expression','pose','background']);assert.equal(calls[0].prompt,[...snippets,'생성 인물을 성인 여성으로 바꿔줘.','내가 추가로 원하는 모습'].join('\n'));assert.equal(calls[0].mask,paintedMask);
@@ -353,13 +353,13 @@ test('body controls retain independent adjustments and keep custom input',BODY_S
 });
 
 
-test('every preset has a distinct decodable image including Comic World, 61 poses and four shooting concepts',async()=>{
+test('every preset has a distinct decodable image including Comic World, 62 poses and four shooting concepts',async()=>{
  const fs=require('fs'),path=require('path'),sharp=require('sharp');const {aiPhotoPresets,aiPhotoPresetImage,aiPhotoComicWorldPreset,aiPhotoPresetTitle,aiPhotoPresetTitles}=loadTypeScript('lib/crefans/ai-photo-presets.ts');const images=[];
- assert.equal(aiPhotoPresets.pose.length,61);// 61 (2026-11-22): +카메라 응시하기assert.equal(aiPhotoPresets.lens.length,4);assert.equal(aiPhotoPresets.background[0],aiPhotoComicWorldPreset);
+ assert.equal(aiPhotoPresets.pose.length,62);// 61 (2026-11-22): +카메라 응시하기assert.equal(aiPhotoPresets.lens.length,4);assert.equal(aiPhotoPresets.background[0],aiPhotoComicWorldPreset);
  for(const [kind,values] of Object.entries(aiPhotoPresets)){assert.equal(aiPhotoPresetTitles[kind].length,values.length);assert.equal(new Set(aiPhotoPresetTitles[kind]).size,values.length);for(const example of values){assert.ok(aiPhotoPresetTitle(kind,example));assert.ok(aiPhotoPresetTitle(kind,example).length<=20);const image=aiPhotoPresetImage(kind,example);assert.match(image,/\.webp$/);images.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,/background\/([a-f0-9]{6})\.webp$/.test(image)?1024:384);assert.equal(meta.height,/background\/([a-f0-9]{6})\.webp$/.test(image)?1536:384);}
  }
  const genderPaths=[];for(const gender of ['female','male'])for(const example of aiPhotoPresets.expression){const image=aiPhotoPresetImage('expression',example,gender);genderPaths.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);}assert.equal(new Set(genderPaths).size,16);
- assert.equal(images.length,300);assert.equal(new Set(images).size,300);assert.deepEqual(aiPhotoPresetTitles.lens,['셀카 폰카(정면)','거울샷','DSLR','대포카메라']);assert.match(aiPhotoPresets.lens[0],/전면 카메라/);assert.match(aiPhotoPresets.lens[1],/거울 반사/);assert.match(aiPhotoPresets.lens[2],/DSLR/);assert.match(aiPhotoPresets.lens[3],/대형 망원렌즈/);
+ assert.equal(images.length,304);assert.equal(new Set(images).size,304);assert.deepEqual(aiPhotoPresetTitles.lens,['셀카 폰카(정면)','거울샷','DSLR','대포카메라']);assert.match(aiPhotoPresets.lens[0],/전면 카메라/);assert.match(aiPhotoPresets.lens[1],/거울 반사/);assert.match(aiPhotoPresets.lens[2],/DSLR/);assert.match(aiPhotoPresets.lens[3],/대형 망원렌즈/);
 });
 
 test('gender-only request on outfit tab does not require clothing painting or send an outfit edit',async()=>{
@@ -395,7 +395,7 @@ test('expression diagrams stay gender-neutral while generation gender, selection
 // 2026-11-15 사용자 변경: 표정 탭은 무표정 자동 선택 없이 '원본 유지'가 기본이다.
 test('keep-original is the expression default; alternatives replace it, other categories retain previous choices',async()=>{
  const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});await act(async()=>field().props.onChange({target:{value:'자연스러운 조명'}}));await click('쪼그려 앉기');
- const tab=label=>act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)===label).props.onClick());await tab('표정');const buttons=()=>r.root.findByProps({className:'photoPresetGrid'}).findAllByType('button');assert.equal(buttons()[0].props['aria-label'],'원본 유지');assert.equal(buttons()[0].props['aria-pressed'],true);assert.equal(r.root.findByProps({'aria-label':'무표정'}).props['aria-pressed'],false,'no automatic neutral expression');assert.equal(field().props.value,'자연스러운 조명');
+ const tab=label=>act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n).endsWith(label)).props.onClick());await tab('표정');const buttons=()=>r.root.findByProps({className:'photoPresetGrid'}).findAllByType('button');assert.equal(buttons()[0].props['aria-label'],'원본 유지');assert.equal(buttons()[0].props['aria-pressed'],true);assert.equal(r.root.findByProps({'aria-label':'무표정'}).props['aria-pressed'],false,'no automatic neutral expression');assert.equal(field().props.value,'자연스러운 조명');
  await click('환한 미소');assert.equal(buttons()[0].props['aria-pressed'],false);assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);await click('환한 미소');assert.equal(buttons()[0].props['aria-pressed'],true,'unselecting returns to keep-original');await click('무표정');await click('원본 유지');assert.equal(r.root.findByProps({'aria-label':'무표정'}).props['aria-pressed'],false,'keep-original clears the tab');await click('무표정');await tab('포즈');assert.equal(r.root.findByProps({'aria-label':'쪼그려 앉기'}).props['aria-pressed'],true);assert.equal(r.root.findByProps({'aria-label':'원본 유지'}).props['aria-pressed'],false);await tab('표정');assert.equal(r.root.findByProps({'aria-label':'무표정'}).props['aria-pressed'],true);await click('여성');assert.equal(r.root.findByProps({'aria-label':'무표정'}).props['aria-pressed'],true);
  await click('만들기');assert.equal(calls[0].kind,'combined');assert.deepEqual(calls[0].editKinds,['pose','expression']);assert.match(calls[0].prompt,/쪼그려/);assert.match(calls[0].prompt,/무표정/);assert.doesNotMatch(calls[0].prompt,/치아가 살짝/);assert.ok(calls[0].prompt.endsWith('자연스러운 조명'));await click('사진 결정');await click('여성');assert.equal(r.root.findByProps({'aria-label':'리본 메이드'}).props['aria-pressed'],false,'new draft starts in cosplay without an automatic costume selection');
 });
@@ -415,7 +415,7 @@ test('reset ticket: button refills the count, is off when unused, hidden without
 
 test('complete cosplay look: catalog hair and accessories reach the request after leaving the wardrobe',async()=>{
  const {aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
- assert.equal(aiPhotoCostumes.length,375);
+ assert.equal(aiPhotoCostumes.length,376);
  for(const item of aiPhotoCostumes){assert.match(item.wig,/가발|후드|머리장식/);assert.ok(item.accessories);assert.ok(item.footwear);assert.match(item.image,/-v2\.webp$/);for(const part of [item.wig,item.headwear,item.accessories,item.footwear])assert.ok(item.prompt.includes(part),item.id+':'+part);}
  const {r,calls,click}=await open({},true);
  await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('general'));
@@ -496,7 +496,7 @@ test('preset paging: nine cards, circular single-page gestures, preserved select
 test('default editor opens in cosplay with outfit tab and no automatic request',async()=>{
  const {r,calls}=await open({},true);
  assert.equal(r.root.find(n=>n.type==='button'&&text(n)==='코스어 모드').props['aria-pressed'],true);
- assert.equal(r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='옷').props['aria-selected'],true);
+ assert.equal(r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n).endsWith('옷')).props['aria-selected'],true);
  assert.equal(r.root.findByProps({'aria-label':'리본 메이드'}).props['aria-pressed'],false);
  assert.equal(calls.length,0);
 });
@@ -518,8 +518,8 @@ test('general wardrobe fits nine cards and sends the Dongtan knit reference when
  await click('코랄 립');await click('남성');assert.deepEqual(previews(),[1,2,3,4].map(id=>`/brand/ai-photo/presets/makeup-male-${String(id).padStart(2,'0')}-v1.webp`),'2026-11-15: men get only the four basic looks');
  const badges=()=>r.root.findAll(n=>n.props['data-gender']&&n.props.className==='costumeGender').map(n=>n.props['data-gender']);assert.deepEqual(badges(),['male','male','male','male']);assert.equal(r.root.findByProps({'aria-label':'하얀 피부 베이스'}).findByProps({'data-gender':'male'}).props.title,'남성 메이크업');
  assert.equal(r.root.findAll(n=>n.type==='button'&&n.props['aria-label']==='코랄 립').length,0);
- await click('여성');assert.deepEqual(previews(),['24-v1','16-v2','14-v2','15-v2','01-v2','11-v2','05-v2','09-v2'].map(id=>`/brand/ai-photo/presets/makeup-${id}.webp`),'women use the v2 model cards after the keep-original card');assert.equal(r.root.findByProps({'aria-label':'코랄 립'}).props['aria-pressed'],false);
- assert.equal(text(r.root.findByProps({'aria-label':'펄 언더라인'}).findByType('b')),'NEW');
+ await click('여성');assert.deepEqual(previews(),['16-v2','14-v2','15-v2','01-v2','11-v2','05-v2','09-v2','13-v2'].map(id=>`/brand/ai-photo/presets/makeup-${id}.webp`),'women use the v2 model cards after the keep-original card');assert.equal(r.root.findByProps({'aria-label':'코랄 립'}).props['aria-pressed'],false);
+ assert.equal(r.root.findAll(n=>n.type==='b'&&text(n)==='NEW').length,0);
  assert.deepEqual(badges(),Array(8).fill('female'),'women cards carry the ♀ mark; keep-original has none');await click('남성');assert.equal(previews().length,4);assert.equal(calls.length,0);
  // 2026-11-15: ten X-sourced women's looks (cards 13-22) join the female list only; a selection on page 2 survives a same-gender click.
  const {aiPhotoPresetPage,aiPhotoMakeupGender}=loadTypeScript('lib/crefans/ai-photo-presets.ts');
@@ -580,7 +580,7 @@ test('preset search filters before pagination, respects gender and handles no ma
  const empty=aiPhotoPresetPage('pose',9,'original','존재하지않는검색어');assert.deepEqual(empty,{examples:[],index:0,pages:1,total:0});
  assert.equal(aiPhotoPresetPage('makeup',0,'male','코랄 립').total,0);
  assert.equal(aiPhotoPresetPage('makeup',0,'female','코랄 립').total,1);
- assert.equal(aiPhotoPresetPage('pose',0,'original','  ').total,61);
+ assert.equal(aiPhotoPresetPage('pose',0,'original','  ').total,62);
 });
 
 test('search keeps selected poses, resets pages, clears on tabs and finds costumes across categories',async()=>{
@@ -597,7 +597,7 @@ test('search keeps selected poses, resets pages, clears on tabs and finds costum
 });
 
 
-test('catalog request IDs are unique stable six-character hashes',()=>{const {aiPhotoCostumes,aiPhotoCostumeRequest}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');assert.equal(new Set(aiPhotoCostumes.map(c=>c.id)).size,375);for(const item of aiPhotoCostumes){assert.match(item.id,/^[a-f0-9]{6}$/);assert.deepEqual(aiPhotoCostumeRequest([{kind:'outfit',prompt:rules.aiPhotoPresetText(item.prompt)}]).costumeIds,[item.id]);}});
+test('catalog request IDs are unique stable six-character hashes',()=>{const {aiPhotoCostumes,aiPhotoCostumeRequest}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');assert.equal(new Set(aiPhotoCostumes.map(c=>c.id)).size,376);for(const item of aiPhotoCostumes){assert.match(item.id,/^[a-f0-9]{6}$/);assert.deepEqual(aiPhotoCostumeRequest([{kind:'outfit',prompt:rules.aiPhotoPresetText(item.prompt)}]).costumeIds,[item.id]);}});
 
 test('clothing detail switch defaults off, sends no guide, and ignores retained strokes when off',async()=>{
  const {r,click,calls}=await open({},true);
@@ -614,7 +614,7 @@ test('clothing detail switch defaults off, sends no guide, and ignores retained 
 test('expanded pose, expression and camera selections accumulate and toggle independently',async()=>{
  const {r,click,calls}=await open();
  const search=async value=>act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value}}));
- const tab=async label=>act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)===label).props.onClick());
+ const tab=async label=>act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n).endsWith(label)).props.onClick());
  await tab('포즈');await search('의자 거꾸로');await click('의자 거꾸로 앉기');
  await tab('표정');await search('도도한');await click('도도한 시선');
  await tab('구도');await search('뒤쪽');await click('뒤쪽 45도');
@@ -623,10 +623,10 @@ test('expanded pose, expression and camera selections accumulate and toggle inde
  assert.equal(calls.length,1);assert.deepEqual(calls[0].editKinds,['pose','camera']);assert.match(calls[0].prompt,/거꾸로 앉아/);assert.match(calls[0].prompt,/뒤쪽 45도/);assert.doesNotMatch(calls[0].prompt,/도도|무표정/);
 });
 
-test('pose posture splits all 61 cards into exclusive sitting and standing pages',()=>{
+test('pose posture splits all 62 cards into exclusive sitting and standing pages',()=>{
  const {aiPhotoPresets,aiPhotoPresetPage,aiPhotoPosePosture,aiPhotoPresetTitle,AI_PHOTO_KEEP_ORIGINAL}=loadTypeScript('lib/crefans/ai-photo-presets.ts');
- const seen=[];for(const [posture,total] of [['sitting',21],['standing',40]]){const first=aiPhotoPresetPage('pose',0,'original','',posture);assert.equal(first.total,total);assert.equal(first.examples[0],AI_PHOTO_KEEP_ORIGINAL);for(let page=0;page<first.pages;page++){const result=aiPhotoPresetPage('pose',page,'original','',posture);assert.ok(result.examples.length<=9);for(const e of result.examples.filter(item=>item!==AI_PHOTO_KEEP_ORIGINAL)){assert.equal(aiPhotoPosePosture(e),posture);seen.push(e);}}assert.equal(aiPhotoPresetPage('pose',first.pages,'original','',posture).index,0);}
- assert.equal(new Set(seen).size,61);assert.deepEqual(new Set(seen),new Set(aiPhotoPresets.pose));
+ const seen=[];for(const [posture,total] of [['sitting',21],['standing',41]]){const first=aiPhotoPresetPage('pose',0,'original','',posture);assert.equal(first.total,total);assert.equal(first.examples[0],AI_PHOTO_KEEP_ORIGINAL);for(let page=0;page<first.pages;page++){const result=aiPhotoPresetPage('pose',page,'original','',posture);assert.ok(result.examples.length<=9);for(const e of result.examples.filter(item=>item!==AI_PHOTO_KEEP_ORIGINAL)){assert.equal(aiPhotoPosePosture(e),posture);seen.push(e);}}assert.equal(aiPhotoPresetPage('pose',first.pages,'original','',posture).index,0);}
+ assert.equal(new Set(seen).size,62);assert.deepEqual(new Set(seen),new Set(aiPhotoPresets.pose));
  assert.equal(aiPhotoPresetPage('pose',0,'original','다리 넓혀','sitting').total,0);assert.equal(aiPhotoPresetPage('pose',0,'original','다리 넓혀','standing').total,1);
  assert.equal(aiPhotoPresetTitle('pose',aiPhotoPresetPage('pose',0,'original','쪼그려','sitting').examples[0]),'쪼그려 앉기');
 });
@@ -863,7 +863,7 @@ test('every costume card shows its original character gender (female pink, male 
 test('general mode outfit tab splits 상의/하의 by the chosen gender and keeps one top plus one bottom',async()=>{
  const {aiPhotoOutfits}=loadTypeScript('lib/crefans/ai-photo-outfits.ts');
  for(const gender of ['female','male'])for(const part of ['top','bottom'])assert.equal(aiPhotoOutfits.filter(o=>o.gender===gender&&o.part===part).length,9,`${gender} ${part}`);
- const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='옷').props.onClick());
+ const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n).endsWith('옷')).props.onClick());
  const titles=()=>r.root.findAll(n=>n.type==='button'&&n.props.className==='preset').map(n=>n.props['aria-label']);
  assert.equal(r.root.findByProps({'aria-label':'옷 부위'}).findAll(n=>n.type==='button').map(text).join(','),'상의,하의');
  assert.deepEqual(titles(),aiPhotoOutfits.filter(o=>o.gender==='female'&&o.part==='top').map(o=>o.name));
@@ -877,7 +877,7 @@ test('general mode outfit tab splits 상의/하의 by the chosen gender and keep
 
 test('switching the person to male drops female tops/bottoms and shows male ones',async()=>{
  const {aiPhotoOutfits}=loadTypeScript('lib/crefans/ai-photo-outfits.ts');
- const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='옷').props.onClick());
+ const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n).endsWith('옷')).props.onClick());
  await click('화이트 블라우스');await act(async()=>r.root.find(n=>n.type==='button'&&text(n)==='남성').props.onClick());
  const titles=r.root.findAll(n=>n.type==='button'&&n.props.className==='preset').map(n=>n.props['aria-label']);
  assert.deepEqual(titles,aiPhotoOutfits.filter(o=>o.gender==='male'&&o.part==='top').map(o=>o.name));
@@ -1289,4 +1289,13 @@ test('skin cards select one cosmetic finish and submit it through the photo edit
  await click('물광');await click('은색페인트');
  assert.equal(r.root.findByProps({'aria-label':'물광'}).props['aria-pressed'],false);
  await click('만들기');assert.equal(calls[0].kind,'skin');assert.match(calls[0].prompt,/은색 바디페인트/);
+});
+
+test('white tube set and standing lookbook pose reach the same generation request',async()=>{
+ const {r,click,calls}=await open({},true);
+ await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('general'));
+ await click('다음 의상 페이지');await click('화이트 튜브톱 셋업');
+ await click('포즈');await click('서기');await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'룩북'}}));
+ await click('한 손 뒤로 룩북 포즈');await click('만들기');
+ assert.deepEqual(calls[0].costumeIds,['c09d74']);assert.ok(calls[0].editKinds.includes('pose'));assert.match(calls[0].prompt,/손은 등 뒤로/);
 });
