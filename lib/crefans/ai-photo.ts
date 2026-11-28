@@ -36,7 +36,6 @@ export const aiPhotoKinds:{value:AiPhotoKind;label:string;placeholder:string}[]=
  {value:'lens',label:'촬영컨셉',placeholder:'거울 앞에서 휴대폰을 들고 찍은 거울샷으로 바꿔줘.'},
  {value:'background',label:'배경',placeholder:'해 질 녘 벚꽃길, 부드러운 역광'},
 ];
-aiPhotoKinds.sort((a,b)=>Number(aiPhotoKindIsNew(b.value))-Number(aiPhotoKindIsNew(a.value)));
 export const aiPhotoStyles:{value:AiPhotoStyle;label:string}[]=[
  {value:'photo',label:'실사 사진 느낌'},{value:'cosplay',label:'코스프레 촬영'},{value:'daily',label:'일상 스냅'},
 ];

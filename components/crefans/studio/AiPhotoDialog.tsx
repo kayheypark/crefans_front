@@ -184,7 +184,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
  const heartScoreRef=useRef(0);
  const [doneLayer,setDoneLayer]=useState(0),tapLockUntil=useRef(0);
  function collectHeart(delta:number){heartScoreRef.current=Math.max(0,Math.min(30,heartScoreRef.current+delta));setHeartScore(heartScoreRef.current);}
- const editorKinds=[...(AI_PHOTO_BODY_OPEN?aiPhotoKinds:aiPhotoKinds.filter(item=>item.value!=='body'))].sort((a,b)=>Number(aiPhotoGroupIsNew(b.value))-Number(aiPhotoGroupIsNew(a.value)));
+ const editorKinds=AI_PHOTO_BODY_OPEN?aiPhotoKinds:aiPhotoKinds.filter(item=>item.value!=='body');
  const [shopLink,setShopLink]=useState<ReturnType<typeof costumeShopLink>>(null);
  const [stage,setStage]=useState<'edit'|'results'>('edit'),[closeAsk,setCloseAsk]=useState(false),[review,setReview]=useState<null|{done?:string;reward?:AiReviewReward}>(null),[reviewDraft,setReviewDraft]=useState<AiReviewDraft>(defaultReviewDraft),[resumed,setResumed]=useState(false),[signupNudge,setSignupNudge]=useState(false),[sourcePicker,setSourcePicker]=useState(false),[sourceConfirm,setSourceConfirm]=useState<null|'ask'|'pick'>(null),[changeUpload,setChangeUpload]=useState(false);
  // Keep the same waiting subtree until the review is saved, even if the image arrives first.
