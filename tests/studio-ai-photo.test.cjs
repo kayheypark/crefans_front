@@ -58,7 +58,7 @@ test('dialog: without an uploaded photo it asks for one first',async()=>{
 test('2026-11-21: 만들기 confirms the photo; 대상 변경 picks another photo or offers to upload one',async()=>{
  const second={...photo,id:'p2',url:'/p2.png'};
  const {r,calls}=await open({images:[photo,second]});
- const press=async label=>act(async()=>r.root.find(n=>n.type==='button'&&(text(n).replace(' · NEW','')===label||n.props['aria-label']===label)).props.onClick());
+ const press=async label=>act(async()=>r.root.find(n=>n.type==='button'&&(text(n).replace(/(?: · )?NEW$/,'')===label||n.props['aria-label']===label)).props.onClick());
  await press('만들기');assert.equal(calls.length,0,'nothing is sent before confirming');assert.equal(r.root.findAllByProps({'aria-label':'이 사진으로 만들까요?'}).length>0,true);
  assert.equal(r.root.findByProps({alt:'AI로 바꿀 사진'}).props.src,photo.url);
  await press('대상 변경');assert.equal(r.root.findAllByProps({'aria-label':'바꿀 사진을 골라 주세요'}).length>0,true);
@@ -632,7 +632,7 @@ test('pose posture splits all 62 cards into exclusive sitting and standing pages
 });
 
 test('posture buttons reset browsing but retain selected pose and other categories until replacement',async()=>{
- const {r,click,calls}=await open();const posture=()=>r.root.findByProps({'aria-label':'포즈 자세'});const select=async label=>act(async()=>posture().find(n=>n.type==='button'&&text(n).replace(' · NEW','')===label).props.onClick());
+ const {r,click,calls}=await open();const posture=()=>r.root.findByProps({'aria-label':'포즈 자세'});const select=async label=>act(async()=>posture().find(n=>n.type==='button'&&text(n).replace(/(?: · )?NEW$/,'')===label).props.onClick());
  const search=async value=>act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value}}));
  assert.equal(posture().find(n=>n.type==='button'&&text(n)==='앉기').props['aria-pressed'],true);
  await click('쪼그려 앉기');await click('다음 프리셋 페이지');await search('없는 검색');await select('서기');assert.equal(r.root.findByProps({'aria-label':'프리셋 검색'}).props.value,'');assert.equal(r.root.findAllByProps({'aria-label':'쪼그려 앉기'}).length,0);
@@ -670,7 +670,7 @@ test('body continuous range keeps intermediate values, snaps near anchors and ke
 });
 
  test('entry requires an explicit gender before showing edit controls and sends the choice',async()=>{
- for(const [label,value] of [['남성','male'],['여성','female']]){let r,request;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:10,limit:10},room:9,onEdit:async input=>{request=input;return {success:false,errorMessage:'대역 실패'};},onAdd(){}}));});assert.match(text(r.toJSON()),/남성인가요, 여성인가요/);assert.equal(r.root.findAllByType('textarea').length,0);assert.equal(r.root.findAll(n=>n.props['aria-label']==='만들기').length,0);await act(async()=>r.root.find(n=>n.type==='button'&&text(n).includes(label)).props.onClick());assert.equal(r.root.findAllByType('textarea').length,1);const group=r.root.findByProps({'aria-label':'생성 인물 성별'});assert.equal(group.find(n=>n.type==='button'&&text(n).replace(' · NEW','')===label).props['aria-pressed'],true);await act(async()=>r.root.findByProps({'aria-label':'만들기'}).props.onClick());await confirmSource(r);assert.equal(request.targetGender,value);await act(async()=>r.unmount());}
+ for(const [label,value] of [['남성','male'],['여성','female']]){let r,request;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:10,limit:10},room:9,onEdit:async input=>{request=input;return {success:false,errorMessage:'대역 실패'};},onAdd(){}}));});assert.match(text(r.toJSON()),/남성인가요, 여성인가요/);assert.equal(r.root.findAllByType('textarea').length,0);assert.equal(r.root.findAll(n=>n.props['aria-label']==='만들기').length,0);await act(async()=>r.root.find(n=>n.type==='button'&&text(n).includes(label)).props.onClick());assert.equal(r.root.findAllByType('textarea').length,1);const group=r.root.findByProps({'aria-label':'생성 인물 성별'});assert.equal(group.find(n=>n.type==='button'&&text(n).replace(/(?: · )?NEW$/,'')===label).props['aria-pressed'],true);await act(async()=>r.root.findByProps({'aria-label':'만들기'}).props.onClick());await confirmSource(r);assert.equal(request.targetGender,value);await act(async()=>r.unmount());}
  });
 
 test('zero available uses opens the shop without generating or discarding the prompt',async()=>{let refresh=0;const shop={products:[],orders:[],loading:false,error:'',refresh:async()=>{refresh++;},purchase:async()=>{},refund:async()=>{}};const {r,click,calls}=await open({quota:{remaining:0,limit:10},shop});await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'보존할 편집 내용'}}));await click('만들기');assert.equal(calls.length,0);
@@ -842,7 +842,7 @@ test('public background catalog is searchable indoors and selection sends image 
 
 test('all 33 supplied photos map to valid public poses and nine new poses send their matching prompt',async()=>{
  const mapping=require('../docs/audit/pose-source-classification-20261114.json').mapping;const {aiPhotoPresets,aiPhotoPresetTitle,aiPhotoPosePosture}=loadTypeScript('lib/crefans/ai-photo-presets.ts');assert.equal(mapping.length,33);assert.equal(new Set(mapping.map(x=>x.batch+':'+x.photo)).size,33);for(const m of mapping)assert.ok(aiPhotoPresetTitle('pose',aiPhotoPresets.pose[m.poseNumber-1]));
- for(let n=31;n<=39;n++){const value=aiPhotoPresets.pose[n-1],title=aiPhotoPresetTitle('pose',value);const {r,click,calls}=await open();await act(async()=>r.root.findByProps({'aria-label':'포즈 자세'}).find(n=>n.type==='button'&&text(n).replace(' · NEW','')===(aiPhotoPosePosture(value)==='sitting'?'앉기':'서기')).props.onClick());await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:title}}));await click(title);await click(title);assert.equal(r.root.findByProps({'aria-label':title}).props['aria-pressed'],false);await click(title);await click('만들기');assert.ok(calls[0].prompt.includes(value));await act(async()=>r.unmount());}
+ for(let n=31;n<=39;n++){const value=aiPhotoPresets.pose[n-1],title=aiPhotoPresetTitle('pose',value);const {r,click,calls}=await open();await act(async()=>r.root.findByProps({'aria-label':'포즈 자세'}).find(n=>n.type==='button'&&text(n).replace(/(?: · )?NEW$/,'')===(aiPhotoPosePosture(value)==='sitting'?'앉기':'서기')).props.onClick());await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:title}}));await click(title);await click(title);assert.equal(r.root.findByProps({'aria-label':title}).props['aria-pressed'],false);await click(title);await click('만들기');assert.ok(calls[0].prompt.includes(value));await act(async()=>r.unmount());}
 });
 
 test('every costume card shows its original character gender (female pink, male blue, unspecified both)',async()=>{
