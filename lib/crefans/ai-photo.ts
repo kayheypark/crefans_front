@@ -1,3 +1,4 @@
+import {aiPhotoGroupIsNew} from './ai-photo-new';
 // 스튜디오 AI 사진 편집 규칙(2026-11-08 사용자 결정: 시안 A + 의상 영역 칠하기, 무료·하루 10회·한 번에 1장).
 // 생성 동작은 서비스 모델이 주입하며 프리셋 탐색은 서버나 AI를 호출하지 않는다.
 import {containsPersonalData} from './advisor';
@@ -22,7 +23,7 @@ export const aiPhotoPresetText=(value:string)=>value.replace(' 내 얼굴·나�
 // 2026-11-20 user decision: the body correction tab is hidden until the clothing/neckline problem is solved (a bigger bust
 // opened a V in a closed hoodie in dev tests). Set to true to reopen it; the body code stays in place.
 export const AI_PHOTO_BODY_OPEN=false;
-export const aiPhotoKindIsNew=(kind:AiPhotoKind)=>kind==='outfit'||kind==='pose';
+export const aiPhotoKindIsNew=(kind:AiPhotoKind)=>aiPhotoGroupIsNew(kind);
 export const aiPhotoKinds:{value:AiPhotoKind;label:string;placeholder:string}[]=[
  {value:'outfit',label:'옷',placeholder:'옷을 흰색 세일러 교복 코스튬으로'},
  {value:'makeup',label:'메이크업',placeholder:'입술을 자연스러운 코랄 톤으로 바꿔줘.'},

@@ -21,7 +21,7 @@
     "check:layers": "node scripts/check-layers.cjs",
     "typecheck": "tsc --noEmit --incremental false",
     "test": "node --test tests/*.test.cjs",
-    "check": "npm run check:layers && npm run typecheck && npm test",
+    "check": "npm run check:presets && npm run check:layers && npm run typecheck && npm test",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
@@ -31,7 +31,11 @@
     "docs:contracts": "python3 scripts/check-docs.py --contracts",
     "docs:record": "python3 scripts/check-docs.py --record",
     "docs:prove": "python3 scripts/check-docs.py --prove",
-    "test:docs": "python3 scripts/check-docs.py --self-test"
+    "test:docs": "python3 scripts/check-docs.py --self-test",
+    "presets:sync": "node scripts/sync-ai-photo-releases.cjs",
+    "check:presets": "node scripts/sync-ai-photo-releases.cjs --check",
+    "predev": "npm run presets:sync",
+    "prebuild": "npm run presets:sync"
   },
   "devDependencies": {
     "@playwright/test": "^1.64.0",

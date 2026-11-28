@@ -116,6 +116,6 @@ test('landing outfit and pose categories show the shared NEW badges',()=>{
  let tree;act(()=>{tree=create(React.createElement(page.default));});
  try{
   const newTabs=tree.root.findAll(node=>node.type==='button'&&node.props.role==='tab'&&node.findAllByType('span').some(span=>span.props.children==='NEW'));
-  assert.deepEqual(newTabs.map(tab=>tab.findAllByType('span').at(-1).props.children).sort(),['옷','포즈']);
+  assert.deepEqual(newTabs.map(tab=>tab.findAllByType('span').at(-1).props.children).sort(),['렌즈','메이크업','배경','옷','포즈','피부']);
  }finally{act(()=>tree.unmount());}
 });

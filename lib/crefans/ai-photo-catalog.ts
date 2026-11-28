@@ -1,3 +1,4 @@
+import {aiPhotoRelease} from './ai-photo-new';
 // 2026-11-21 user request: the ops console lists every AI photo preset (category, image, label, prompt, Coupang link).
 // The catalog lives in this app, so it is served from here as JSON; prompts are already public in the browser bundle.
 import {aiPhotoKinds,aiPhotoPresetText} from './ai-photo';
@@ -7,7 +8,7 @@ import {aiPhotoBackgroundId} from './ai-photo-backgrounds';
 import {costumeShopOffer,COSTUME_SHOP_LINKS} from './costume-shop-links';
 import {aiPhotoOutfitByPrompt} from './ai-photo-outfits';
 
-export type CatalogItem={id:string;category:string;accessPrompt?:string;referenceId?:string;title:string;detail?:string;prompt:string;image:string;shopUrl?:string|null;shopOffer?:ReturnType<typeof costumeShopOffer>};
+export type CatalogItem={id:string;category:string;addedAt?:string|null;accessPrompt?:string;referenceId?:string;title:string;detail?:string;prompt:string;image:string;shopUrl?:string|null;shopOffer?:ReturnType<typeof costumeShopOffer>};
 export type CatalogGroup={key:string;label:string;categories:{value:string;label:string}[];items:CatalogItem[]};
 
 const sub:Record<string,{value:string;label:string}[]>={
@@ -26,8 +27,8 @@ function category(kind:string,prompt:string){
 
 export function aiPhotoCatalog():{groups:CatalogGroup[]}{
  const costumes:CatalogGroup={key:'costume',label:'코스튬',categories:aiPhotoCostumeCategories.map(c=>({value:c.value,label:c.label})),
-  items:aiPhotoCostumes.map(c=>({id:c.id,referenceId:c.id,category:c.category,title:c.name,detail:c.detail,prompt:aiPhotoPresetText(c.prompt),image:c.image,shopOffer:costumeShopOffer(c),shopUrl:COSTUME_SHOP_LINKS[c.id]||null}))};
+  items:aiPhotoCostumes.map(c=>({id:c.id,addedAt:aiPhotoRelease('costume',c.id)?.addedAt,referenceId:c.id,category:c.category,title:c.name,detail:c.detail,prompt:aiPhotoPresetText(c.prompt),image:c.image,shopOffer:costumeShopOffer(c),shopUrl:COSTUME_SHOP_LINKS[c.id]||null}))};
  const kinds=aiPhotoKinds.filter(k=>k.value!=='body').map(k=>({key:k.value,label:k.label,categories:sub[k.value]||[],
-  items:aiPhotoPresets[k.value].map((prompt,i)=>({id:`${k.value}-${i+1}`,accessPrompt:aiPhotoPresetText(prompt),referenceId:k.value==='background'?aiPhotoBackgroundId(prompt):undefined,category:category(k.value,prompt),title:aiPhotoPresetTitles[k.value][i]||'',prompt,image:aiPhotoPresetImage(k.value,prompt)}))}));
+  items:aiPhotoPresets[k.value].map((prompt,i)=>({id:`${k.value}-${i+1}`,addedAt:aiPhotoRelease(k.value,k.value==='background'?aiPhotoBackgroundId(prompt)||aiPhotoPresetTitles[k.value][i]:k.value==='outfit'?aiPhotoOutfitByPrompt(prompt)?.id||aiPhotoPresetTitles[k.value][i]:aiPhotoPresetTitles[k.value][i])?.addedAt,accessPrompt:aiPhotoPresetText(prompt),referenceId:k.value==='background'?aiPhotoBackgroundId(prompt):k.value==='outfit'?aiPhotoOutfitByPrompt(prompt)?.id:undefined,category:category(k.value,prompt),title:aiPhotoPresetTitles[k.value][i]||'',prompt,image:aiPhotoPresetImage(k.value,prompt)}))}));
  return{groups:[costumes,...kinds]};
 }

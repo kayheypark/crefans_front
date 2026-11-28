@@ -1,3 +1,4 @@
+import {aiPhotoReleaseIsNew} from './ai-photo-new';
 import {aiPhotoBackgrounds,aiPhotoBackgroundId} from './ai-photo-backgrounds';
 import {aiPhotoMaleBodyControls,aiPhotoBodyPrompt,aiPhotoPresetText} from './ai-photo';
 import {aiPhotoOutfits,aiPhotoOutfitByPrompt,aiPhotoOutfitImage,type AiPhotoOutfitPart} from './ai-photo-outfits';
@@ -130,8 +131,7 @@ export const aiPhotoMultiSelectKinds:readonly AiPhotoKind[]=['makeup'];
 export function aiPhotoMakeupGender(example:string):'female'|'male'|undefined{return aiPhotoMakeups.find(item=>item.prompt===example)?.gender;}
 
 export function aiPhotoPresetIsNew(kind:AiPhotoKind,example:string){
- if(kind==='pose')return aiPhotoPresetTitle(kind,example)==='한 손 뒤로 룩북 포즈';
- return kind==='makeup'&&aiPhotoMakeups.some(item=>item.isNew&&item.prompt===example);
+ return example!==AI_PHOTO_KEEP_ORIGINAL&&aiPhotoReleaseIsNew(kind,kind==='background'?aiPhotoBackgroundId(example)||aiPhotoPresetTitle(kind,example):kind==='outfit'?aiPhotoOutfitByPrompt(example)?.id||aiPhotoPresetTitle(kind,example):aiPhotoPresetTitle(kind,example));
 }
 
 export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'|'female'|'male'='original',query='',posture?:AiPhotoPosePosture,backgroundCategory?:AiPhotoBackgroundCategory,outfitPart?:AiPhotoOutfitPart){

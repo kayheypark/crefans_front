@@ -1,4 +1,5 @@
 const fs=require('node:fs'),test=require('node:test'),assert=require('node:assert/strict'),{loadTypeScript}=require('./load-typescript.cjs');
+const actualNow=Date.now;Date.now=()=>Date.parse('2026-11-28T03:00:00Z');test.after(()=>{Date.now=actualNow;});
 const {aiPhotoSortByUsage,aiPhotoPresetUsage}=loadTypeScript('lib/crefans/ai-photo-popularity.ts');
 const {aiPhotoCostumes,aiPhotoCostumeCategories}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
 const {aiPhotoBackgrounds}=loadTypeScript('lib/crefans/ai-photo-backgrounds.ts');
@@ -9,19 +10,20 @@ const titles=(kind,...args)=>P.aiPhotoPresetPage(kind,0,'original','',...args).e
 
 test('costume tabs open with the most-used costumes (production data)',()=>{
  assert.deepEqual(tab('nikke').slice(0,2).map(c=>c.name),['누아르 바니','모더니아 코스튬']);
- assert.deepEqual(tab('general').slice(0,2).map(c=>c.name),['화이트 튜브톱 셋업','아이돌 무대복']);
- assert.equal(titles('pose','standing')[0],'한 손 뒤로 룩북 포즈');
+ assert.ok(tab('general').slice(0,2).every(c=>c.isNew));
+ assert.equal(tab('general').filter(c=>!c.isNew)[0].name,'아이돌 무대복');
+ assert.ok(P.aiPhotoPresetIsNew('pose',P.aiPhotoPresetPage('pose',0,'original','','standing').examples[1]));
  assert.equal(tab('overwatch')[0].name,'D.Va 슈트');
  assert.deepEqual(aiPhotoCostumeCategories.map(c=>c.value).filter(v=>!aiPhotoCostumes.some(c=>c.category===v)),[],'every tab still has costumes');
 });
 
 test('preset tabs open with the most-used presets (production data)',()=>{
  assert.equal(titles('pose','sitting')[0],'다리 꼬아 앉기');
- assert.deepEqual(titles('makeup').slice(0,3),['코스프레 베이스','인형 메이크업','지뢰계 메이크업']);
+ assert.deepEqual(titles('makeup').filter(title=>!P.aiPhotoPresetIsNew('makeup',P.aiPhotoPresets.makeup.find(p=>P.aiPhotoPresetTitle('makeup',p)===title))).slice(0,3),['코스프레 베이스','인형 메이크업','지뢰계 메이크업']);
  assert.deepEqual(titles('expression').slice(0,2),['무표정','잔잔한 미소']);
  assert.equal(titles('camera')[0],'하이 앵글');
  assert.equal(titles('lens')[0],'거울샷');
- assert.equal(titles('background',undefined,'indoor')[0],'촬영스튜디오(흰배경)');
+ assert.equal(titles('background',undefined,'indoor')[0],'네온 칵테일 바');
  // '원본 유지' stays the first card of its tabs.
  assert.equal(P.aiPhotoPresetPage('pose',0,'original','','sitting').examples[0],P.AI_PHOTO_KEEP_ORIGINAL);
 });
