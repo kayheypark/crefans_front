@@ -384,7 +384,7 @@ const catalogCostumes=[
 export const hiddenCostumeIds:ReadonlySet<string>=new Set();
 export const aiPhotoCostumes=catalogCostumes.filter(costume=>!hiddenCostumeIds.has(costume.id));
 const newCostumeCategories=new Set<AiPhotoCostumeCategory>(aiPhotoCostumes.filter(costume=>'isNew' in costume&&costume.isNew).map(costume=>costume.category));
-export const costumePickerOptions=aiPhotoCostumeCategories.map(category=>({...category,badge:newCostumeCategories.has(category.value)?'NEW':undefined}));
+export const costumePickerOptions=aiPhotoCostumeCategories.map(category=>({...category,badge:newCostumeCategories.has(category.value)?'NEW':undefined})).sort((a,b)=>Number(!!b.badge)-Number(!!a.badge));
 // 2026-11-18 user decision: costumes from games and anime (every category but 'general') may carry copyright, so photos made with
 // them cannot be used commercially. The server records this on the result and enforces it; this only drives the notice.
 export const isFranchiseCostume=(costume:Pick<AiPhotoCostume,'category'>)=>costume.category!=='general';

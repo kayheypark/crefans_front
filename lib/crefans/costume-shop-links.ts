@@ -1,6 +1,6 @@
 // 2026-11-21 user decision: every catalog costume (franchise ones included) opens a Coupang Partners link on the result screen.
 // Links were made in the Partners dashboard (간편 링크 만들기) from a Coupang search URL with spaces written as %20.
-import {aiPhotoCostumeCategories,aiPhotoCostumes,isFranchiseCostume} from './ai-photo-costumes';
+import {aiPhotoCostumeCategories,aiPhotoCostumes,isFranchiseCostume,type AiPhotoCostume} from './ai-photo-costumes';
 import {aiPhotoPresetText} from './ai-photo';
 
 // Costume id → Partners short link. 80974e (세일러 코스튬) searches '세일러 코스튬'; the rest search '[작품명] 의상명 코스프레 의상'.
@@ -390,10 +390,15 @@ export function costumeShopLink(outfitPrompts:string[]){
  for(const prompt of outfitPrompts){
   const costume=aiPhotoCostumes.find(item=>aiPhotoPresetText(item.prompt)===prompt);
   if(!costume)continue;
-  const affiliateUrl=COSTUME_SHOP_LINKS[costume.id];
-  const category=isFranchiseCostume(costume)?aiPhotoCostumeCategories.find(item=>item.value===costume.category)?.label:undefined;
-  const query=[category,costume.name,'코스프레 의상'].filter(Boolean).join(' ');
-  return{name:costume.name,category:costume.category,image:costume.image,url:affiliateUrl||costumeSearchUrl(query),affiliate:!!affiliateUrl};
+  return costumeShopOffer(costume);
  }
  return null;
+}
+
+export function costumeShopOffer(costume:AiPhotoCostume){
+  const shopName=costume.id==='c09d74'?'흰 튜브탑':undefined;
+  const affiliateUrl=COSTUME_SHOP_LINKS[costume.id];
+  const category=isFranchiseCostume(costume)?aiPhotoCostumeCategories.find(item=>item.value===costume.category)?.label:undefined;
+  const query=shopName||[category,costume.name,'코스프레 의상'].filter(Boolean).join(' ');
+  return{name:shopName||costume.name,category:costume.category,image:costume.image,url:affiliateUrl||costumeSearchUrl(query),affiliate:!!affiliateUrl};
 }

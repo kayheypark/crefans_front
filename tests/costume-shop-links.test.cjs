@@ -10,13 +10,14 @@ test('every catalog costume opens its own Partners link with the commission noti
  const seen=new Set();
  for(const costume of aiPhotoCostumes){
   const link=links.costumeShopLink([aiPhotoPresetText(costume.prompt)]);
+  if(costume.id==='c09d74'){assert.equal(link.name,'흰 튜브탑');assert.equal(new URL(link.url).searchParams.get('q'),'흰 튜브탑');assert.equal(link.affiliate,false);continue;}
   assert.equal(link.name,costume.name,costume.id);
   assert.equal(link.image,costume.image,costume.id);
   assert.equal(link.affiliate,true,costume.id);
   assert.match(link.url,/^https:\/\/link\.coupang\.com\/a\/\w{10}$/,costume.id);
   assert.ok(!seen.has(link.url),`duplicate link ${costume.id}`);seen.add(link.url);
  }
- assert.equal(Object.keys(links.COSTUME_SHOP_LINKS).length,aiPhotoCostumes.length,'no link for a costume that is not in the catalog');
+ assert.equal(Object.keys(links.COSTUME_SHOP_LINKS).length,aiPhotoCostumes.length-1,'no link for a costume that is not in the catalog');
  assert.equal(links.costumeShopLink([]),null);
  assert.equal(links.costumeShopLink(['직접 입력한 의상']),null);
  assert.equal(links.COSTUME_SHOP_NOTICE,'이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.');

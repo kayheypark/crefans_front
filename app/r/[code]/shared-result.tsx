@@ -67,9 +67,9 @@ export default function SharedResult({image,presets,campaign,hasSessionCookie}:{
    </DialogActions>
   </>}
  </Dialog>
- {presets.some(item=>item.shopUrl)?<aside aria-label="쿠팡 파트너스 광고" className={s.shop}>
-  {presets.map(item=>item.shopUrl&&<CostumeShopCard key={item.image}
-   shopLink={{name:item.title,image:item.image,url:item.shopUrl,affiliate:true}}
+ {presets.some(item=>item.shopOffer)?<aside aria-label="쿠팡 의상 보기" className={s.shop}>
+  {presets.map(item=>item.shopOffer&&<CostumeShopCard key={item.image}
+   shopLink={item.shopOffer}
    bubble="혹시 진짜로 입어볼 생각도 있어요?"/>)}
  </aside>:<CoupangFeedBanner/>}
  <footer><a href={landing} onClick={startTrial}>0원으로 만들기{remaining!==null&&<span className={s.balance}>남은 이용권 {remaining}장</span>}</a><button type="button" onClick={reshare}>결과 공유하기</button><small role="status">{notice}</small></footer></main>;

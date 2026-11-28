@@ -22,6 +22,7 @@ export const aiPhotoPresetText=(value:string)=>value.replace(' 내 얼굴·나�
 // 2026-11-20 user decision: the body correction tab is hidden until the clothing/neckline problem is solved (a bigger bust
 // opened a V in a closed hoodie in dev tests). Set to true to reopen it; the body code stays in place.
 export const AI_PHOTO_BODY_OPEN=false;
+export const aiPhotoKindIsNew=(kind:AiPhotoKind)=>kind==='outfit'||kind==='pose';
 export const aiPhotoKinds:{value:AiPhotoKind;label:string;placeholder:string}[]=[
  {value:'outfit',label:'옷',placeholder:'옷을 흰색 세일러 교복 코스튬으로'},
  {value:'makeup',label:'메이크업',placeholder:'입술을 자연스러운 코랄 톤으로 바꿔줘.'},
@@ -34,6 +35,7 @@ export const aiPhotoKinds:{value:AiPhotoKind;label:string;placeholder:string}[]=
  {value:'lens',label:'촬영컨셉',placeholder:'거울 앞에서 휴대폰을 들고 찍은 거울샷으로 바꿔줘.'},
  {value:'background',label:'배경',placeholder:'해 질 녘 벚꽃길, 부드러운 역광'},
 ];
+aiPhotoKinds.sort((a,b)=>Number(aiPhotoKindIsNew(b.value))-Number(aiPhotoKindIsNew(a.value)));
 export const aiPhotoStyles:{value:AiPhotoStyle;label:string}[]=[
  {value:'photo',label:'실사 사진 느낌'},{value:'cosplay',label:'코스프레 촬영'},{value:'daily',label:'일상 스냅'},
 ];

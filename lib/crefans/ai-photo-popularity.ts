@@ -17,8 +17,8 @@ export const aiPhotoPresetUsage:Record<AiPhotoKind,Readonly<Record<string,number
  body:{"가슴 조금 크게":2,"키 조금 크게":1,"힙 조금 크게":1},
 };
 
-/** Most-used first; unused and tied items keep their given order. */
-export function aiPhotoSortByUsage<T>(kind:AiPhotoKind,items:readonly T[],key:(item:T)=>string|undefined):T[]{
+/** NEW first, then most-used; unused and tied items keep their given order. */
+export function aiPhotoSortByUsage<T>(kind:AiPhotoKind,items:readonly T[],key:(item:T)=>string|undefined,isNew:(item:T)=>boolean=()=>false):T[]{
  const usage=aiPhotoPresetUsage[kind],count=(item:T)=>usage[key(item)??'']??0;
- return [...items].sort((a,b)=>count(b)-count(a));
+ return [...items].sort((a,b)=>Number(isNew(b))-Number(isNew(a))||count(b)-count(a));
 }

@@ -507,7 +507,7 @@ test('general wardrobe fits nine cards and sends the Dongtan knit reference when
  await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('general'));
  const cards=r.root.findByProps({'aria-label':'코스프레 의상'}).findAllByType('button');
  assert.equal(cards.length,9);
- assert.equal(cards[8].props['aria-label'],'신도시 코스튬');
+ await click('다음 의상 페이지');
  await click('신도시 코스튬');await click('만들기');
  assert.deepEqual(calls[0].costumeIds,['ca7e53']);
 });
@@ -1294,7 +1294,7 @@ test('skin cards select one cosmetic finish and submit it through the photo edit
 test('white tube set and standing lookbook pose reach the same generation request',async()=>{
  const {r,click,calls}=await open({},true);
  await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('general'));
- await click('다음 의상 페이지');await click('화이트 튜브톱 셋업');
+ assert.match(r.root.findByProps({'aria-label':'코스프레 의상'}).findAllByType('button')[0].props['aria-label'],/화이트 튜브톱 셋업/);await click('화이트 튜브톱 셋업');
  await click('포즈');await click('서기');await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'룩북'}}));
  await click('한 손 뒤로 룩북 포즈');await click('만들기');
  assert.deepEqual(calls[0].costumeIds,['c09d74']);assert.ok(calls[0].editKinds.includes('pose'));assert.match(calls[0].prompt,/손은 등 뒤로/);

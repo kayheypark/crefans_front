@@ -7,7 +7,7 @@ export const shareDescription='사진으로 옷도 바꿔 입고 메이크업도
 export function sharedCatalog(){
  return aiPhotoCatalog().groups.flatMap(group=>group.items.map(item=>({
   kind:(group.key==='costume'?'outfit':group.key) as AiPhotoKind,
-  description:item.detail,shopUrl:item.shopUrl||null,label:group.label,title:item.title,image:item.image,prompt:aiPhotoPresetText(item.prompt)
+  description:item.detail,shopOffer:item.shopOffer,label:group.label,title:item.title,image:item.image,prompt:aiPhotoPresetText(item.prompt)
  })));
 }
 export function sharePresetImages(selection:AiPhotoPresetSelection[]){

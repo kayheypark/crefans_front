@@ -103,7 +103,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
  const [posePosture,setPosePosture]=useState<AiPhotoPosePosture>('sitting');
  const [outfitPart,setOutfitPart]=useState<AiPhotoOutfitPart>('top');
  const [costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>('nikke');
- const costumes=aiPhotoSortByUsage('outfit',aiPhotoCostumes.filter(costume=>presetQuery.trim()?aiPhotoPresetMatches(presetQuery,costume.name,costume.detail,aiPhotoCostumeCategories.find(category=>category.value===costume.category)!.label):costume.category===costumeCategory),costume=>costume.id),costumeCategoryInfo=aiPhotoCostumeCategories.find(category=>category.value===costumeCategory)!;
+ const costumes=aiPhotoSortByUsage('outfit',aiPhotoCostumes.filter(costume=>presetQuery.trim()?aiPhotoPresetMatches(presetQuery,costume.name,costume.detail,aiPhotoCostumeCategories.find(category=>category.value===costume.category)!.label):costume.category===costumeCategory),costume=>costume.id,costume=>'isNew' in costume&&costume.isNew),costumeCategoryInfo=aiPhotoCostumeCategories.find(category=>category.value===costumeCategory)!;
  const cosplay=kind==='outfit'&&cosplayOpen;
  const costume=selectedPresets.length?aiPhotoCostumes.find(entry=>selectedPresets.some(item=>item.kind==='outfit'&&item.prompt===aiPhotoPresetText(entry.prompt))):undefined;
  const style=hasOutfit&&(costume||cosplayOpen)?'cosplay':'photo';

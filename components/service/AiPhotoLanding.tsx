@@ -105,7 +105,7 @@ export function LandingPresetBrowser({onPicked,onChoose}:{onPicked?:(picked:Reco
  },[onPicked]);
  const setPicked=(update:(previous:Record<string,string[]>)=>Record<string,string[]>)=>{const next=update(picked);setPickedState(next);onPicked?.(next);};
  const category=aiPhotoCostumeCategories.find(item=>item.value===costumeCategory)!;
- const costumes=aiPhotoSortByUsage('outfit',aiPhotoCostumes.filter(item=>query.trim()?aiPhotoPresetMatches(query,item.name,item.detail,aiPhotoCostumeCategories.find(c=>c.value===item.category)!.label):item.category===costumeCategory),costume=>costume.id);
+ const costumes=aiPhotoSortByUsage('outfit',aiPhotoCostumes.filter(item=>query.trim()?aiPhotoPresetMatches(query,item.name,item.detail,aiPhotoCostumeCategories.find(c=>c.value===item.category)!.label):item.category===costumeCategory),costume=>costume.id,costume=>'isNew' in costume&&costume.isNew);
  const preset=aiPhotoPresetPage(kind,page,'original',query,kind==='pose'?posture:undefined,kind==='background'?backgroundCategory:undefined);
  const chosen=picked[kind]||[];
  function change(next:AiPhotoKind){setKind(next);setPage(0);setQuery('');}

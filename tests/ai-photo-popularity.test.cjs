@@ -4,12 +4,13 @@ const {aiPhotoCostumes,aiPhotoCostumeCategories}=loadTypeScript('lib/crefans/ai-
 const {aiPhotoBackgrounds}=loadTypeScript('lib/crefans/ai-photo-backgrounds.ts');
 const P=loadTypeScript('lib/crefans/ai-photo-presets.ts');
 // 2026-11-23: each preset tab / costume franchise lists the most-used presets first (ai_preset_usage_daily snapshot).
-const tab=(category)=>aiPhotoSortByUsage('outfit',aiPhotoCostumes.filter(c=>c.category===category),c=>c.id);
+const tab=(category)=>aiPhotoSortByUsage('outfit',aiPhotoCostumes.filter(c=>c.category===category),c=>c.id,c=>!!c.isNew);
 const titles=(kind,...args)=>P.aiPhotoPresetPage(kind,0,'original','',...args).examples.filter(e=>e!==P.AI_PHOTO_KEEP_ORIGINAL).map(e=>P.aiPhotoPresetTitle(kind,e));
 
 test('costume tabs open with the most-used costumes (production data)',()=>{
  assert.deepEqual(tab('nikke').slice(0,2).map(c=>c.name),['누아르 바니','모더니아 코스튬']);
- assert.equal(tab('general')[0].name,'아이돌 무대복');
+ assert.deepEqual(tab('general').slice(0,2).map(c=>c.name),['화이트 튜브톱 셋업','아이돌 무대복']);
+ assert.equal(titles('pose','standing')[0],'한 손 뒤로 룩북 포즈');
  assert.equal(tab('overwatch')[0].name,'D.Va 슈트');
  assert.deepEqual(aiPhotoCostumeCategories.map(c=>c.value).filter(v=>!aiPhotoCostumes.some(c=>c.category===v)),[],'every tab still has costumes');
 });
