@@ -2,6 +2,7 @@
 import {aiPhotoGroupIsNew} from '@/lib/crefans/ai-photo-new';
 import {useAiPhotoNewExpiry} from '@/components/crefans/studio/useAiPhotoNewExpiry';
 import {guestPresetAccess} from '@/lib/crefans/preset-access';
+import {AiPhotoSaveToLibrary} from './AiPhotoSaveToLibrary';
 import {AiPhotoLibrary} from './AiPhotoLibrary';
 import type {PhotoAsset,PhotoLibraryModel} from '@/types/crefans-photo-library';
 import {PHOTO_LIBRARY_REFERENCE_MAX,photoAssetKind,photoAssetLabel} from '@/lib/crefans/photo-library';
@@ -80,6 +81,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
  const [bodySelection,setBodySelection]=useState<Record<string,number>>({});
  const [targetGender,setTargetGender]=useState<'original'|'female'|'male'>('original');
  const [aspectRatio,setAspectRatio]=useState<AiPhotoRatio>('original'),[cropItem,setCropItem]=useState<StudioMedia|null>(null);
+ const [saveItem,setSaveItem]=useState<StudioMedia|null>(null),[savedResults,setSavedResults]=useState<ReadonlySet<string>>(new Set()),[saveSignup,setSaveSignup]=useState(false);
  const [shareItem,setShareItem]=useState<StudioMedia|null>(null),[shareRewardOpen,setShareRewardOpen]=useState(false),[shopRewardOpen,setShopRewardOpen]=useState(false),photoFiles=useRef(new Map<string,Promise<File>>());
  const captionContext=useRef<AiPhotoCaptionContext>({labels:[],prompt:''});
  // 2026-11-14 user decision: results are shared through the system share sheet as PNG files converted in the browser.
@@ -365,6 +367,11 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
       {review&&<AiPhotoReview done={review.done} reward={review.reward} draft={reviewDraft} onDraft={setReviewDraft} onSubmit={sendReview}/>}{(!review||(review.done&&!noHearts))&&<div className={s.heartResult}>{noHearts?<><strong>이번 게임에서 하트 {resultHearts}개를 모았어요</strong>{onHeartGame?<p role="status">{rewardNote||GUEST_HEART_NOTE}</p>:<p>체험 게임의 하트는 적립되거나 이용권으로 바뀌지 않아요.</p>}</>:<><strong aria-label={`누적 하트 ${onHeartGame?heartBalance:resultHearts}개 / 100개`}><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-9-5.5-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-9 12-9 12Z"/></svg><span>{onHeartGame?heartBalance:resultHearts}/100</span></strong><p>100개가 모이면 이용권 10개를 받아요</p>{rewardNote&&<p role="status">{rewardNote}</p>}</>}</div>}</>}
     </div>}
     {stage==='results'&&!waiting&&<><div className={s.resultShareArea}>
+     {(library||noHearts)&&<div className={s.resultLibraryArea}>
+      {sharedResult&&savedResults.has(sharedResult.id)&&<span role="status">내 보관함에 추가했어요</span>}
+      <button type="button" className={s.resultLibraryTrigger} disabled={!sharedResult} onClick={()=>{if(!sharedResult)return;if(savedResults.has(sharedResult.id)){setLibraryOpen(true);return;}if(library)setSaveItem(sharedResult);else setSaveSignup(true);}}>{sharedResult&&savedResults.has(sharedResult.id)?'내 보관함 열기':'내 보관함에 추가'}</button>
+     </div>}
+
      {shareReward&&<span className={s.resultShareBubble}>공유하고 이용권 3장 받기</span>}
      <button type="button" className={s.resultShareTrigger} disabled={!sharedResult} onClick={()=>{if(sharedResult){onTrack?.('ai_result_share_clicked',{mode:cosplayOpen?'cosplay':'general'});setShareItem(sharedResult);}}}>
       <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 15V3m-4 4 4-4 4 4M6 11H4v10h16V11h-2"/></svg>이 결과 공유하기
@@ -399,7 +406,9 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
   {viewer!==null&&results[viewer]&&<AiResultViewer items={results} index={viewer} selected={selected} onIndex={setViewer} onShare={setShareItem} onToggle={toggle} onClose={closeViewer}/>}
   {sourceViewer&&source&&<AiResultViewer items={[source]} index={0} selected={[]} onIndex={()=>{}} onClose={closeViewer} original/>}
  </Dialog>
- {library&&<AiPhotoLibrary open={open&&libraryOpen} model={library} selected={libraryAssets} onSelect={selectLibrary} onEditSource={pickLibrarySource} onChanged={id=>setLibraryAssets(items=>items.filter(item=>item.id!==id))} onClose={()=>setLibraryOpen(false)}/>}
+ {library&&saveItem&&open&&<AiPhotoSaveToLibrary key={saveItem.id} media={saveItem} model={library} onClose={()=>setSaveItem(null)} onSaved={()=>{setSavedResults(previous=>new Set([...Array.from(previous),saveItem.id]));setSaveItem(null);}}/>}
+ {noHearts&&<SignupOfferDialog open={open&&saveSignup} onClose={()=>setSaveSignup(false)} title="내 보관함은 회원 전용이에요" art="/illustrations/try/guest-ticket-v1.webp" signupHref={signupLink}>사진을 보관하려면 회원가입해 주세요. 지금은 ‘이 결과 공유하기’로 사진을 저장할 수 있어요.</SignupOfferDialog>}
+ {library&&stage==='results'?<AiPhotoLibrary open={open&&libraryOpen} model={library} manage onClose={()=>setLibraryOpen(false)}/>:library&&<AiPhotoLibrary open={open&&libraryOpen} model={library} selected={libraryAssets} onSelect={selectLibrary} onEditSource={pickLibrarySource} onChanged={id=>setLibraryAssets(items=>items.filter(item=>item.id!==id))} onClose={()=>setLibraryOpen(false)}/>}
  {open&&shareItem&&<AiResultShare key={shareItem.id} createLink={noHearts?async()=>{
   const presets=sharePresetImages(resultPresets.current.get(shareItem.id)||[]);
   const response=await platformRequest<{code:string}>('/media/result-shares',{mediaId:shareItem.id,presets,campaign:rememberEntrySource().utmCampaign});

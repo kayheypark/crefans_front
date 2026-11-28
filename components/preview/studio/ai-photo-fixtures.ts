@@ -7,6 +7,7 @@ export const mockAiPhotoResults=['/illustrations/creators/moka/editorial-v1.png'
 export type MockAiPhotoMode='normal'|'error'|'blocked';
 let sequence=0;
 const previewPhotos=new Map<string,string>();
+export function mockGeneratedPhoto(id:string):StudioMedia|undefined{const url=previewPhotos.get(id);return url?{id,type:'image',url,aiGenerated:true}:undefined;}
 /** Returns a function that answers like the server would, counting today's remaining edits from `start`. */
 export function mockAiPhotoEdit({start=AI_PHOTO_DAILY_LIMIT,mode='normal' as MockAiPhotoMode,delay=900,onRemaining}:{start?:number;mode?:MockAiPhotoMode;delay?:number;onRemaining?:(remaining:number)=>void}={}){
  let remaining=start;

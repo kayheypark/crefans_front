@@ -1299,3 +1299,23 @@ test('white tube set and standing lookbook pose reach the same generation reques
  await click('한 손 뒤로 룩북 포즈');await click('만들기');
  assert.deepEqual(calls[0].costumeIds,['c09d74']);assert.ok(calls[0].editKinds.includes('pose'));assert.match(calls[0].prompt,/손은 등 뒤로/);
 });
+
+test('generated photo can be saved without deciding the post, then its library can be opened',async()=>{
+ let saves=[],lists=0;const items=[];
+ const library={upload:async()=>{throw Error('unexpected upload')},save:async input=>{saves.push(input);const item={...input,type:'image',url:'/a1.png',aiGenerated:true};items.push(item);return {success:true,data:item}},list:async query=>{lists++;return {success:true,data:{items:items.filter(item=>!query.category||item.category===query.category),hasMore:false,total:items.length}}},remove:async()=>({success:true,data:{removed:true}})};
+ const {r,click,added}=await open({library});
+ await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 배경'}}));await click('만들기');
+ await click('내 보관함에 추가');assert.equal(saves.length,0);
+ const saveForm=()=>r.root.find(n=>n.type==='form'&&n.props['aria-busy']!==undefined);
+ await act(async()=>saveForm().props.onSubmit({preventDefault(){}}));
+ assert.equal(saves.length,1);assert.equal(saves[0].id,'a1');assert.equal(added.length,0,'saving is independent from post selection');
+ assert.match(text(r.toJSON()),/내 보관함에 추가했어요/);assert.equal(r.root.findAll(n=>n.type==='button'&&text(n)==='내 보관함에 추가').length,0);
+ assert.equal(r.root.findByProps({'aria-label':'결과 1'}).props['aria-pressed'],true);
+ await click('내 보관함 열기');assert.ok(lists>0);assert.match(text(r.toJSON()),/AI로 만든 사진/);await act(async()=>r.unmount());
+});
+
+test('guest result offers signup for library storage without claiming a save',async()=>{
+ const {r,click}=await open({noHearts:true});
+ await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 배경'}}));await click('만들기');
+ await click('내 보관함에 추가');assert.ok(r.root.findByProps({'aria-label':'내 보관함은 회원 전용이에요'}));assert.doesNotMatch(text(r.toJSON()),/내 보관함에 추가했어요/);await act(async()=>r.unmount());
+});
